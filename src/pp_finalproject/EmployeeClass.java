@@ -12,20 +12,22 @@ import estgconstroi.enums.EmployeeType;
  * @author Utilizador
  */
 public class EmployeeClass extends Employee{
+    private static String Name;
+    EmployeeType Type;
 
     @Override
     public String getName() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return EmployeeClass.Name;
     }
 
     @Override
     public EmployeeType getType() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.Type;
     }
 
     @Override
     public void setType(EmployeeType et) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.Type = et;
     }
     
 }
