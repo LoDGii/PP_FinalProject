@@ -16,8 +16,17 @@ public class EmployeeClass extends Employee{
     private EmployeeType Type;
     
     public EmployeeClass(String TempName, EmployeeType TempType){
+            super();
         this.Name = TempName;
         this.Type = TempType;
+    }
+    
+    public EmployeeClass(){
+        super();
+    }
+    
+    public void setName(String name) {
+        this.Name = name;
     }
     
     @Override
