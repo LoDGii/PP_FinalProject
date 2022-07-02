@@ -16,7 +16,11 @@ import java.time.LocalDate;
  * @author Utilizador
  */
 public class ConstructionSiteClass implements ConstructionSite{
-
+    private String Name;
+    private String Location;
+    private String Permit;
+    private LocalDate Expiration_Date;
+    
     @Override
     public String getName() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

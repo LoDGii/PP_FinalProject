@@ -13,10 +13,17 @@ import estgconstroi.enums.EquipmentType;
  * @author Utilizador
  */
 public class EquipmentClass implements Equipment{
-    private static String Name;
+    private String Name;
     private EquipmentType Type;
     private EquipmentStatus Status;
-
+    
+    
+    public EquipmentClass(String TempName, EquipmentType TempType, EquipmentStatus TempStatus){
+        this.Name = TempName;
+        this.Type = TempType;
+        this.Status = TempStatus;
+    }
+    
     @Override
     public String getName() {
         return this.Name;
