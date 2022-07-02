@@ -13,8 +13,13 @@ import estgconstroi.enums.EmployeeType;
  */
 public class EmployeeClass extends Employee{
     private static String Name;
-    EmployeeType Type;
-
+    private EmployeeType Type;
+    
+    public EmployeeClass(String TempName, EmployeeType TempType){
+        this.Name = TempName;
+        this.Type = TempType;
+    }
+    
     @Override
     public String getName() {
         return EmployeeClass.Name;
