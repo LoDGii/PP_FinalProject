@@ -8,6 +8,7 @@ import estgconstroi.ConstructionSite;
 import estgconstroi.Employee;
 import estgconstroi.Equipments;
 import estgconstroi.Team;
+import estgconstroi.enums.EmployeeType;
 import estgconstroi.exceptions.ConstructionSiteException;
 import java.time.LocalDate;
 
@@ -15,85 +16,161 @@ import java.time.LocalDate;
  *
  * @author Utilizador
  */
-public class ConstructionSiteClass implements ConstructionSite{
+public class ConstructionSiteClass implements ConstructionSite {
+
     private String Name;
     private String Location;
     private String Permit;
     private LocalDate Expiration_Date;
-    
+    private LocalDate Start_Date;
+    private EmployeeClass Responsible;
+    private TeamClass[] Teams;
+    private EquipmentClass[] Equipment;
+    private int NumberOfTeams;
+    private int NumberOfEquipments;
+
     @Override
     public String getName() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.Name;
     }
 
     @Override
     public String getLocation() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.Location;
     }
 
     @Override
     public String getPermit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.Permit;
     }
 
     @Override
     public LocalDate getPermitExpirationDate() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.Expiration_Date;
     }
 
     @Override
     public LocalDate getStartDate() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.Start_Date;
     }
 
     @Override
     public LocalDate getEndDate() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.Expiration_Date;
     }
 
     @Override
     public void setPermit(String string, LocalDate ld) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.Permit = string;
     }
 
     @Override
     public Employee getResponsible() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        EmployeeClass responsable = new EmployeeClass();
+        responsable = this.Responsible;
+        return responsable;
     }
 
     @Override
     public void setResponsible(Employee empl) throws ConstructionSiteException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            if (this.Responsible.getType() == EmployeeType.TEAM_LEADER) {
+                this.Responsible = (EmployeeClass) empl;
+            }
+        } catch (Exception exc) {
+            throw new ConstructionSiteException("NÃO FOI POSSIVEL NOMEAR ESTE RESPONSÁVEL!");
+        }
+
     }
 
     @Override
     public void addTeam(Team team) throws ConstructionSiteException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Teams[NumberOfTeams] = (TeamClass) team;
+        NumberOfTeams++;
     }
 
     @Override
     public void removeTeam(Team team) throws ConstructionSiteException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            int index_remove = 0;
+            boolean Equal_Exist = false;
+            int k = 0;
+            for (int i = 0; i < this.NumberOfTeams; i++) {
+                if (team.getName().equals(this.Teams[i].getName())) {
+                    index_remove = i;
+                    Equal_Exist = true;
+                }
+            }
+            if (Equal_Exist == true) {
+                TeamClass[] FakeArray = new TeamClass[this.Teams.length - 1];
+                for (int i = 0; i < this.NumberOfTeams; i++) {
+                    if (i != index_remove) {
+                        FakeArray[k] = this.Teams[i];
+                        k++;
+                    }
+                }
+                this.Teams = FakeArray;
+                this.NumberOfTeams--;
+            } else {
+                System.out.println("NÃO FOI POSSIVEL COMPLETAR ESTA OPERAÇÃO!");
+            }
+        } catch (Exception e) {
+            throw new ConstructionSiteException("ERRO DURANTE A REMOÇÃO!");
+        }
+
     }
 
     @Override
     public Team[] getTeams(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int[] IndexOfNumbers = new int[this.NumberOfTeams];
+        int k = 0;
+        for(int i = 0;i < this.NumberOfTeams; i++){
+            if(this.Teams[i].getName().toLowerCase().equals(string.toLowerCase())){
+                IndexOfNumbers[k] = i;
+                k++;
+            }
+        }
+        Team[] EqualTeams = new Team[k];
+        for(int i = 0;i < k + 1; i++){
+            EqualTeams[i] = this.Teams[IndexOfNumbers[i]];
+        }
+        return EqualTeams;
     }
 
     @Override
     public Team[] getTeams() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.Teams;
     }
 
     @Override
     public boolean isValid() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        boolean HasTeams = false;
+        boolean DateIsValid = false;
+        boolean HasManager = false;
+        LocalDate today = LocalDate.now();
+        if(this.NumberOfTeams > 0){
+            HasTeams = true;
+        }
+        for(int i = 0;i < this.NumberOfTeams;i++){
+            if(this.Teams[i].getLeader().getType() == EmployeeType.MANAGER){
+                HasManager = true;
+            }
+        }
+        DateIsValid = today.isAfter(this.Expiration_Date);
+        if(HasTeams == true && DateIsValid == true && HasManager == true){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     @Override
     public Equipments getEquipments() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Equipments[] ListOfEquipments = new Equipments[this.NumberOfEquipments];
+        for(int i = 0;i < this.NumberOfEquipments;i++){
+            ListOfEquipments[i] = (Equipments) this.Equipment[i];
+        }
+        return ListOfEquipments;
     }
-    
+
 }
