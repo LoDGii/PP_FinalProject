@@ -29,18 +29,15 @@ public class ConstructionSiteClass implements ConstructionSite {
     private int NumberOfTeams;
     private int NumberOfEquipments;
 
-    
-    public ConstructionSiteClass(String TempName, String TempLocation, LocalDate TempExpirationDate, EmployeeClass TempResponsible){
+    public ConstructionSiteClass(String TempName, String TempLocation, LocalDate TempExpirationDate, EmployeeClass TempResponsible) {
         this.Name = TempName;
         this.Location = TempLocation;
         this.Expiration_Date = TempExpirationDate;
         this.Responsible = TempResponsible;
-        this.Teams = (TeamClass[]) new Team[10];
-        this.Equipment = new EquipmentClass[10];
         this.NumberOfEquipments = 0;
         this.NumberOfTeams = 0;
     }
-    
+
     @Override
     public String getName() {
         return this.Name;
@@ -87,7 +84,7 @@ public class ConstructionSiteClass implements ConstructionSite {
     public void setResponsible(Employee empl) throws ConstructionSiteException {
         try {
             this.Responsible = (EmployeeClass) empl;
-            
+
         } catch (Exception exc) {
             throw new ConstructionSiteException("NÃO FOI POSSIVEL NOMEAR ESTE RESPONSÁVEL!");
         }
@@ -96,8 +93,28 @@ public class ConstructionSiteClass implements ConstructionSite {
 
     @Override
     public void addTeam(Team team) throws ConstructionSiteException {
-        Teams[NumberOfTeams] = (TeamClass) team;
-        NumberOfTeams++;
+        try {
+
+            boolean Equal_Exist = false;
+            for (int i = 0; i < this.NumberOfTeams; i++) {
+                if (team.getName().equals(this.Teams[i].getName())) {
+                    Equal_Exist = true;
+                }
+            }
+            if(Equal_Exist == true){
+            TeamClass[] FakeArray = new TeamClass[this.NumberOfTeams + 1];
+            for (int i = 0; i < this.NumberOfTeams; i++) {
+                FakeArray[i] = this.Teams[i];
+            }
+            FakeArray[this.NumberOfTeams] = (TeamClass) team;
+            this.Teams = FakeArray;
+            this.NumberOfTeams++;
+            }else{
+                System.out.println("EQUIPA JÁ PERTENCE A ESTA CONSTRUÇÃO!");
+            }
+        } catch (Exception e) {
+            throw new ConstructionSiteException("ERRO AO ADICIONAR A EQUIPA!");
+        }
     }
 
     @Override
@@ -135,14 +152,14 @@ public class ConstructionSiteClass implements ConstructionSite {
     public Team[] getTeams(String string) {
         int[] IndexOfNumbers = new int[this.NumberOfTeams];
         int k = 0;
-        for(int i = 0;i < this.NumberOfTeams; i++){
-            if(this.Teams[i].getName().toLowerCase().equals(string.toLowerCase())){
+        for (int i = 0; i < this.NumberOfTeams; i++) {
+            if (this.Teams[i].getName().toLowerCase().equals(string.toLowerCase())) {
                 IndexOfNumbers[k] = i;
                 k++;
             }
         }
         Team[] EqualTeams = new Team[k];
-        for(int i = 0;i < k + 1; i++){
+        for (int i = 0; i < k + 1; i++) {
             EqualTeams[i] = this.Teams[IndexOfNumbers[i]];
         }
         return EqualTeams;
@@ -159,18 +176,18 @@ public class ConstructionSiteClass implements ConstructionSite {
         boolean DateIsValid = false;
         boolean HasManager = false;
         LocalDate today = LocalDate.now();
-        if(this.NumberOfTeams > 0){
+        if (this.NumberOfTeams > 0) {
             HasTeams = true;
         }
-        for(int i = 0;i < this.NumberOfTeams;i++){
-            if(this.Teams[i].getLeader().getType() == EmployeeType.MANAGER){
+        for (int i = 0; i < this.NumberOfTeams; i++) {
+            if (this.Teams[i].getLeader().getType() == EmployeeType.MANAGER) {
                 HasManager = true;
             }
         }
         DateIsValid = today.isAfter(this.Expiration_Date);
-        if(HasTeams == true && DateIsValid == true && HasManager == true){
+        if (HasTeams == true && DateIsValid == true && HasManager == true) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -178,7 +195,7 @@ public class ConstructionSiteClass implements ConstructionSite {
     @Override
     public Equipments getEquipments() {
         Equipments[] ListOfEquipments = new Equipments[this.NumberOfEquipments];
-        for(int i = 0;i < this.NumberOfEquipments;i++){
+        for (int i = 0; i < this.NumberOfEquipments; i++) {
             ListOfEquipments[i] = (Equipments) this.Equipment[i];
         }
         //return ListOfEquipments;
