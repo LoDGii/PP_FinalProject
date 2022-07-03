@@ -19,6 +19,17 @@ public class TeamClass implements Team{
       private Employee leader;
       private int numberEmployees;
       private EmployeeClass[] employee;
+      private Equipments equipment;
+      
+      
+      public TeamClass(String name, Employee leader, Equipments equipments){
+          this.name = name;
+          this.leader = leader;
+          this.equipment = equipments;
+          this.numberEmployees = 0;
+          this.employee = new EmployeeClass[10];
+      }
+      
       
       
     @Override
@@ -33,12 +44,17 @@ public class TeamClass implements Team{
     
     @Override
     public Employee getLeader() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       Employee copy = this.leader;
+       return copy;
     }
 
     @Override
     public void setLeader(Employee empl) throws TeamException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       try{
+           this.leader = empl;
+       }catch(Exception o){
+           throw new TeamException("Erro ao fazer set no Team Leader");
+       }
     }
 
     @Override
@@ -162,7 +178,8 @@ public class TeamClass implements Team{
 
     @Override
     public Equipments getEquipments() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Equipments copy = this.equipment;
+        return copy;
     }
     
 }
