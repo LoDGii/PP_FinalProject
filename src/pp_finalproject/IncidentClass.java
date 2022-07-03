@@ -5,17 +5,25 @@
 package pp_finalproject;
 
 import estgconstroi.ConstructionSite;
+import estgconstroi.Employee;
+import estgconstroi.Event;
 import estgconstroi.Incident;
+import estgconstroi.enums.EventPriority;
 
 /**
  *
  * @author Utilizador
  */
-public class IncidentClass implements Incident{
-    private ConstructionSite ConstructionSite;
+public class IncidentClass extends Event implements Incident{
     private String details;
     private String notificationMessage;
 
+        public IncidentClass(ConstructionSite TempConstructionSite, String TempDetails, String TempNotificationMessage, EventPriority TempPriority, String TempTitle, Employee TempReporter){
+            super(TempPriority, TempTitle, TempReporter, TempConstructionSite);
+            this.details = TempDetails;
+            this.notificationMessage = TempNotificationMessage;
+            
+        }
         
     @Override
     public String getDetails() {
