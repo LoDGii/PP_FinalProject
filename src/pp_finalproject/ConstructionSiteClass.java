@@ -84,9 +84,8 @@ public class ConstructionSiteClass implements ConstructionSite {
     @Override
     public void setResponsible(Employee empl) throws ConstructionSiteException {
         try {
-            if (this.Responsible.getType() == EmployeeType.TEAM_LEADER) {
-                this.Responsible = (EmployeeClass) empl;
-            }
+            this.Responsible = (EmployeeClass) empl;
+            
         } catch (Exception exc) {
             throw new ConstructionSiteException("NÃO FOI POSSIVEL NOMEAR ESTE RESPONSÁVEL!");
         }
@@ -180,7 +179,8 @@ public class ConstructionSiteClass implements ConstructionSite {
         for(int i = 0;i < this.NumberOfEquipments;i++){
             ListOfEquipments[i] = (Equipments) this.Equipment[i];
         }
-        return ListOfEquipments;
+        //return ListOfEquipments;
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
