@@ -5,6 +5,7 @@
 package pp_finalproject;
 
 import estgconstroi.Accident;
+
 import estgconstroi.ConstructionSite;
 import estgconstroi.Employee;
 import estgconstroi.Event;
@@ -41,5 +42,4 @@ public class AccidentClass extends Event implements Accident{
     public String getNotificationMessage() {
        return this.notification;
     }
-    
 }
