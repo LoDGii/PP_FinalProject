@@ -17,12 +17,14 @@ import java.util.Arrays;
  * @author Utilizador
  */
 public class ConstructionSiteManagerClass implements ConstructionSiteManager {
+
     private int NumberOfConstructions;
     private ConstructionSiteClass[] ConstructionSites;
+
     @Override
     public void add(ConstructionSite cs) throws ConstructionSiteManagerException {
         ConstructionSiteClass[] FakeArray = new ConstructionSiteClass[this.NumberOfConstructions + 1];
-        for(int i = 0; i < this.NumberOfConstructions;i++){
+        for (int i = 0; i < this.NumberOfConstructions; i++) {
             FakeArray[i] = this.ConstructionSites[i];
         }
         FakeArray[this.NumberOfConstructions] = (ConstructionSiteClass) cs;
@@ -32,27 +34,28 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
 
     @Override
     public Team[] getWorkingTeams() {
-        int NumberOfTeams = 0;
-        Team[] FakeArray = new Team[0];
-        Team[] FakeArrayTwo;
-        Team[] FakeArrayThree;
-        for(int i = 0; i < this.NumberOfConstructions;i++){
-           FakeArrayTwo = new Team[this.ConstructionSites[i].getTeams().length];
-           FakeArrayTwo = this.ConstructionSites[i].getTeams();
-           FakeArrayThree = new Team[NumberOfTeams + this.ConstructionSites[i].getTeams().length];
-           System.arraycopy(FakeArrayThree, 0, FakeArrayTwo, 0, this.ConstructionSites[i].getTeams().length );
-           if(i > 0){
-           System.arraycopy(FakeArrayThree, 0, FakeArray,this.ConstructionSites[i].getTeams().length , NumberOfTeams );
-           }
-           FakeArray = FakeArrayThree;
-           NumberOfTeams += this.ConstructionSites[i].getTeams().length;
+        Team[] FakeArray = this.ConstructionSites[0].getTeams(); //aqui tinha um bug, estava a usar i e quero 0       
+        for (int i = 1; i < this.NumberOfConstructions; i++) {
+            if (this.ConstructionSites[i].isValid() == true) {
+                Team[] FakeArrayTwo = this.ConstructionSites[i].getTeams();
+                FakeArray = concatWithArrayCopy(FakeArray, FakeArrayTwo);
+            }
         }
         return FakeArray;
+
     }
 
     @Override
     public Team[] getIddleTeams() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Team[] FakeArray = this.ConstructionSites[0].getTeams(); //aqui tinha um bug, estava a usar i e quero 0       
+        for (int i = 1; i < this.NumberOfConstructions; i++) {
+            if (this.ConstructionSites[i].isValid() == false) {
+                Team[] FakeArrayTwo = this.ConstructionSites[i].getTeams();
+                FakeArray = concatWithArrayCopy(FakeArray, FakeArrayTwo);
+            }
+        }
+        return FakeArray;
+
     }
 
     @Override
@@ -70,14 +73,14 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
         LocalDate today = LocalDate.now();
         int NumberOfExpired = 0;
         ConstructionSite[] FakeArray = new ConstructionSite[this.NumberOfConstructions];
-        for(int i = 0; i < this.NumberOfConstructions;i++){
-            if(this.ConstructionSites[i].getPermitExpirationDate().isBefore(today) == true){
+        for (int i = 0; i < this.NumberOfConstructions; i++) {
+            if (this.ConstructionSites[i].getPermitExpirationDate().isBefore(today) == true) {
                 FakeArray[NumberOfExpired] = this.ConstructionSites[i];
                 NumberOfExpired++;
             }
         }
         ConstructionSite[] FakeArrayTwo = new ConstructionSite[NumberOfExpired];
-        for(int i = 0;i < NumberOfExpired;i++){
+        for (int i = 0; i < NumberOfExpired; i++) {
             FakeArrayTwo[i] = FakeArray[i];
         }
         return FakeArrayTwo;
@@ -87,5 +90,11 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
     public boolean isValid() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
+    static <T> T[] concatWithArrayCopy(T[] array1, T[] array2) {
+        T[] result = Arrays.copyOf(array1, array1.length + array2.length);
+        System.arraycopy(array2, 0, result, array1.length, array2.length);
+        return result;
+    }
+
 }
