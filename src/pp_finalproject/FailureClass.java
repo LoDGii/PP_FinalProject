@@ -4,42 +4,43 @@
  */
 package pp_finalproject;
 
-import estgconstroi.Accident;
-
 import estgconstroi.ConstructionSite;
 import estgconstroi.Employee;
+import estgconstroi.Equipment;
 import estgconstroi.Event;
+import estgconstroi.Failure;
 import estgconstroi.enums.EventPriority;
 
+/**
+ *
+ * @author Utilizador
+ */
+public class FailureClass extends Event implements Failure {
 
-public class AccidentClass extends Event implements Accident{
-
-    private Employee employee;
+    private Equipment equipment;
     private String details;
     private String notification;
-    
-    public AccidentClass(Employee employee, String details, String notification,EventPriority priority, String title, Employee reporter,ConstructionSite constructionSite){
-            super(priority, title, reporter, constructionSite);
+
+    public FailureClass(Equipment equipment, String details, String notification, EventPriority priority, String title, Employee reporter, ConstructionSite TempConstructionSite) {
+        super(priority, title, reporter, TempConstructionSite);
+        this.equipment = equipment;
         this.details = details;
-        this.employee = employee;
         this.notification = notification;
     }
-    
-    
+
     @Override
-    public Employee getEmployee() {
-        return this.employee;
-       
+    public Equipment getEquipment() {
+        return this.equipment;
     }
 
     @Override
     public String getDetails() {
         return this.details;
-        
     }
 
     @Override
     public String getNotificationMessage() {
-       return this.notification;
+        return this.notification;
     }
+
 }
