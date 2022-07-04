@@ -173,7 +173,11 @@ public class TeamClass implements Team{
 
     @Override
     public Employee[] getEmployees() {
-        return this.employee;
+        Employee[] copy = new Employee[this.employee.length];
+        for(int i = 0;i<this.numberEmployees;i++){
+            copy[i] = this.employee[i];
+        }
+        return copy;
     }
 
     @Override

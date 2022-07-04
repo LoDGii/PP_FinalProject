@@ -93,22 +93,74 @@ public class EquipmentsClass implements Equipments {
 
     @Override
     public Equipment[] getEquipment(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int contador = 0;
+        for (int i = 0; i < this.numberEquipments; i++) {
+            if (string.toUpperCase().equals(this.equipments[i].getName().toUpperCase())) {
+                contador++;
+            }
+        }
+
+        EquipmentClass[] array = new EquipmentClass[contador];
+        contador = 0;
+
+        for (int i = 0; i < this.numberEquipments; i++) {
+            if (string.toUpperCase().equals(this.equipments[i].getName().toUpperCase())) {
+                array[contador] = this.equipments[i];
+                contador++;
+            }
+        }
+        return array;       
     }
 
     @Override
     public Equipment[] getEquipment(EquipmentStatus es) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int contador = 0;
+        for (int i = 0; i < this.numberEquipments; i++) {
+            if (es == (this.equipments[i].getStatus())) {
+                contador++;
+            }
+        }
+
+        EquipmentClass[] array = new EquipmentClass[contador];
+        contador = 0;
+
+        for (int i = 0; i < this.numberEquipments; i++) {
+            if (es == (this.equipments[i].getStatus())) {
+                array[contador] = this.equipments[i];
+                contador++;
+            }
+        }
+        return array;
     }
 
     @Override
     public Equipment[] getEquipment(EquipmentType et) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int contador = 0;
+        for (int i = 0; i < this.numberEquipments; i++) {
+            if (et == (this.equipments[i].getType())) {
+                contador++;
+            }
+        }
+
+        EquipmentClass[] array = new EquipmentClass[contador];
+        contador = 0;
+
+        for (int i = 0; i < this.numberEquipments; i++) {
+            if (et == (this.equipments[i].getType())) {
+                array[contador] = this.equipments[i];
+                contador++;
+            }
+        }
+        return array;
     }
 
     @Override
     public Equipment[] getEquipment() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         EquipmentClass[] copy = new EquipmentClass[this.equipments.length];
+        for(int i = 0;i<this.numberEquipments;i++){
+            copy[i] = this.equipments[i];
+        }
+        return copy;
     }
 
 }
