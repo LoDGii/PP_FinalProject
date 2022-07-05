@@ -29,15 +29,15 @@ public class ConstructionSiteClass implements ConstructionSite {
     private int NumberOfTeams;
     private int NumberOfEquipments;
 
-    public ConstructionSiteClass(String TempName, String TempLocation, LocalDate TempExpirationDate, EmployeeClass TempResponsible) {
+    public ConstructionSiteClass(String TempName, String TempLocation, LocalDate TempExpirationDate, String TempPermit) {
         this.Name = TempName;
         this.Location = TempLocation;
         this.Expiration_Date = TempExpirationDate;
-        this.Responsible = TempResponsible;
         this.Teams = (TeamClass[]) new Team[10];
         this.Equipment = new EquipmentClass[10];
         this.NumberOfEquipments = 0;
         this.NumberOfTeams = 0;
+        this.Permit = TempPermit;
     }
 
     @Override
