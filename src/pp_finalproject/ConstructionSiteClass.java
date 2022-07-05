@@ -103,7 +103,7 @@ public class ConstructionSiteClass implements ConstructionSite {
                     Equal_Exist = true;
                 }
             }
-            if(Equal_Exist == true){
+            if(Equal_Exist == false){
             TeamClass[] FakeArray = new TeamClass[this.NumberOfTeams + 1];
             for (int i = 0; i < this.NumberOfTeams; i++) {
                 FakeArray[i] = this.Teams[i];
