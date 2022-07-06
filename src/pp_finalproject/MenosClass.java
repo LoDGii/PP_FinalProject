@@ -18,6 +18,7 @@ public class MenosClass {
     private ConstructionSiteManagerClass Constructions = new ConstructionSiteManagerClass();
 
     public void PrincipalMenu() throws ConstructionSiteManagerException {
+        try{
         Scanner Read = new Scanner(System.in);
         int choice;
         do {
@@ -38,9 +39,15 @@ public class MenosClass {
                 break;
 
         }
+        }catch(Exception o){
+            System.out.println(o.getMessage());
+            PrincipalMenu();
+
+        }
     }
 
     public void ConstructionMenu() throws ConstructionSiteManagerException {
+        try{
         Scanner Read = new Scanner(System.in);
         int choice;
         do {
@@ -60,10 +67,15 @@ public class MenosClass {
                 CreateConstructionSite();
             case 2:
                 this.Constructions.showAllConstructionSites();
+                ConstructionMenu();
             case 3:
                  RemoveConstructionMenu();
             case 4:
                 break;
+        }
+        }catch(Exception o){
+            System.out.println(o.getMessage());
+            ConstructionMenu();
         }
     }
 
