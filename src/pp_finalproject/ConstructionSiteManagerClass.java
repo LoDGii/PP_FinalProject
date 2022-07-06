@@ -23,6 +23,7 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
 
     @Override
     public void add(ConstructionSite cs) throws ConstructionSiteManagerException {
+        try{
         ConstructionSiteClass[] FakeArray = new ConstructionSiteClass[this.NumberOfConstructions + 1];
         for (int i = 0; i < this.NumberOfConstructions; i++) {
             FakeArray[i] = this.ConstructionSites[i];
@@ -30,6 +31,8 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
         FakeArray[this.NumberOfConstructions] = (ConstructionSiteClass) cs;
         this.ConstructionSites = FakeArray;
         this.NumberOfConstructions++;
+        }catch(Exception o){
+           System.out.println(o.getMessage());        }
     }
 
     @Override
