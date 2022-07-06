@@ -202,6 +202,7 @@ public class ConstructionSiteClass implements ConstructionSite {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    @Override
     public String toString() {
         return "NOME: " + this.Name + "\nLOCALIZAÇÃO: " + this.Location + "\nPERMIT: " + this.Permit
                 + "\nDATA DE EXPIRAÇÃO: " + this.Expiration_Date + "\nNÚMERO DE EQUIPAS: " + this.NumberOfTeams + "\nNÚMERO DE EQUIPAMENTOS: " + this.NumberOfEquipments + "\nVALIDA: " + this.isValid()
