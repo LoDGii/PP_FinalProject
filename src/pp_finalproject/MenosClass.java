@@ -83,6 +83,7 @@ public class MenosClass {
         LocalDate localDate = LocalDate.parse(TempDate, formatter);
         cs = new ConstructionSiteClass(TempName, TempLocation, localDate, TempPermit);
         this.Constructions.add(cs);
+        ConstructionMenu();
     }
     public void RemoveConstructionMenu() throws ConstructionSiteManagerException{
         Scanner Read = new Scanner(System.in);
