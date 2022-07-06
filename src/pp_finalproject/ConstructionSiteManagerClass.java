@@ -100,13 +100,19 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
     public void remove(int index_remove) {
         ConstructionSiteClass[] FakeArray = new ConstructionSiteClass[this.NumberOfConstructions - 1];
         int k = 0;
-        for (int i = 0; i < this.NumberOfConstructions; i++) {
-            if (i != index_remove) {
-                FakeArray[k] = this.ConstructionSites[i];
-                k++;
+        if (this.NumberOfConstructions == 1) {
+            ConstructionSiteClass[] FakeArrayTwo = new ConstructionSiteClass[0];
+            this.ConstructionSites = FakeArrayTwo;
+
+        } else {
+            for (int i = 0; i < this.NumberOfConstructions; i++) {
+                if (i != index_remove) {
+                    FakeArray[k] = this.ConstructionSites[i];
+                    k++;
+                }
             }
+            this.ConstructionSites = FakeArray;
         }
-        this.ConstructionSites = FakeArray;
     }
 
     public void showAllConstructionSites() {
