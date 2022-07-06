@@ -19,7 +19,7 @@ public class MenosClass {
 
     public void PrincipalMenu() throws ConstructionSiteManagerException {
         Scanner Read = new Scanner(System.in);
-        int Choice;
+        int choice;
         do {
             System.out.println("========== MENU PRINCIPAL ==========");
             System.out.println("1 - MENU DE CONSTRUÇÕES");
@@ -27,9 +27,9 @@ public class MenosClass {
             System.out.println("0 - SAIR");
             System.out.println("====================================");
             System.out.println("Escolha: ");
-            Choice = Read.nextInt();
-        } while (Choice < 0 || Choice > 2);
-        switch (Choice) {
+            choice = Read.nextInt();
+        } while (choice < 0 || choice > 2);
+        switch (choice) {
             case 0:
                 break;
             case 1:
@@ -42,7 +42,7 @@ public class MenosClass {
 
     public void ConstructionMenu() throws ConstructionSiteManagerException {
         Scanner Read = new Scanner(System.in);
-        int Choice;
+        int choice;
         do {
             System.out.println("========== MENU DE CONSTRUÇÕES ==========");
             System.out.println("1 - CRIAR NOVO LOCAR DE CONSTRUÇÃO");
@@ -51,9 +51,9 @@ public class MenosClass {
             System.out.println("4 - EDITAR UMA CONSTRUÇÃO");
             System.out.println("0 - VOLTAR AO MENU PRINCIPAL");
             System.out.println("==========================================");
-            Choice = Read.nextInt();
-        } while (Choice < 0 || Choice > 4);
-        switch (Choice) {
+            choice = Read.nextInt();
+        } while (choice < 0 || choice > 4);
+        switch (choice) {
             case 0:
                 PrincipalMenu();
             case 1:
