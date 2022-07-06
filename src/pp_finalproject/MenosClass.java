@@ -68,6 +68,7 @@ public class MenosClass {
     }
 
     public void CreateConstructionSite() throws ConstructionSiteManagerException {
+        try{
         String TempName, TempLocation, TempPermit,TempDate;
         ConstructionSiteClass cs;
         Scanner Read = new Scanner(System.in);
@@ -84,8 +85,13 @@ public class MenosClass {
         cs = new ConstructionSiteClass(TempName, TempLocation, localDate, TempPermit);
         this.Constructions.add(cs);
         ConstructionMenu();
+        }catch(Exception o){
+            System.out.println(o.getMessage());
+            ConstructionMenu();
+        }
     }
     public void RemoveConstructionMenu() throws ConstructionSiteManagerException{
+        try{
         Scanner Read = new Scanner(System.in);
         int Choice;
         do{
@@ -101,6 +107,11 @@ public class MenosClass {
                 ConstructionMenu();
             default:
                 this.Constructions.remove(Choice);
+        }
+        ConstructionMenu();
+        }catch(Exception o){
+            System.out.println(o.getMessage());
+            ConstructionMenu();
         }
     }
     public void ListOfTeamsMenu(){
