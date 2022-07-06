@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class MenosClass {
 
-    private ConstructionSiteManagerClass Constructions;
+    private ConstructionSiteManagerClass Constructions = new ConstructionSiteManagerClass();
 
     public void PrincipalMenu() throws ConstructionSiteManagerException {
         Scanner Read = new Scanner(System.in);
@@ -45,7 +45,7 @@ public class MenosClass {
         int choice;
         do {
             System.out.println("========== MENU DE CONSTRUÇÕES ==========");
-            System.out.println("1 - CRIAR NOVO LOCAR DE CONSTRUÇÃO");
+            System.out.println("1 - CRIAR NOVO LOCAL DE CONSTRUÇÃO");
             System.out.println("2 - INFORMAÇÃO SOBRE TODAS AS CONSTRUÇÕES");
             System.out.println("3 - REMOVER CONSTRUÇÃO");
             System.out.println("4 - EDITAR UMA CONSTRUÇÃO");
