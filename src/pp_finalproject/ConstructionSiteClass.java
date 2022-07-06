@@ -103,15 +103,15 @@ public class ConstructionSiteClass implements ConstructionSite {
                     Equal_Exist = true;
                 }
             }
-            if(Equal_Exist == false){
-            TeamClass[] FakeArray = new TeamClass[this.NumberOfTeams + 1];
-            for (int i = 0; i < this.NumberOfTeams; i++) {
-                FakeArray[i] = this.Teams[i];
-            }
-            FakeArray[this.NumberOfTeams] = (TeamClass) team;
-            this.Teams = FakeArray;
-            this.NumberOfTeams++;
-            }else{
+            if (Equal_Exist == false) {
+                TeamClass[] FakeArray = new TeamClass[this.NumberOfTeams + 1];
+                for (int i = 0; i < this.NumberOfTeams; i++) {
+                    FakeArray[i] = this.Teams[i];
+                }
+                FakeArray[this.NumberOfTeams] = (TeamClass) team;
+                this.Teams = FakeArray;
+                this.NumberOfTeams++;
+            } else {
                 System.out.println("EQUIPA JÁ PERTENCE A ESTA CONSTRUÇÃO!");
             }
         } catch (Exception e) {
@@ -202,6 +202,12 @@ public class ConstructionSiteClass implements ConstructionSite {
         }
         //return ListOfEquipments;
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public String toString() {
+        return "NOME: " + this.Name + "\nLOCALIZAÇÃO: " + this.Location + "\nPERMIT: " + this.Permit
+                + "\nDATA DE EXPIRAÇÃO: " + this.Expiration_Date + "\nNÚMERO DE EQUIPAS: " + this.NumberOfTeams + "\nNÚMERO DE EQUIPAMENTOS: " + this.NumberOfEquipments + "\nVALIDA: " + this.isValid()
+                + "\n==============================";
     }
 
 }

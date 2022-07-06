@@ -18,8 +18,8 @@ import java.util.Arrays;
  */
 public class ConstructionSiteManagerClass implements ConstructionSiteManager {
 
-    private int NumberOfConstructions;
-    private ConstructionSiteClass[] ConstructionSites;
+    protected int NumberOfConstructions;
+    protected ConstructionSiteClass[] ConstructionSites;
 
     @Override
     public void add(ConstructionSite cs) throws ConstructionSiteManagerException {
@@ -95,6 +95,29 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
         T[] result = Arrays.copyOf(array1, array1.length + array2.length);
         System.arraycopy(array2, 0, result, array1.length, array2.length);
         return result;
+    }
+
+    public void remove(int index_remove) {
+        ConstructionSiteClass[] FakeArray = new ConstructionSiteClass[this.NumberOfConstructions - 1];
+        int k = 0;
+        for (int i = 0; i < this.NumberOfConstructions; i++) {
+            if (i != index_remove) {
+                FakeArray[k] = this.ConstructionSites[i];
+                k++;
+            }
+        }
+        this.ConstructionSites = FakeArray;
+    }
+
+    public void showAllConstructionSites() {
+        if (this.NumberOfConstructions == 0) {
+            System.out.println("\nNÃO EXISTEM CONSTRUÇÕES PARA MOSTRAR!");
+        } else {
+            System.out.println("\n========== LISTA DE CONSTRUÇÕES ==========");
+            for (int i = 0; i < this.NumberOfConstructions; i++) {
+                System.out.println(this.ConstructionSites[i].toString());
+            }
+        }
     }
 
 }

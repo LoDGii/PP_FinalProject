@@ -16,7 +16,6 @@ import java.util.Scanner;
 public class MenosClass {
 
     private ConstructionSiteManagerClass Constructions;
-    private ConstructionSiteClass ManageConstructions;
 
     public void PrincipalMenu() throws ConstructionSiteManagerException {
         Scanner Read = new Scanner(System.in);
@@ -60,9 +59,9 @@ public class MenosClass {
             case 1:
                 CreateConstructionSite();
             case 2:
-                break;
+                this.Constructions.showAllConstructionSites();
             case 3:
-                break;
+                 RemoveConstructionMenu();
             case 4:
                 break;
         }
@@ -85,5 +84,27 @@ public class MenosClass {
         cs = new ConstructionSiteClass(TempName, TempLocation, localDate, TempPermit);
         this.Constructions.add(cs);
     }
-
+    public void RemoveConstructionMenu() throws ConstructionSiteManagerException{
+        Scanner Read = new Scanner(System.in);
+        int Choice;
+        do{
+        System.out.println("========== LISTA DE COSNTRUÇÕES ==========");
+        ListOfTeamsMenu();
+        System.out.println("0 - VOLTAR ATRÁS");
+        System.out.println("==========================================");
+        System.out.println("OPÇÃO: ");
+        Choice = Read.nextInt();
+        }while(Choice < 0 || Choice > this.Constructions.NumberOfConstructions);
+        switch(Choice){
+            case 0:
+                ConstructionMenu();
+            default:
+                this.Constructions.remove(Choice);
+        }
+    }
+    public void ListOfTeamsMenu(){
+        for(int i = 0;i < this.Constructions.NumberOfConstructions; i++){
+            System.out.println((i + 1)+ " - " + this.Constructions.ConstructionSites[i].getName());
+        }
+    }
 }
