@@ -18,7 +18,7 @@ import java.util.Arrays;
  */
 public class ConstructionSiteManagerClass implements ConstructionSiteManager {
 
-    protected int NumberOfConstructions;
+    protected int NumberOfConstructions = 0;
     protected ConstructionSiteClass[] ConstructionSites;
 
     @Override

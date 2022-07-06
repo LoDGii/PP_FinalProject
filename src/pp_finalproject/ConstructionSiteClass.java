@@ -28,6 +28,7 @@ public class ConstructionSiteClass implements ConstructionSite {
     private EquipmentClass[] Equipment;
     private int NumberOfTeams;
     private int NumberOfEquipments;
+    private LocalDate Permit_Expiration;
 
     public ConstructionSiteClass(String TempName, String TempLocation, LocalDate TempExpirationDate, String TempPermit) {
         this.Name = TempName;
@@ -72,6 +73,8 @@ public class ConstructionSiteClass implements ConstructionSite {
     public void setPermit(String string, LocalDate ld) {
         this.Permit = string;
     }
+
+
 
     @Override
     public Employee getResponsible() {
