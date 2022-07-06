@@ -14,6 +14,7 @@ public class PP_FinalProject {
     
     /**
      * @param args the command line arguments
+     * @throws estgconstroi.exceptions.ConstructionSiteManagerException
      */
     public static void main(String[] args) throws ConstructionSiteManagerException{
         MenosClass Menu = new MenosClass();
