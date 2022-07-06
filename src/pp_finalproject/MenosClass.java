@@ -60,6 +60,7 @@ public class MenosClass {
                 CreateConstructionSite();
             case 2:
                 this.Constructions.showAllConstructionSites();
+                ConstructionMenu();
             case 3:
                  RemoveConstructionMenu();
             case 4:
