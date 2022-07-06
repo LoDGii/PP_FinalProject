@@ -102,6 +102,7 @@ public class MenosClass {
             default:
                 this.Constructions.remove(Choice);
         }
+        ConstructionMenu();
     }
     public void ListOfTeamsMenu(){
         for(int i = 0;i < this.Constructions.NumberOfConstructions; i++){
