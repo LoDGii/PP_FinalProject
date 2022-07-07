@@ -356,9 +356,10 @@ public class MenosClass {
         }
 
     }
-    /*
+    
     public void EquipmentsMenuCs(int Index){
         Scanner Read = new Scanner(System.in);
+        int Choice;
         do{
         System.out.println("========= MENU DE EQUIPAMENTOS ==========");
         System.out.println("1 - LISTA DE EQUIPAMENTOS DESTA CONSTRUÇÃO");
@@ -366,9 +367,12 @@ public class MenosClass {
         System.out.println("3 - REMOVER EQUIPAMENTOS");
         System.out.println("0 - MENU ANTERIOR");
         System.out.println("==========================================");
-        }while();
+        System.out.println("OPÇÃO: ");
+        Choice = Read.nextInt();
+        }while(Choice < 0 || Choice > 3);
+        
     }
-*/
+
     public void TeamMenu(int Index) throws ConstructionSiteManagerException, ConstructionSiteException {
         Scanner Read = new Scanner(System.in);
         ConstructionSiteClass[] ConstructionSites = this.Constructions.getConstructionSites();
