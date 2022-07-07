@@ -139,7 +139,7 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
 
     @Override
     public boolean isValid() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return true;
     }
 
     static <T> T[] concatWithArrayCopy(T[] array1, T[] array2) {

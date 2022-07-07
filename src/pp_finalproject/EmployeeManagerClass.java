@@ -25,7 +25,12 @@ public class EmployeeManagerClass {
         NumberOfEmployees++;
         this.ListOfEmployees = FakeArray;
     }
-
+    
+    
+    public Employee[] getEmployees(){
+        return this.ListOfEmployees;
+    }
+    
     public Employee[] getManagers() {
         Employee[] ListManager = new Employee[this.NumberOfEmployees];
         int k = 0;
