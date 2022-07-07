@@ -309,7 +309,7 @@ public class MenosClass {
             case 1:
                 TeamMenu(Index_cs);
             case 2:
-                break;
+                EquipmentsMenuCs(Index_cs);
             case 3:
                 Employee[] Managers = this.Employees.getManagers();
                 do {
@@ -388,36 +388,67 @@ public class MenosClass {
                 break;
             case 2:
                 addEquipmentCs(Index);
+                EquipmentsMenuCs(Index);
+                break;
+            case 3:
+                removeEquipmentCs(Index);
+                EquipmentsMenuCs(Index);
         }
 
     }
-    public void addEquipmentCs(int Index) throws ConstructionSiteManagerException, ConstructionSiteException{
+
+    public void removeEquipmentCs(int Index) throws ConstructionSiteException, ConstructionSiteManagerException {
+        Scanner Read = new Scanner(System.in);
+        int Choice;
+        ConstructionSiteClass[] Constructions = this.Constructions.getConstructionSites();
+        Equipments ListOfEquipments = Constructions[Index].getEquipments();
+        Equipment[] Equipments = ListOfEquipments.getEquipment();
+        do {
+            System.out.println("========== LISTA DE EQUIPAMENTOS DISPONIVEIS PARA REMOÇÃO ==========");
+            ListEquipmentsCs(Index);
+            System.out.println("0 - VOLTAR PARA O MENU ANTERIOR");
+            System.out.println("====================================================================");
+            System.out.println("OPÇÃO: ");
+            Choice = Read.nextInt();
+        } while (Choice < 0 || Choice > this.Constructions.ConstructionSites[Index].getEquipments().getEquipment().length);
+        switch(Choice){
+            case 0:
+                EquipmentsMenuCs(Index);
+        }
+        this.ListOfEquipments.addEquipment(Equipments[Choice - 1]);
+        this.Constructions.ConstructionSites[Index].removeEquipments(Equipments[Choice - 1]);
+
+    }
+
+    public void addEquipmentCs(int Index) throws ConstructionSiteManagerException, ConstructionSiteException {
         Scanner Read = new Scanner(System.in);
         int Choice;
         Equipment[] List = this.ListOfEquipments.getEquipment();
-        do{
-        System.out.println("========== LISTA DE EQUIPAMENTOS DISPONIVEIS PARA ADICIONAR ==========");
-        ListEquipments();
-        System.out.println("0 - VOLTAR A MENU ANTERIOR");
-        System.out.println("======================================================================");
-        System.out.println("OPÇÃO: ");
-        Choice = Read.nextInt();
-        }while(Choice < 0 || Choice > this.ListOfEquipments.getEquipment().length);
-        switch(Choice){
+        do {
+            System.out.println("========== LISTA DE EQUIPAMENTOS DISPONIVEIS PARA ADICIONAR ==========");
+            ListEquipments();
+            System.out.println("0 - VOLTAR A MENU ANTERIOR");
+            System.out.println("======================================================================");
+            System.out.println("OPÇÃO: ");
+            Choice = Read.nextInt();
+        } while (Choice < 0 || Choice > this.ListOfEquipments.getEquipment().length);
+        switch (Choice) {
             case 0:
                 EquipmentsMenuCs(Index);
                 break;
         }
-        
+
         this.Constructions.ConstructionSites[Index].addEquipments(List[Choice - 1]);
-        this.ListOfEquipments.removeEquipment(List[Choice - 1]);        
+        this.ListOfEquipments.removeEquipment(List[Choice - 1]);
     }
-    public void ListEquipments(){
+
+    public void ListEquipments() {
         Equipment[] List = this.ListOfEquipments.getEquipment();
-        for(int i = 0;i < List.length ;i++){
+        for (int i = 0; i < List.length; i++) {
             System.out.println(i + 1 + " - " + List[i].getName());
         }
     }
+
     public void ListEquipmentsCs(int Index) {
         ConstructionSiteClass[] Constructions = this.Constructions.getConstructionSites();
         Equipments ListOfEquipments = Constructions[Index].getEquipments();

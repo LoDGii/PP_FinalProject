@@ -212,4 +212,7 @@ public class ConstructionSiteClass implements ConstructionSite {
     public void addEquipments(Equipment eqpmnt) throws ConstructionSiteException{
         this.Equipment.addEquipment(eqpmnt);
     }
+    public void removeEquipments(Equipment eqpmnt) throws ConstructionSiteException{
+        this.Equipment.removeEquipment(eqpmnt);
+    }
 }
