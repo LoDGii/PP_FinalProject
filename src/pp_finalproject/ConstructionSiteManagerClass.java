@@ -21,7 +21,7 @@ import java.util.Arrays;
 public class ConstructionSiteManagerClass implements ConstructionSiteManager {
 
     private int NumberOfConstructions = 0;
-    private ConstructionSiteClass[] ConstructionSites;
+    protected ConstructionSiteClass[] ConstructionSites;
 
     @Override
     public void add(ConstructionSite cs) throws ConstructionSiteManagerException {
@@ -193,5 +193,6 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
     public int getNumberOfConstructionSites(){
         return this.NumberOfConstructions;
     }
+    
 
 }

@@ -5,6 +5,8 @@
 package pp_finalproject;
 
 import estgconstroi.Employee;
+import estgconstroi.Equipment;
+import estgconstroi.Equipments;
 import estgconstroi.Team;
 import estgconstroi.exceptions.ConstructionSiteException;
 import estgconstroi.exceptions.ConstructionSiteManagerException;
@@ -20,7 +22,7 @@ public class MenosClass {
 
     private ConstructionSiteManagerClass Constructions = new ConstructionSiteManagerClass();
     private TeamManagerClass Teams = new TeamManagerClass();
-    private EquipmentsClass[] ListOfEquipments;
+    private EquipmentsClass ListOfEquipments = new EquipmentsClass();
     private EmployeeManagerClass Employees = new EmployeeManagerClass();
 
     public void PrincipalMenu() throws ConstructionSiteManagerException {
@@ -62,39 +64,38 @@ public class MenosClass {
 
     }
 
-    public void TeamsMenu() throws ConstructionSiteManagerException{
+    public void TeamsMenu() throws ConstructionSiteManagerException {
         Scanner Read = new Scanner(System.in);
-            int choice;
-            do {
-                System.out.println("========== MENU DE TEAMS ==========");
-                System.out.println("1 - CRIAR NOVA TEAM");
-                System.out.println("2 - LISTAR TODAS AS TEAMS");
-                System.out.println("3 - LISTAR TEAMS DISPONIVEIS");
-                System.out.println("4 - LISTAR TEAMS A TRABALHAR");
-                System.out.println("0 - VOLTAR AO MENU PRINCIPAL");
-                System.out.println("==========================================");
-                choice = Read.nextInt();
-            } while (choice < 0 || choice > 4);
-            switch (choice) {
-                case 0:
-                    PrincipalMenu();
-                    break;
-                case 1:
-                    
-                    break;
-                case 2:
-                    System.out.println("========== LISTA DE EQUIPAS ==========");
-                    break;
-                case 3:
-                    
-                    break;
-                case 4:
-                    
-                    break;
-            }
+        int choice;
+        do {
+            System.out.println("========== MENU DE TEAMS ==========");
+            System.out.println("1 - CRIAR NOVA TEAM");
+            System.out.println("2 - LISTAR TODAS AS TEAMS");
+            System.out.println("3 - LISTAR TEAMS DISPONIVEIS");
+            System.out.println("4 - LISTAR TEAMS A TRABALHAR");
+            System.out.println("0 - VOLTAR AO MENU PRINCIPAL");
+            System.out.println("==========================================");
+            choice = Read.nextInt();
+        } while (choice < 0 || choice > 4);
+        switch (choice) {
+            case 0:
+                PrincipalMenu();
+                break;
+            case 1:
+
+                break;
+            case 2:
+                System.out.println("========== LISTA DE EQUIPAS ==========");
+                break;
+            case 3:
+
+                break;
+            case 4:
+
+                break;
+        }
     }
-    
-    
+
     public void ConstructionMenu() throws ConstructionSiteManagerException {
         try {
             Scanner Read = new Scanner(System.in);
@@ -135,90 +136,89 @@ public class MenosClass {
 
     public void EventMenu() {
         Scanner Read = new Scanner(System.in);
-            int choice;
-            do {
-                System.out.println("========== MENU EVENT ====================");
-                System.out.println("1 - REPORTAR EVENTO");
-                System.out.println("2 - OBTER EVENTOS POR PRIORIDADE");
-                System.out.println("3 - OBTER EVENTOS POR TIPO");
-                System.out.println("4 - OBTER EVENTOS POR DATA");
-                System.out.println("5 - OBTER EVENTOS NUM INTERVALO DE DATAS");
-                System.out.println("6 - REMOVER EVENTO");
-                System.out.println("7 - REMOVER TODOS OS EVENTOS");
-                System.out.println("8 - APAGAR EVENTOS QUE ESTÃO NA BASE DE DADOS");
-                System.out.println("9 - RECEBER EVENTOS DA BASE DE DADOS");
-                System.out.println("0 - SAIR");
-                System.out.println("=============================================");
-                System.out.println("Escolha: ");
-                choice = Read.nextInt();
-            } while (choice < 0 || choice > 9);
-            switch (choice) {
-                case 0:
-                    EventMenu();
-                    break;
-                case 1:
-                    
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    
-                    break;
-                case 4:
-                    
-                    break;
-                case 5:
-                    
-                    break;
-                case 6:
-                    
-                    break;
-                case 7:
-                    
-                    break;
-                case 8:
-                    
-                    break;
-                case 9:
-                    
-                    break;
-                    
-            }
-            
+        int choice;
+        do {
+            System.out.println("========== MENU EVENT ====================");
+            System.out.println("1 - REPORTAR EVENTO");
+            System.out.println("2 - OBTER EVENTOS POR PRIORIDADE");
+            System.out.println("3 - OBTER EVENTOS POR TIPO");
+            System.out.println("4 - OBTER EVENTOS POR DATA");
+            System.out.println("5 - OBTER EVENTOS NUM INTERVALO DE DATAS");
+            System.out.println("6 - REMOVER EVENTO");
+            System.out.println("7 - REMOVER TODOS OS EVENTOS");
+            System.out.println("8 - APAGAR EVENTOS QUE ESTÃO NA BASE DE DADOS");
+            System.out.println("9 - RECEBER EVENTOS DA BASE DE DADOS");
+            System.out.println("0 - SAIR");
+            System.out.println("=============================================");
+            System.out.println("Escolha: ");
+            choice = Read.nextInt();
+        } while (choice < 0 || choice > 9);
+        switch (choice) {
+            case 0:
+                EventMenu();
+                break;
+            case 1:
+
+                break;
+            case 2:
+                break;
+            case 3:
+
+                break;
+            case 4:
+
+                break;
+            case 5:
+
+                break;
+            case 6:
+
+                break;
+            case 7:
+
+                break;
+            case 8:
+
+                break;
+            case 9:
+
+                break;
+
+        }
+
     }
-    
+
     public void TypeEventMenu() {
         Scanner Read = new Scanner(System.in);
         int choice;
         do {
-                System.out.println("========== MENU TYPE EVENT ====================");
-                System.out.println("ESCOLHA O TIPO DE EVENTO:");
-                System.out.println("1 - ACCIDENT");
-                System.out.println("2 - FAILURE");
-                System.out.println("3 - INCIDENT");
-                System.out.println("0 - SAIR");
-                System.out.println("=============================================");
-                System.out.println("Escolha: ");
-                choice = Read.nextInt();
-            } while (choice < 0 || choice > 3);
+            System.out.println("========== MENU TYPE EVENT ====================");
+            System.out.println("ESCOLHA O TIPO DE EVENTO:");
+            System.out.println("1 - ACCIDENT");
+            System.out.println("2 - FAILURE");
+            System.out.println("3 - INCIDENT");
+            System.out.println("0 - SAIR");
+            System.out.println("=============================================");
+            System.out.println("Escolha: ");
+            choice = Read.nextInt();
+        } while (choice < 0 || choice > 3);
         switch (choice) {
-                case 0:
-                    TypeEventMenu();
-                    break;
-                case 1:
-                    
-                    break;
-                case 2:
-                    
-                    break;
-                case 3:
-                    
-                    break;
-                    
-            }
+            case 0:
+                TypeEventMenu();
+                break;
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+
+        }
     }
-    
-    
+
     public void CreateConstructionSite() throws ConstructionSiteManagerException {
         try {
             String TempName, TempLocation, TempPermit, TempDate;
@@ -356,21 +356,75 @@ public class MenosClass {
         }
 
     }
-    
-    public void EquipmentsMenuCs(int Index){
+
+    public void EquipmentsMenuCs(int Index) throws ConstructionSiteManagerException, ConstructionSiteException {
         Scanner Read = new Scanner(System.in);
         int Choice;
+        do {
+            System.out.println("========= MENU DE EQUIPAMENTOS ==========");
+            System.out.println("1 - LISTA DE EQUIPAMENTOS DESTA CONSTRUÇÃO");
+            System.out.println("2 - ADICIONAR EQUIPAMENTOS");
+            System.out.println("3 - REMOVER EQUIPAMENTOS");
+            System.out.println("0 - MENU ANTERIOR");
+            System.out.println("==========================================");
+            System.out.println("OPÇÃO: ");
+            Choice = Read.nextInt();
+        } while (Choice < 0 || Choice > 3);
+        switch (Choice) {
+            case 0:
+                EditConstructions();
+                break;
+            case 1:
+
+                do {
+                    System.out.println("========== LISTA DE EQUIPAMENTOS DESTA CONSTRUÇÃO ==========");
+                    ListEquipmentsCs(Index);
+                    System.out.println("0 - VOLTAR AO MENU ANTERIOR");
+                    System.out.println("============================================================");
+                    System.out.println("OPÇÃO: ");
+                    Choice = Read.nextInt();
+                } while (Choice != 0);
+                EquipmentsMenuCs(Index);
+                break;
+            case 2:
+                addEquipmentCs(Index);
+        }
+
+    }
+    public void addEquipmentCs(int Index) throws ConstructionSiteManagerException, ConstructionSiteException{
+        Scanner Read = new Scanner(System.in);
+        int Choice;
+        Equipment[] List = this.ListOfEquipments.getEquipment();
         do{
-        System.out.println("========= MENU DE EQUIPAMENTOS ==========");
-        System.out.println("1 - LISTA DE EQUIPAMENTOS DESTA CONSTRUÇÃO");
-        System.out.println("2 - ADICIONAR EQUIPAMENTOS");
-        System.out.println("3 - REMOVER EQUIPAMENTOS");
-        System.out.println("0 - MENU ANTERIOR");
-        System.out.println("==========================================");
+        System.out.println("========== LISTA DE EQUIPAMENTOS DISPONIVEIS PARA ADICIONAR ==========");
+        ListEquipments();
+        System.out.println("0 - VOLTAR A MENU ANTERIOR");
+        System.out.println("======================================================================");
         System.out.println("OPÇÃO: ");
         Choice = Read.nextInt();
-        }while(Choice < 0 || Choice > 3);
+        }while(Choice < 0 || Choice > this.ListOfEquipments.getEquipment().length);
+        switch(Choice){
+            case 0:
+                EquipmentsMenuCs(Index);
+                break;
+        }
         
+        this.Constructions.ConstructionSites[Index].addEquipments(List[Choice - 1]);
+        this.ListOfEquipments.removeEquipment(List[Choice - 1]);        
+    }
+    public void ListEquipments(){
+        Equipment[] List = this.ListOfEquipments.getEquipment();
+        for(int i = 0;i < List.length ;i++){
+            System.out.println(i + 1 + " - " + List[i].getName());
+        }
+    }
+    public void ListEquipmentsCs(int Index) {
+        ConstructionSiteClass[] Constructions = this.Constructions.getConstructionSites();
+        Equipments ListOfEquipments = Constructions[Index].getEquipments();
+        Equipment[] Equipments = ListOfEquipments.getEquipment();
+        for (int i = 0; i < Equipments.length; i++) {
+            System.out.println(i + 1 + " - " + Equipments[i].getName());
+        }
     }
 
     public void TeamMenu(int Index) throws ConstructionSiteManagerException, ConstructionSiteException {
@@ -416,18 +470,18 @@ public class MenosClass {
                 this.Teams.remove(Choice - 1);
             case 3:
                 Team[] TeamsC = ConstructionSites[Index].getTeams();
-                do{
-                System.out.println("========== LISTA DE EQUIPAS ALOCADAS NESTA CONSTRUÇÃO ==========");
-                for (int i = 0; i < TeamsC.length; i++) {
-                    System.out.println(i + 1 + " - " + TeamsC[i].getName());
-                }
-                System.out.println("0 - VOLTAR AO MENU ANTERIOR");
-                System.out.println("================================================================");
-                Choice = Read.nextInt();
-                break;
-                }while(Choice < 0 || Choice > TeamsC.length);
-                
-                switch(Choice){
+                do {
+                    System.out.println("========== LISTA DE EQUIPAS ALOCADAS NESTA CONSTRUÇÃO ==========");
+                    for (int i = 0; i < TeamsC.length; i++) {
+                        System.out.println(i + 1 + " - " + TeamsC[i].getName());
+                    }
+                    System.out.println("0 - VOLTAR AO MENU ANTERIOR");
+                    System.out.println("================================================================");
+                    Choice = Read.nextInt();
+                    break;
+                } while (Choice < 0 || Choice > TeamsC.length);
+
+                switch (Choice) {
                     case 0:
                         EditConstructions();
                         break;
@@ -435,8 +489,7 @@ public class MenosClass {
                 ConstructionSites[Index].removeTeam(TeamsC[Choice - 1]);
                 this.Teams.add(TeamsC[Choice - 1]);
                 EditConstructions();
-               
-           
+
         }
     }
 

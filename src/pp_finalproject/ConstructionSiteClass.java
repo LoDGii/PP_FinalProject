@@ -6,6 +6,7 @@ package pp_finalproject;
 
 import estgconstroi.ConstructionSite;
 import estgconstroi.Employee;
+import estgconstroi.Equipment;
 import estgconstroi.Equipments;
 import estgconstroi.Team;
 import estgconstroi.enums.EmployeeType;
@@ -25,10 +26,11 @@ public class ConstructionSiteClass implements ConstructionSite {
     private LocalDate Start_Date;
     private EmployeeClass Responsible;
     private TeamClass[] Teams;
-    private EquipmentsClass Equipment;
+    private Equipments Equipment;
     private int NumberOfTeams;
     private int NumberOfEquipments;
     private LocalDate Permit_Expiration;
+    
 
     public ConstructionSiteClass(String TempName, String TempLocation, LocalDate TempExpirationDate, String TempPermit) {
         this.Name = TempName;
@@ -207,5 +209,7 @@ public class ConstructionSiteClass implements ConstructionSite {
                 + "\nDATA DE EXPIRAÇÃO: " + this.Expiration_Date + "\nNÚMERO DE EQUIPAS: " + this.NumberOfTeams + "\nNÚMERO DE EQUIPAMENTOS: " + this.NumberOfEquipments + "\nVALIDA: " + this.isValid()
                 + "\n==============================";
     }
-
+    public void addEquipments(Equipment eqpmnt) throws ConstructionSiteException{
+        this.Equipment.addEquipment(eqpmnt);
+    }
 }
