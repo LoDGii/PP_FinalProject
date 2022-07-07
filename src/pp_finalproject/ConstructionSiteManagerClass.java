@@ -20,8 +20,8 @@ import java.util.Arrays;
  */
 public class ConstructionSiteManagerClass implements ConstructionSiteManager {
 
-    protected int NumberOfConstructions = 0;
-    protected ConstructionSiteClass[] ConstructionSites;
+    private int NumberOfConstructions = 0;
+    private ConstructionSiteClass[] ConstructionSites;
 
     @Override
     public void add(ConstructionSite cs) throws ConstructionSiteManagerException {
@@ -66,57 +66,56 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
 
     @Override
     public Equipment[] getEquipmentsInUse() {
-                Equipment[] AllEquipments;
+        Equipment[] AllEquipments;
         int NumberOfEquipments = 0;
         int k = 0;
-        for(int i = 0;i < this.NumberOfConstructions;i++){
+        for (int i = 0; i < this.NumberOfConstructions; i++) {
             NumberOfEquipments += this.ConstructionSites[i].getEquipments().getEquipment().length;
-            
+
         }
         Equipment[] IddleEquipments = new Equipment[NumberOfEquipments];
         int Index = 0;
-        for(int i = 0;i < this.NumberOfConstructions;i++){
+        for (int i = 0; i < this.NumberOfConstructions; i++) {
             AllEquipments = this.ConstructionSites[i].getEquipments().getEquipment();
-            for(k = 0;k < AllEquipments.length;k++){
-                if(AllEquipments[k].getStatus() == EquipmentStatus.OPERATIVE){
+            for (k = 0; k < AllEquipments.length; k++) {
+                if (AllEquipments[k].getStatus() == EquipmentStatus.OPERATIVE) {
                     IddleEquipments[Index] = AllEquipments[k];
                 }
             }
         }
         Equipment[] FinalArray = new Equipment[k - 1];
-        for(int i = 0;i < k;i++){
+        for (int i = 0; i < k; i++) {
             FinalArray[i] = IddleEquipments[i];
         }
         return FinalArray;
-        
+
     }
-    
 
     @Override
     public Equipment[] getIddleEquipments() {
         Equipment[] AllEquipments;
         int NumberOfEquipments = 0;
         int k = 0;
-        for(int i = 0;i < this.NumberOfConstructions;i++){
+        for (int i = 0; i < this.NumberOfConstructions; i++) {
             NumberOfEquipments += this.ConstructionSites[i].getEquipments().getEquipment().length;
-            
+
         }
         Equipment[] IddleEquipments = new Equipment[NumberOfEquipments];
         int Index = 0;
-        for(int i = 0;i < this.NumberOfConstructions;i++){
+        for (int i = 0; i < this.NumberOfConstructions; i++) {
             AllEquipments = this.ConstructionSites[i].getEquipments().getEquipment();
-            for(k = 0;k < AllEquipments.length;k++){
-                if(AllEquipments[k].getStatus() == EquipmentStatus.INOPERATIVE || AllEquipments[k].getStatus() == EquipmentStatus.MAINTENANCE){
+            for (k = 0; k < AllEquipments.length; k++) {
+                if (AllEquipments[k].getStatus() == EquipmentStatus.INOPERATIVE || AllEquipments[k].getStatus() == EquipmentStatus.MAINTENANCE) {
                     IddleEquipments[Index] = AllEquipments[k];
                 }
             }
         }
         Equipment[] FinalArray = new Equipment[k - 1];
-        for(int i = 0;i < k;i++){
+        for (int i = 0; i < k; i++) {
             FinalArray[i] = IddleEquipments[i];
         }
         return FinalArray;
-        
+
     }
 
     @Override
@@ -179,13 +178,20 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
 
     public int[] getNumberOfEquipments() {
         int[] NumberOfEquipments = new int[this.NumberOfConstructions];
-        
+
         Equipment[] FakeArray;
         for (int i = 0; i < this.NumberOfConstructions; i++) {
             FakeArray = this.ConstructionSites[i].getEquipments().getEquipment();
-            NumberOfEquipments [i] = FakeArray.length;
+            NumberOfEquipments[i] = FakeArray.length;
         }
         return NumberOfEquipments;
+    }
+
+    public ConstructionSiteClass[] getConstructionSites() {
+        return this.ConstructionSites;
+    }
+    public int getNumberOfConstructionSites(){
+        return this.NumberOfConstructions;
     }
 
 }

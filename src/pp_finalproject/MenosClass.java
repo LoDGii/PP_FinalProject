@@ -245,6 +245,7 @@ public class MenosClass {
 
     public void RemoveConstructionMenu() throws ConstructionSiteManagerException {
         try {
+            int NumberOfConstructions = this.Constructions.getNumberOfConstructionSites();
             Scanner Read = new Scanner(System.in);
             int Choice;
             do {
@@ -254,7 +255,7 @@ public class MenosClass {
                 System.out.println("==========================================");
                 System.out.println("OPÇÃO: ");
                 Choice = Read.nextInt();
-            } while (Choice < 0 || Choice > this.Constructions.NumberOfConstructions);
+            } while (Choice < 0 || Choice > NumberOfConstructions);
             switch (Choice) {
                 case 0:
                     ConstructionMenu();
@@ -271,6 +272,8 @@ public class MenosClass {
     public void EditConstructions() throws ConstructionSiteManagerException, ConstructionSiteException {
         Scanner Read = new Scanner(System.in);
         String TempDate;
+        int NumberOfConstructions = this.Constructions.getNumberOfConstructionSites();
+        ConstructionSiteClass[] ConstructionSites = this.Constructions.getConstructionSites();
         int Index_cs, Choice;
         do {
             System.out.println("========== LISTA DE CONSTRUÇÕES ==========");
@@ -279,7 +282,7 @@ public class MenosClass {
             System.out.println("==========================================");
             System.out.println("OPÇÃO: ");
             Index_cs = Read.nextInt();
-        } while (Index_cs < 0 || Index_cs > this.Constructions.NumberOfConstructions + 1);
+        } while (Index_cs < 0 || Index_cs > NumberOfConstructions + 1);
         switch (Index_cs) {
             case 0:
                 PrincipalMenu();
@@ -323,15 +326,15 @@ public class MenosClass {
                     default:
                         break;
                 }
-                this.Constructions.ConstructionSites[Index_cs].setResponsible(Managers[Choice - 1]);
+                ConstructionSites[Index_cs].setResponsible(Managers[Choice - 1]);
                 System.out.println("RESPONSAVEL DEFINIDO COM SUCESSO!");
                 EditConstructions();
 
             case 4:
-                System.out.println("RESPONSAVEL PELA CONSTRUÇÃO: " + this.Constructions.ConstructionSites[Index_cs].getResponsible().getName());
+                System.out.println("RESPONSAVEL PELA CONSTRUÇÃO: " + ConstructionSites[Index_cs].getResponsible().getName());
                 EditConstructions();
             case 5:
-                boolean isValid = this.Constructions.ConstructionSites[Index_cs].isValid();
+                boolean isValid = ConstructionSites[Index_cs].isValid();
                 if (isValid == true) {
                     System.out.println("CONSTRUÇÃO VALIDA!");
 
@@ -346,9 +349,9 @@ public class MenosClass {
                 System.out.println("DATA DE EXPIRAÇÃO (dd/mm/yyyy): ");
                 TempDate = Read.next();
                 LocalDate localDate = LocalDate.parse(TempDate, formatter);
-                this.Constructions.ConstructionSites[Index_cs].setPermit(TempPermit, localDate);
+                ConstructionSites[Index_cs].setPermit(TempPermit, localDate);
             case 7:
-                System.out.println("DATA DE TERMINO DE CONSTRUÇÃO: " + this.Constructions.ConstructionSites[Index_cs].getEndDate());
+                System.out.println("DATA DE TERMINO DE CONSTRUÇÃO: " + ConstructionSites[Index_cs].getEndDate());
                 EditConstructions();
         }
 
@@ -356,6 +359,7 @@ public class MenosClass {
 
     public void TeamMenu(int Index) throws ConstructionSiteManagerException, ConstructionSiteException {
         Scanner Read = new Scanner(System.in);
+        ConstructionSiteClass[] ConstructionSites = this.Constructions.getConstructionSites();
         int Choice;
         do {
             System.out.println("========== MENU DE EQUIPAS ==========");
@@ -371,7 +375,7 @@ public class MenosClass {
             case 0:
                 EditConstructions();
             case 1:
-                Team[] TeamsCs = this.Constructions.ConstructionSites[Index].getTeams();
+                Team[] TeamsCs = ConstructionSites[Index].getTeams();
                 System.out.println("========== LISTA DE EQUIPAS ALOCADAS NESTA CONSTRUÇÃO ==========");
                 for (int i = 0; i < TeamsCs.length; i++) {
                     System.out.println(TeamsCs[i].getName() + " NUMBER OF EMPLOYEES: " + TeamsCs[i].getNumberOfEmployees());
@@ -392,10 +396,10 @@ public class MenosClass {
                         EditConstructions();
                         break;
                 }
-                this.Constructions.ConstructionSites[Index].addTeam(ListOfTeams[Choice - 1]);
+                ConstructionSites[Index].addTeam(ListOfTeams[Choice - 1]);
                 this.Teams.remove(Choice - 1);
             case 3:
-                Team[] TeamsC = this.Constructions.ConstructionSites[Index].getTeams();
+                Team[] TeamsC = ConstructionSites[Index].getTeams();
                 do{
                 System.out.println("========== LISTA DE EQUIPAS ALOCADAS NESTA CONSTRUÇÃO ==========");
                 for (int i = 0; i < TeamsC.length; i++) {
@@ -412,7 +416,7 @@ public class MenosClass {
                         EditConstructions();
                         break;
                 }
-                this.Constructions.ConstructionSites[Index].removeTeam(TeamsC[Choice - 1]);
+                ConstructionSites[Index].removeTeam(TeamsC[Choice - 1]);
                 this.Teams.add(TeamsC[Choice - 1]);
                 EditConstructions();
                
@@ -421,8 +425,10 @@ public class MenosClass {
     }
 
     public void ListOfTeamsMenu() {
-        for (int i = 0; i < this.Constructions.NumberOfConstructions; i++) {
-            System.out.println((i + 1) + " - " + this.Constructions.ConstructionSites[i].getName());
+        int NumberOfConstructions = this.Constructions.getNumberOfConstructionSites();
+        ConstructionSiteClass[] ConstructionSites = this.Constructions.getConstructionSites();
+        for (int i = 0; i < NumberOfConstructions; i++) {
+            System.out.println((i + 1) + " - " + ConstructionSites[i].getName());
         }
     }
 }
