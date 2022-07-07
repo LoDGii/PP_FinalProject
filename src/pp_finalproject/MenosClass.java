@@ -21,7 +21,7 @@ public class MenosClass {
     private ConstructionSiteManagerClass Constructions = new ConstructionSiteManagerClass();
     private TeamManagerClass Teams = new TeamManagerClass();
     private EquipmentsClass[] ListOfEquipments;
-    EmployeeManagerClass Employees = new EmployeeManagerClass();
+    private EmployeeManagerClass Employees = new EmployeeManagerClass();
 
     public void PrincipalMenu() throws ConstructionSiteManagerException {
         try {
