@@ -31,6 +31,8 @@ public class MenosClass {
                 System.out.println("========== MENU PRINCIPAL ==========");
                 System.out.println("1 - MENU DE CONSTRUÇÕES");
                 System.out.println("2 - MENU DE EVENTOS");
+                System.out.println("3 - MENU DE TEAMS");
+                System.out.println("4 - MENU DE EMPLOYESS");
                 System.out.println("0 - SAIR");
                 System.out.println("====================================");
                 System.out.println("Escolha: ");
@@ -41,7 +43,12 @@ public class MenosClass {
                     break;
                 case 1:
                     ConstructionMenu();
+                    break;
                 case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
                     break;
 
             }
@@ -70,15 +77,20 @@ public class MenosClass {
             switch (choice) {
                 case 0:
                     PrincipalMenu();
+                    break;
                 case 1:
                     CreateConstructionSite();
+                    break;
                 case 2:
                     this.Constructions.showAllConstructionSites();
                     ConstructionMenu();
+                    break;
                 case 3:
                     RemoveConstructionMenu();
+                    break;
                 case 4:
                     EditConstructions();
+                    break;
             }
         } catch (Exception o) {
             System.out.println(o.getMessage());
@@ -150,6 +162,7 @@ public class MenosClass {
         switch (Index_cs) {
             case 0:
                 PrincipalMenu();
+                break;
             default:
                 break;
         }
@@ -245,8 +258,44 @@ public class MenosClass {
                 System.out.println("================================================================");
                 EditConstructions();
             case 2:
+                TeamClass[] ListOfTeams = this.Teams.getTeams();
+                do {
+                    System.out.println("========== LISTA DE EQUIPAS NÃO ASSOCIADAS ==========");
+                    for (int i = 0; i < ListOfTeams.length; i++) {
+                        System.out.println(i + 1 + " - " + ListOfTeams[i]);
+                    }
+                    Choice = Read.nextInt();
+                } while (Choice < 0 || Choice > ListOfTeams.length);
+                switch (Choice) {
+                    case 0:
+                        EditConstructions();
+                        break;
+                }
+                this.Constructions.ConstructionSites[Index].addTeam(ListOfTeams[Choice - 1]);
+                this.Teams.remove(Choice - 1);
+            case 3:
+                Team[] TeamsC = this.Constructions.ConstructionSites[Index].getTeams();
+                do{
+                System.out.println("========== LISTA DE EQUIPAS ALOCADAS NESTA CONSTRUÇÃO ==========");
+                for (int i = 0; i < TeamsC.length; i++) {
+                    System.out.println(i + 1 + " - " + TeamsC[i].getName());
+                }
+                System.out.println("0 - VOLTAR AO MENU ANTERIOR");
+                System.out.println("================================================================");
+                Choice = Read.nextInt();
                 break;
-
+                }while(Choice < 0 || Choice > TeamsC.length);
+                
+                switch(Choice){
+                    case 0:
+                        EditConstructions();
+                        break;
+                }
+                this.Constructions.ConstructionSites[Index].removeTeam(TeamsC[Choice - 1]);
+                this.Teams.add(TeamsC[Choice - 1]);
+                EditConstructions();
+               
+                
         }
     }
 
