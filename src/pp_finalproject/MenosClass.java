@@ -9,9 +9,11 @@ import estgconstroi.Employee;
 import estgconstroi.Equipment;
 import estgconstroi.Equipments;
 import estgconstroi.Team;
+import estgconstroi.enums.EmployeeType;
 import estgconstroi.enums.EventPriority;
 import estgconstroi.exceptions.ConstructionSiteException;
 import estgconstroi.exceptions.ConstructionSiteManagerException;
+import estgconstroi.exceptions.TeamException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -53,6 +55,7 @@ public class MenosClass {
                     EventMenu();
                     break;
                 case 3:
+                    TeamsMenu();
                     break;
                 case 4:
                     TeamsMenu();
@@ -67,15 +70,15 @@ public class MenosClass {
 
     }
 
-    public void TeamsMenu() throws ConstructionSiteManagerException {
+    public void TeamsMenu() throws ConstructionSiteManagerException, ConstructionSiteException {
         Scanner Read = new Scanner(System.in);
         int choice;
         do {
-            System.out.println("========== MENU DE TEAMS ==========");
-            System.out.println("1 - CRIAR NOVA TEAM");
-            System.out.println("2 - LISTAR TODAS AS TEAMS");
-            System.out.println("3 - LISTAR TEAMS DISPONIVEIS");
-            System.out.println("4 - LISTAR TEAMS A TRABALHAR");
+            System.out.println("========== MENU DE EQUIPAS ==========");
+            System.out.println("1 - CRIAR NOVA EQUIPA");
+            System.out.println("2 - LISTAR EQUIPAS INATIVAS");
+            System.out.println("3 - LISTAR EQUIPAS EM ATIVIDADE");
+            System.out.println("4 - EDITAR EQUIPA");
             System.out.println("0 - VOLTAR AO MENU PRINCIPAL");
             System.out.println("==========================================");
             choice = Read.nextInt();
@@ -85,18 +88,210 @@ public class MenosClass {
                 PrincipalMenu();
                 break;
             case 1:
-
+                createNewTeam();
+                TeamsMenu();
                 break;
             case 2:
-                System.out.println("========== LISTA DE EQUIPAS ==========");
+                System.out.println("========== LISTA DE EQUIPAS INATIVAS ==========");
+                showInativeTeams();
+                System.out.println("===============================================");
+                PrincipalMenu();
                 break;
             case 3:
-
+                System.out.println("========== LISTA DE EQUIPAS ATIVAS ==========");
+                showActiveTeams();
+                System.out.println("===============================================");
+                PrincipalMenu();
                 break;
             case 4:
-
+                editTeam();
                 break;
         }
+    }
+
+    public void editTeam() throws ConstructionSiteManagerException, ConstructionSiteException {
+        Scanner Read = new Scanner(System.in);
+        int Choice;
+        int Index_Team = 0;
+        int Type = 0;
+        int[] NumberOfTeams;
+        do {
+            System.out.println("========== LISTA DE EQUIPAS ==========");
+            NumberOfTeams = showAllTeams();
+            System.out.println("0 - VOLTAR AO MENU ANTERIOR");
+            Choice = Read.nextInt();
+        } while (Choice < 0 || Choice > NumberOfTeams[NumberOfTeams.length - 1]);
+        switch (Choice) {
+            case 0:
+                TeamsMenu();
+                break;
+        }
+        if (Choice <= NumberOfTeams[0]) {
+            Index_Team = Choice;
+            Type = 1;
+        } else if (Choice > NumberOfTeams[0]) {
+            Index_Team = Choice - NumberOfTeams[0];
+            Type = 2;
+        }
+        Index_Team--;
+        do {
+            System.out.println("========== EDITAR EQUIPA ==========");
+            System.out.println("1 - DEFINIR LIDER");
+            System.out.println("2 - ADICIONAR EQUIPAMENTOS");
+            System.out.println("3 - ALTERAR NOME");
+            System.out.println("4 - ADICIONAR FUNCIONÁRIOS");
+            System.out.println("5 - REMOVER FUNCIONÁRIOS");
+            System.out.println("6 - MOSTRAR FUNCIONÁRIOS ATRIBUIDOS");
+            System.out.println("7 - MOSTRAR EQUIPAMENTOS ATRIBUIDOS");
+            System.out.println("0 - VOLTAR PARA O MENU ANTERIOR");
+            System.out.println("===================================");
+            System.out.println("OPÇÃO: ");
+            Choice = Read.nextInt();
+        } while (Choice < 0 || Choice > 7);
+        switch (Choice) {
+            case 0:
+                TeamsMenu();
+                break;
+            case 1:
+                setLeader(Index_Team, Type);
+                break;
+            case 2:
+                addEquipments(Index_Team, Type);
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+        }
+
+    }
+
+    public int showAvailableEquipments() {
+        Equipment[] EquipmentsF = (Equipment[]) this.Teams.getEquipments();
+        int i;
+        for (i = 0; i < EquipmentsF.length; i++) {
+            System.out.println(i + 1 + " - " + EquipmentsF[i].getName());
+        }
+        return i;
+    }
+
+    public void addEquipments(int Index_Team,int Type) throws ConstructionSiteException, ConstructionSiteManagerException {
+        Scanner Read = new Scanner(System.in);
+        int Choice;
+        int Index_Equipment, Equipment_Size;
+        do{
+        System.out.println("========== LISTA DE EQUIPAMENTOS ==========");
+        Equipment_Size = showAvailableEquipments();
+        System.out.println("0 - VOLTAR AO MENU ANTERIOR");
+        System.out.println("===========================================");
+        System.out.println("OPÇÃO: ");
+        Choice = Read.nextInt();
+        }while(Choice < 0 || Choice > Equipment_Size);
+        switch(Choice){
+            case 0:
+                TeamsMenu();
+                break;
+        }
+        Equipment[] eqpmnt = this.ListOfEquipments.getEquipment();
+        Index_Equipment = Choice - 1;
+        if (Type == 1) {
+            this.Constructions.ConstructionSites[Index_Team].addEquipments(eqpmnt[Index_Equipment]);
+        }else if (Type == 2){
+            this.Teams.setEquipments(Index_Team, eqpmnt[Index_Equipment]);
+        }
+        
+    }
+
+    public void setLeader(int Index, int Type) throws ConstructionSiteManagerException, TeamException, ConstructionSiteException {
+        Scanner Read = new Scanner(System.in);
+        int Choice;
+        EmployeeClass[] Leaders = (EmployeeClass[]) this.Employees.getEmployees(EmployeeType.TEAM_LEADER);
+        do {
+            System.out.println("========== LISTA DE LIDERES ==========");
+            showAllLeaders();
+            System.out.println("0 - VOLTAR AO MENU ANTERIOR");
+            System.out.println("======================================");
+            System.out.println("OPÇÃO: ");
+            Choice = Read.nextInt();
+        } while (Choice < 0 || Choice < Leaders.length);
+        switch (Choice) {
+            case 0:
+                TeamsMenu();
+                break;
+        }
+        if (Type == 1) {
+            this.Constructions.ConstructionSites[Index].setResponsible(Leaders[Choice - 1]);
+        } else if (Type == 2) {
+            this.Teams.setLeader(Leaders[Choice - 1], Index);
+
+        }
+    }
+
+    public void showAllLeaders() {
+
+        EmployeeClass[] Leaders;
+        Leaders = (EmployeeClass[]) this.Employees.getEmployees(EmployeeType.TEAM_LEADER);
+        for (int i = 0; i < Leaders.length; i++) {
+            System.out.println(i + 1 + " - " + Leaders[i].getName());
+        }
+    }
+
+    public int[] showAllTeams() {
+
+        TeamClass[] TeamInCs = (TeamClass[]) this.Constructions.getAllTeams();
+        TeamClass[] TeamF = this.Teams.getTeams();
+        int x = 0;
+        int i;
+        for (i = 0; i < TeamInCs.length; i++) {
+            System.out.println(i + 1 + " - " + TeamInCs[i].getName());
+        }
+        for (i = i; i < TeamF.length; i++) {
+            System.out.println(i + 1 + " - " + TeamF[x].getName());
+            x++;
+        }
+        int[] sizeTeams = new int[3];
+
+        sizeTeams[0] = TeamInCs.length;
+        sizeTeams[1] = TeamF.length;
+        sizeTeams[2] = TeamInCs.length + TeamF.length;
+
+        return sizeTeams;
+
+    }
+
+    public void createNewTeam() {
+        String TempName;
+        Scanner Read = new Scanner(System.in);
+        System.out.println("NOME: ");
+        TempName = Read.next();
+        TeamClass team = new TeamClass(TempName);
+        this.Teams.add(team);
+    }
+
+    public void showActiveTeams() {
+        TeamClass[] Teamso = (TeamClass[]) this.Constructions.getWorkingTeams();
+        for (int i = 0; i < Teamso.length; i++) {
+            System.out.println(Teamso[i].getName());
+        }
+    }
+
+    public void showInativeTeams() {
+        int i = 0;
+        TeamClass[] Teamso = (TeamClass[]) this.Constructions.getIddleTeams();
+        for (i = 0; i < Teamso.length; i++) {
+            System.out.println(Teamso[i].getName() + " - EM UMA CONSTRUÇÃO INATIVA!");
+        }
+        TeamClass[] Teamsu = this.Teams.getTeams();
+        for (i = i; i < this.Teams.NumberOfTeams; i++) {
+            System.out.println(Teamsu[i].getName() + " - DISPONIVEL!");
+        }
+
     }
 
     public void ConstructionMenu() throws ConstructionSiteManagerException {
@@ -221,6 +416,8 @@ public class MenosClass {
 
         }
     }
+
+    /*
       public void CreateAccident() throws ConstructionSiteManagerException {
         String TempDetails, TempNotificacion, TempTitel;
         Employee TempEmployee, TempReporter;
@@ -303,8 +500,9 @@ public class MenosClass {
                 }
         
         
-        Events.reportEvent(AccidentClass(TempEmployee, TempDetails, TempNotificacion,TempPriority, TempTitel, TempReporter));
+        Events.reportEvent(TempEmployee, TempDetails, TempNotificacion,TempPriority, TempTitel, TempReporter);
     }
+     */
     public void CreateConstructionSite() throws ConstructionSiteManagerException {
         try {
             String TempName, TempLocation, TempPermit, TempDate;
@@ -327,6 +525,7 @@ public class MenosClass {
             System.out.println(o.getMessage());
             ConstructionMenu();
         }
+
     }
 
     public void RemoveConstructionMenu() throws ConstructionSiteManagerException {
@@ -497,7 +696,7 @@ public class MenosClass {
             System.out.println("OPÇÃO: ");
             Choice = Read.nextInt();
         } while (Choice < 0 || Choice > this.Constructions.ConstructionSites[Index].getEquipments().getEquipment().length);
-        switch(Choice){
+        switch (Choice) {
             case 0:
                 EquipmentsMenuCs(Index);
         }

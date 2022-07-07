@@ -25,13 +25,30 @@ public class EmployeeManagerClass {
         NumberOfEmployees++;
         this.ListOfEmployees = FakeArray;
     }
-    
-    
-    public Employee[] getEmployees(){
+
+    public Employee[] getEmployees() {
         return this.ListOfEmployees;
     }
-    
-    public Employee[] getManagers() {
+
+    public Employee[] getEmployees(EmployeeType type) {
+
+        Employee[] ListManager = new Employee[this.NumberOfEmployees];
+        int k = 0;
+        for (int i = 0; i < this.NumberOfEmployees; i++) {
+            if (this.ListOfEmployees[i].getType() == type) {
+                ListManager[k] = this.ListOfEmployees[i];
+                k++;
+            }
+        }
+        Employee[] FinalManagerList = new Employee[k + 1];
+        for (int i = 0; i < k + 1; i++) {
+            FinalManagerList[i] = ListManager[i];
+        }
+        return FinalManagerList;
+
+    }
+
+public Employee[] getManagers() {
         Employee[] ListManager = new Employee[this.NumberOfEmployees];
         int k = 0;
         for (int i = 0; i < this.NumberOfEmployees; i++) {

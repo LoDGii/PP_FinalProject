@@ -4,7 +4,12 @@
  */
 package pp_finalproject;
 
+import estgconstroi.Employee;
+import estgconstroi.Equipment;
+import estgconstroi.Equipments;
 import estgconstroi.Team;
+import estgconstroi.exceptions.ConstructionSiteException;
+import estgconstroi.exceptions.TeamException;
 
 /**
  *
@@ -25,6 +30,17 @@ public class TeamManagerClass {
         this.Teams = FakeArray;
     }
     
+    public void setEquipments(int Index, Equipment eqpmnt) throws ConstructionSiteException{
+        this.Teams[Index].addEquipments(eqpmnt);
+    }
+    public Equipments[] getEquipments(){
+        Equipments[] FakeArray = new Equipments[this.NumberOfTeams];
+        for(int i = 0;i < FakeArray.length;i++){
+            FakeArray[i] = this.Teams[i].getEquipments();            
+        }
+        return FakeArray;
+    }
+
     public void remove(int Remove_Index){
         TeamClass[] FakeArray = new TeamClass[this.NumberOfTeams - 1];
         int k = 0;
@@ -34,6 +50,10 @@ public class TeamManagerClass {
                 k++;
             }
         }
+    }
+    
+    public void setLeader(Employee emp, int Index) throws TeamException{
+        this.Teams[Index].setLeader(emp);
     }
     
     public TeamClass[] getTeams(){

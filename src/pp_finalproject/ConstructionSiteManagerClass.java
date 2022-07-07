@@ -63,6 +63,22 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
         return FakeArray;
 
     }
+    public Equipment[] getAllEquipments(){
+        Equipments[] FakeArray = new Equipments[this.NumberOfConstructions];
+        FakeArray[0] = this.ConstructionSites[0].getEquipments(); //aqui tinha um bug, estava a usar i e quero 0       
+        for (int i = 1; i < this.NumberOfConstructions; i++) {
+            FakeArray[i] = this.ConstructionSites[i].getEquipments();
+        }
+        return (Equipment[]) FakeArray;
+    }
+    public Team[] getAllTeams() {
+        Team[] FakeArray = new Team[this.NumberOfConstructions];
+        FakeArray = this.ConstructionSites[0].getTeams(); //aqui tinha um bug, estava a usar i e quero 0       
+        for (int i = 1; i < this.NumberOfConstructions; i++) {
+            FakeArray = this.ConstructionSites[i].getTeams();
+        }
+        return FakeArray;
+    }
 
     @Override
     public Equipment[] getEquipmentsInUse() {
@@ -190,9 +206,9 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
     public ConstructionSiteClass[] getConstructionSites() {
         return this.ConstructionSites;
     }
-    public int getNumberOfConstructionSites(){
+
+    public int getNumberOfConstructionSites() {
         return this.NumberOfConstructions;
     }
-    
 
 }

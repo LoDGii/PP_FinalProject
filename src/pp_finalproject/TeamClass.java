@@ -5,9 +5,11 @@
 package pp_finalproject;
 
 import estgconstroi.Employee;
+import estgconstroi.Equipment;
 import estgconstroi.Equipments;
 import estgconstroi.Team;
 import estgconstroi.enums.EmployeeType;
+import estgconstroi.exceptions.ConstructionSiteException;
 import estgconstroi.exceptions.TeamException;
 
 /**
@@ -22,16 +24,14 @@ public class TeamClass implements Team{
       private Equipments equipment;
       
       
-      public TeamClass(String name, Employee leader, Equipments equipments){
+      public TeamClass(String name){
           this.name = name;
-          this.leader = leader;
-          this.equipment = equipments;
           this.numberEmployees = 0;
           this.employee = new EmployeeClass[10];
       }
       
       
-      
+
     @Override
     public String getName() {
         String copy = this.name;
@@ -185,5 +185,7 @@ public class TeamClass implements Team{
         Equipments copy = this.equipment;
         return copy;
     }
-    
+    public void addEquipments(Equipment eqpmnt) throws ConstructionSiteException{
+        this.equipment.addEquipment(eqpmnt);
+    }
 }
