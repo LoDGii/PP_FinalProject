@@ -45,6 +45,7 @@ public class MenosClass {
                     ConstructionMenu();
                     break;
                 case 2:
+                    EventMenu();
                     break;
                 case 3:
                     break;
@@ -132,6 +133,92 @@ public class MenosClass {
         }
     }
 
+    public void EventMenu() {
+        Scanner Read = new Scanner(System.in);
+            int choice;
+            do {
+                System.out.println("========== MENU EVENT ====================");
+                System.out.println("1 - REPORTAR EVENTO");
+                System.out.println("2 - OBTER EVENTOS POR PRIORIDADE");
+                System.out.println("3 - OBTER EVENTOS POR TIPO");
+                System.out.println("4 - OBTER EVENTOS POR DATA");
+                System.out.println("5 - OBTER EVENTOS NUM INTERVALO DE DATAS");
+                System.out.println("6 - REMOVER EVENTO");
+                System.out.println("7 - REMOVER TODOS OS EVENTOS");
+                System.out.println("8 - APAGAR EVENTOS QUE ESTÃO NA BASE DE DADOS");
+                System.out.println("9 - RECEBER EVENTOS DA BASE DE DADOS");
+                System.out.println("0 - SAIR");
+                System.out.println("=============================================");
+                System.out.println("Escolha: ");
+                choice = Read.nextInt();
+            } while (choice < 0 || choice > 9);
+            switch (choice) {
+                case 0:
+                    EventMenu();
+                    break;
+                case 1:
+                    
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    
+                    break;
+                case 4:
+                    
+                    break;
+                case 5:
+                    
+                    break;
+                case 6:
+                    
+                    break;
+                case 7:
+                    
+                    break;
+                case 8:
+                    
+                    break;
+                case 9:
+                    
+                    break;
+                    
+            }
+            
+    }
+    
+    public void TypeEventMenu() {
+        Scanner Read = new Scanner(System.in);
+        int choice;
+        do {
+                System.out.println("========== MENU TYPE EVENT ====================");
+                System.out.println("ESCOLHA O TIPO DE EVENTO:");
+                System.out.println("1 - ACCIDENT");
+                System.out.println("2 - FAILURE");
+                System.out.println("3 - INCIDENT");
+                System.out.println("0 - SAIR");
+                System.out.println("=============================================");
+                System.out.println("Escolha: ");
+                choice = Read.nextInt();
+            } while (choice < 0 || choice > 3);
+        switch (choice) {
+                case 0:
+                    TypeEventMenu();
+                    break;
+                case 1:
+                    
+                    break;
+                case 2:
+                    
+                    break;
+                case 3:
+                    
+                    break;
+                    
+            }
+    }
+    
+    
     public void CreateConstructionSite() throws ConstructionSiteManagerException {
         try {
             String TempName, TempLocation, TempPermit, TempDate;
