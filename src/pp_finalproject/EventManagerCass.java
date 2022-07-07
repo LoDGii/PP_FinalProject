@@ -60,6 +60,10 @@ public class EventManagerCass implements EventManager {
         }
     }
 
+    public int getnumberEvents(){
+        return this.numberEvents;
+    }
+    
     @Override
     public void addNotifier(Notifier ntfr) throws EventManagerException {
         try {
