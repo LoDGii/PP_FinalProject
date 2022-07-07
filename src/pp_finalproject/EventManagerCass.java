@@ -6,17 +6,22 @@ package pp_finalproject;
 
 import estgconstroi.Event;
 import estgconstroi.EventManager;
+import estgconstroi.InsuranceReporter;
 import estgconstroi.Notifier;
 import estgconstroi.enums.EventPriority;
 import estgconstroi.exceptions.EventManagerException;
+import java.io.IOException;
 import java.time.LocalDate;
+import org.json.simple.JSONObject;
 
 /**
  *
  * @author Utilizador
  */
 public class EventManagerCass implements EventManager {
-
+    private static String GROUPNAME = "Grupo23";
+    private static String GROUPKEY = "biboc236-6022-cola-port-besseki0brad";
+    
     private NotifierClass[] notifie;
     private Event[] event;
     private int numberNotifies;
@@ -227,4 +232,43 @@ public class EventManagerCass implements EventManager {
         return array;
     }
 
+    public static void eventToJson(Event event) throws IOException {
+        JSONObject eventToJson = new JSONObject();
+        eventToJson.put("uuid", event.getUuid());
+        eventToJson.put("data", event.getDate());
+        eventToJson.put("priority", event.getPriority());
+        if (event instanceof AccidentClass) {
+            eventToJson.put("eventtype", "Accident");
+            eventToJson.put("employeename", ((AccidentClass) event).getEmployee().getName());
+        } else if (event instanceof IncidentClass) {
+            eventToJson.put("eventtype", "Incident");
+        } else if (event instanceof FailureClass) {
+            eventToJson.put("eventtype", "Failure");
+        }
+        eventToJson.put("title", event.getTitle());
+        eventToJson.put("constructionsitename", event.getConstructionSite().getName());
+        eventToJson.put("details", event.getDetails());
+        if (event instanceof AccidentClass) {
+            eventToJson.put("employeename", ((AccidentClass) event).getEmployee().getName());
+        } else if (event instanceof FailureClass) {
+            eventToJson.put("equipment", ((FailureClass) event).getEquipment().getName());
+
+            JSONObject finalProduct = new JSONObject();
+            finalProduct.put("groupname", GROUPNAME);
+            finalProduct.put("groupkey", GROUPKEY);
+            finalProduct.put("event", eventToJson);
+
+            try {
+                InsuranceReporter.addEvent(finalProduct.toString());
+            } catch (Exception e) {
+                throw new IOException(e.getMessage());
+            }
+
+            
+        }
+       
+    }
+
 }
+
+
