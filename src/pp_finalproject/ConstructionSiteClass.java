@@ -25,7 +25,7 @@ public class ConstructionSiteClass implements ConstructionSite {
     private LocalDate Start_Date;
     private EmployeeClass Responsible;
     private TeamClass[] Teams;
-    private EquipmentClass[] Equipment;
+    private EquipmentsClass Equipment;
     private int NumberOfTeams;
     private int NumberOfEquipments;
     private LocalDate Permit_Expiration;
@@ -197,12 +197,8 @@ public class ConstructionSiteClass implements ConstructionSite {
 
     @Override
     public Equipments getEquipments() {
-        Equipments[] ListOfEquipments = new Equipments[this.NumberOfEquipments];
-        for (int i = 0; i < this.NumberOfEquipments; i++) {
-            ListOfEquipments[i] = (Equipments) this.Equipment[i];
-        }
-        //return ListOfEquipments;
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       return this.Equipment;
+        
     }
 
     @Override

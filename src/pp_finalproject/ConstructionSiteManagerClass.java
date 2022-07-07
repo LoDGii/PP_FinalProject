@@ -7,7 +7,9 @@ package pp_finalproject;
 import estgconstroi.ConstructionSite;
 import estgconstroi.ConstructionSiteManager;
 import estgconstroi.Equipment;
+import estgconstroi.Equipments;
 import estgconstroi.Team;
+import estgconstroi.enums.EquipmentStatus;
 import estgconstroi.exceptions.ConstructionSiteManagerException;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -23,16 +25,17 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
 
     @Override
     public void add(ConstructionSite cs) throws ConstructionSiteManagerException {
-        try{
-        ConstructionSiteClass[] FakeArray = new ConstructionSiteClass[this.NumberOfConstructions + 1];
-        for (int i = 0; i < this.NumberOfConstructions; i++) {
-            FakeArray[i] = this.ConstructionSites[i];
+        try {
+            ConstructionSiteClass[] FakeArray = new ConstructionSiteClass[this.NumberOfConstructions + 1];
+            for (int i = 0; i < this.NumberOfConstructions; i++) {
+                FakeArray[i] = this.ConstructionSites[i];
+            }
+            FakeArray[this.NumberOfConstructions] = (ConstructionSiteClass) cs;
+            this.ConstructionSites = FakeArray;
+            this.NumberOfConstructions++;
+        } catch (Exception o) {
+            System.out.println(o.getMessage());
         }
-        FakeArray[this.NumberOfConstructions] = (ConstructionSiteClass) cs;
-        this.ConstructionSites = FakeArray;
-        this.NumberOfConstructions++;
-        }catch(Exception o){
-           System.out.println(o.getMessage());        }
     }
 
     @Override
@@ -63,12 +66,57 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
 
     @Override
     public Equipment[] getEquipmentsInUse() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                Equipment[] AllEquipments;
+        int NumberOfEquipments = 0;
+        int k = 0;
+        for(int i = 0;i < this.NumberOfConstructions;i++){
+            NumberOfEquipments += this.ConstructionSites[i].getEquipments().getEquipment().length;
+            
+        }
+        Equipment[] IddleEquipments = new Equipment[NumberOfEquipments];
+        int Index = 0;
+        for(int i = 0;i < this.NumberOfConstructions;i++){
+            AllEquipments = this.ConstructionSites[i].getEquipments().getEquipment();
+            for(k = 0;k < AllEquipments.length;k++){
+                if(AllEquipments[k].getStatus() == EquipmentStatus.OPERATIVE){
+                    IddleEquipments[Index] = AllEquipments[k];
+                }
+            }
+        }
+        Equipment[] FinalArray = new Equipment[k - 1];
+        for(int i = 0;i < k;i++){
+            FinalArray[i] = IddleEquipments[i];
+        }
+        return FinalArray;
+        
     }
+    
 
     @Override
     public Equipment[] getIddleEquipments() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Equipment[] AllEquipments;
+        int NumberOfEquipments = 0;
+        int k = 0;
+        for(int i = 0;i < this.NumberOfConstructions;i++){
+            NumberOfEquipments += this.ConstructionSites[i].getEquipments().getEquipment().length;
+            
+        }
+        Equipment[] IddleEquipments = new Equipment[NumberOfEquipments];
+        int Index = 0;
+        for(int i = 0;i < this.NumberOfConstructions;i++){
+            AllEquipments = this.ConstructionSites[i].getEquipments().getEquipment();
+            for(k = 0;k < AllEquipments.length;k++){
+                if(AllEquipments[k].getStatus() == EquipmentStatus.INOPERATIVE || AllEquipments[k].getStatus() == EquipmentStatus.MAINTENANCE){
+                    IddleEquipments[Index] = AllEquipments[k];
+                }
+            }
+        }
+        Equipment[] FinalArray = new Equipment[k - 1];
+        for(int i = 0;i < k;i++){
+            FinalArray[i] = IddleEquipments[i];
+        }
+        return FinalArray;
+        
     }
 
     @Override
@@ -127,6 +175,17 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
                 System.out.println(this.ConstructionSites[i].toString());
             }
         }
+    }
+
+    public int[] getNumberOfEquipments() {
+        int[] NumberOfEquipments = new int[this.NumberOfConstructions];
+        
+        Equipment[] FakeArray;
+        for (int i = 0; i < this.NumberOfConstructions; i++) {
+            FakeArray = this.ConstructionSites[i].getEquipments().getEquipment();
+            NumberOfEquipments [i] = FakeArray.length;
+        }
+        return NumberOfEquipments;
     }
 
 }
