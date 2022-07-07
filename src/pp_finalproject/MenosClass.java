@@ -245,8 +245,39 @@ public class MenosClass {
                 System.out.println("================================================================");
                 EditConstructions();
             case 2:
-                break;
-
+                TeamClass[] ListOfTeams = this.Teams.getTeams();
+                do {
+                    System.out.println("========== LISTA DE EQUIPAS NÃO ASSOCIADAS ==========");
+                    for (int i = 0; i < ListOfTeams.length; i++) {
+                        System.out.println(i + 1 + " - " + ListOfTeams[i]);
+                    }
+                    Choice = Read.nextInt();
+                } while (Choice < 0 || Choice > ListOfTeams.length);
+                switch (Choice) {
+                    case 0:
+                        EditConstructions();
+                }
+                this.Constructions.ConstructionSites[Index].addTeam(ListOfTeams[Choice - 1]);
+                this.Teams.remove(Choice - 1);
+            case 3:
+                Team[] TeamsC = this.Constructions.ConstructionSites[Index].getTeams();
+                do{
+                System.out.println("========== LISTA DE EQUIPAS ALOCADAS NESTA CONSTRUÇÃO ==========");
+                for (int i = 0; i < TeamsC.length; i++) {
+                    System.out.println(i + 1 + " - " + TeamsC[i].getName());
+                }
+                System.out.println("0 - VOLTAR AO MENU ANTERIOR");
+                System.out.println("================================================================");
+                Choice = Read.nextInt();
+                }while(Choice < 0 || Choice > TeamsC.length);
+                switch(Choice){
+                    case 0:
+                        EditConstructions();
+                }
+                this.Constructions.ConstructionSites[Index].removeTeam(TeamsC[Choice - 1]);
+                this.Teams.add(TeamsC[Choice - 1]);
+                EditConstructions();
+                
         }
     }
 
