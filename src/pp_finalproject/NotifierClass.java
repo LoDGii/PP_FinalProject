@@ -7,6 +7,9 @@ package pp_finalproject;
 import estgconstroi.Event;
 import estgconstroi.Notifier;
 
+
+
+
 public class NotifierClass implements Notifier{
 
     private Event event;
@@ -19,9 +22,13 @@ public class NotifierClass implements Notifier{
     @Override
     public boolean notify(Event event) {
         System.out.println("Mensagem: " + this.event.getTitle());
+        System.out.println("Data: " + this.event.getDate());
         System.out.println("Prioridade: " + this.event.getPriority().toString());
         System.out.println("Criador do evento: " + this.event.getReporter().getName());
                 return true;
     }
+    
+    
+
     
 }

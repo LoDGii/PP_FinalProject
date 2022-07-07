@@ -14,24 +14,26 @@ import estgconstroi.enums.EventPriority;
  *
  * @author Utilizador
  */
-public class IncidentClass extends Event implements Incident{
+public class IncidentClass extends Event implements Incident {
+
     private String details;
     private String notificationMessage;
 
-        public IncidentClass(ConstructionSite TempConstructionSite, String TempDetails, String TempNotificationMessage, EventPriority TempPriority, String TempTitle, Employee TempReporter){
-            super(TempPriority, TempTitle, TempReporter, TempConstructionSite);
-            this.details = TempDetails;
-            this.notificationMessage = TempNotificationMessage;
-            
-        }
-        
+    public IncidentClass(ConstructionSite TempConstructionSite, String TempDetails, String TempNotificationMessage, EventPriority TempPriority, String TempTitle, Employee TempReporter) {
+        super(TempPriority, TempTitle, TempReporter, TempConstructionSite);
+        this.details = TempDetails;
+        this.notificationMessage = TempNotificationMessage;
+
+    }
+
     @Override
     public String getDetails() {
         return this.details;
     }
+
     @Override
     public String getNotificationMessage() {
         return this.notificationMessage;
     }
-    
+
 }
