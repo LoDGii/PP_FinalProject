@@ -37,7 +37,7 @@ public class MenosClass {
                 System.out.println("====================================");
                 System.out.println("Escolha: ");
                 choice = Read.nextInt();
-            } while (choice < 0 || choice > 2);
+            } while (choice < 0 || choice > 4);
             switch (choice) {
                 case 0:
                     break;
@@ -49,6 +49,7 @@ public class MenosClass {
                 case 3:
                     break;
                 case 4:
+                    TeamsMenu();
                     break;
 
             }
@@ -60,6 +61,39 @@ public class MenosClass {
 
     }
 
+    public void TeamsMenu() throws ConstructionSiteManagerException{
+        Scanner Read = new Scanner(System.in);
+            int choice;
+            do {
+                System.out.println("========== MENU DE TEAMS ==========");
+                System.out.println("1 - CRIAR NOVA TEAM");
+                System.out.println("2 - LISTAR TODAS AS TEAMS");
+                System.out.println("3 - LISTAR TEAMS DISPONIVEIS");
+                System.out.println("4 - LISTAR TEAMS A TRABALHAR");
+                System.out.println("0 - VOLTAR AO MENU PRINCIPAL");
+                System.out.println("==========================================");
+                choice = Read.nextInt();
+            } while (choice < 0 || choice > 4);
+            switch (choice) {
+                case 0:
+                    PrincipalMenu();
+                    break;
+                case 1:
+                    
+                    break;
+                case 2:
+                    System.out.println("========== LISTA DE EQUIPAS ==========");
+                    break;
+                case 3:
+                    
+                    break;
+                case 4:
+                    
+                    break;
+            }
+    }
+    
+    
     public void ConstructionMenu() throws ConstructionSiteManagerException {
         try {
             Scanner Read = new Scanner(System.in);
@@ -295,7 +329,7 @@ public class MenosClass {
                 this.Teams.add(TeamsC[Choice - 1]);
                 EditConstructions();
                
-                
+           
         }
     }
 
