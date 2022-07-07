@@ -356,7 +356,19 @@ public class MenosClass {
         }
 
     }
-//COMENTARIO BUE CENAS
+    /*
+    public void EquipmentsMenuCs(int Index){
+        Scanner Read = new Scanner(System.in);
+        do{
+        System.out.println("========= MENU DE EQUIPAMENTOS ==========");
+        System.out.println("1 - LISTA DE EQUIPAMENTOS DESTA CONSTRUÇÃO");
+        System.out.println("2 - ADICIONAR EQUIPAMENTOS");
+        System.out.println("3 - REMOVER EQUIPAMENTOS");
+        System.out.println("0 - MENU ANTERIOR");
+        System.out.println("==========================================");
+        }while();
+    }
+*/
     public void TeamMenu(int Index) throws ConstructionSiteManagerException, ConstructionSiteException {
         Scanner Read = new Scanner(System.in);
         ConstructionSiteClass[] ConstructionSites = this.Constructions.getConstructionSites();
