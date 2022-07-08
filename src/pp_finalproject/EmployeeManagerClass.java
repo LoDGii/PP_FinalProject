@@ -20,7 +20,16 @@ public class EmployeeManagerClass {
         return this.NumberOfEmployees;
     }
     
-    public void add(Employee emp) {
+    
+    public EmployeeStatus getEmployeeStatus(int Index){
+        return this.ListOfEmployees[Index].getStatus();
+    }
+    
+    public void setEmployeeStatus(int Index, EmployeeStatus stat){
+        this.ListOfEmployees[Index].setStatus(stat);
+    }
+    
+    public void add(EmployeeClass emp) {
         EmployeeClass[] FakeArray = (EmployeeClass[]) new Employee[this.NumberOfEmployees + 1];
         for (int i = 0; i < this.NumberOfEmployees; i++) {
             FakeArray[i] = this.ListOfEmployees[i];
@@ -32,13 +41,13 @@ public class EmployeeManagerClass {
     public void setName(String TempName, int Index){
         this.ListOfEmployees[Index].setName(TempName);
     }
-    public Employee[] getEmployees() {
+    public EmployeeClass[] getEmployees() {
         EmployeeClass[] FakeArray = (EmployeeClass[]) new Employee[this.NumberOfEmployees];
         System.arraycopy(this.ListOfEmployees, 0, FakeArray, 0, this.NumberOfEmployees);
         return FakeArray;
     }
 
-    public Employee[] getEmployees(EmployeeType type) {
+    public EmployeeClass[] getEmployees(EmployeeType type) {
 
         EmployeeClass[] ListManager = (EmployeeClass[]) new Employee[this.NumberOfEmployees];
         int k = 0;
@@ -61,7 +70,27 @@ public class EmployeeManagerClass {
     }
     
     
-public Employee[] getManagers() {
+    public void setTeam(int Index, TeamClass tm){
+        this.ListOfEmployees[Index].setTeam(tm);
+    }
+
+    public EmployeeClass getEmployee(int Index){
+        return this.ListOfEmployees[Index];
+    }
+    
+    public int getEmployee(Employee emp){
+        int index = 0;
+        for(int i = 0;i < this.NumberOfEmployees;i++){
+            if(this.ListOfEmployees[i].getName().contentEquals(emp.getName()) == true){
+                index = i;
+            }
+        }
+        return index;
+    }
+        
+    
+    
+public EmployeeClass[] getManagers() {
         EmployeeClass[] ListManager = (EmployeeClass[]) new Employee[this.NumberOfEmployees];
         int k = 0;
         for (int i = 0; i < this.NumberOfEmployees; i++) {

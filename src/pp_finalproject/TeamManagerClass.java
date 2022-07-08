@@ -30,6 +30,19 @@ public class TeamManagerClass {
         this.Teams = FakeArray;
     }
     
+    public void addEmployee(EmployeeClass emp, int Index) throws TeamException{
+        this.Teams[Index].addEmployees(emp);
+    }
+    
+    
+    public void setName(int Index_Team, String TempName){
+        this.Teams[Index_Team].setName(TempName);
+    }
+    
+    public void removeEmployee(int Index_Team,Employee emp) throws TeamException{
+        this.Teams[Index_Team].removeEmployee(emp);
+    }
+    
     public void setEquipments(int Index, Equipment eqpmnt) throws ConstructionSiteException{
         this.Teams[Index].addEquipments(eqpmnt);
     }
@@ -39,6 +52,11 @@ public class TeamManagerClass {
             FakeArray[i] = this.Teams[i].getEquipments();            
         }
         return FakeArray;
+    }
+    
+    
+    public TeamStatus getStatus(int Index){
+        return this.Teams[Index].getStatus();
     }
 
     public void remove(int Remove_Index){
@@ -59,4 +77,7 @@ public class TeamManagerClass {
     public TeamClass[] getTeams(){
         return this.Teams;
     }
+    
+    
+    
 }

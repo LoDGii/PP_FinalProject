@@ -59,7 +59,7 @@ public class MenosClass {
                     EventMenu();
                     break;
                 case 3:
-                    //TeamsMenu();
+                    TeamsMenu();
                     break;
                 case 4:
                     EmployeesMenu();
@@ -72,6 +72,241 @@ public class MenosClass {
 
         }
 
+    }
+
+    public void TeamsMenu() throws ConstructionSiteManagerException, ConstructionSiteException {
+        Scanner Read = new Scanner(System.in);
+        int choice;
+        do {
+            System.out.println("========== MENU DE EQUIPAS ==========");
+            System.out.println("1 - CRIAR NOVA EQUIPA");
+            System.out.println("2 - LISTAR EQUIPAS INATIVAS");
+            System.out.println("3 - LISTAR EQUIPAS EM ATIVIDADE");
+            System.out.println("4 - EDITAR EQUIPA");
+            System.out.println("0 - VOLTAR AO MENU PRINCIPAL");
+            System.out.println("==========================================");
+            choice = Read.nextInt();
+        } while (choice < 0 || choice > 4);
+        switch (choice) {
+            case 0:
+                PrincipalMenu();
+                break;
+            case 1:
+                createNewTeam();
+                TeamsMenu();
+                break;
+            case 2:
+                System.out.println("========== LISTA DE EQUIPAS INATIVAS ==========");
+                showTeamsByStatus(TeamStatus.INACTIVE);
+                System.out.println("===============================================");
+                PrincipalMenu();
+                break;
+            case 3:
+                System.out.println("========== LISTA DE EQUIPAS ATIVAS ==========");
+                showTeamsByStatus(TeamStatus.WORKING);
+                System.out.println("===============================================");
+                PrincipalMenu();
+                break;
+            case 4:
+                editTeam();
+                break;
+        }
+    }
+
+    public void editTeam() throws ConstructionSiteManagerException, ConstructionSiteException {
+        Scanner Read = new Scanner(System.in);
+        int Choice;
+        int Index_Team = 0;
+        int NumberOfTeams = this.Teams.NumberOfTeams;
+        do {
+            System.out.println("========== LISTA DE EQUIPAS ==========");
+            showAllTeams();
+            System.out.println("0 - VOLTAR AO MENU ANTERIOR");
+            Choice = Read.nextInt();
+        } while (Choice < 0 || Choice > NumberOfTeams);
+        switch (Choice) {
+            case 0:
+                TeamsMenu();
+                break;
+        }
+        Index_Team = Choice;
+        Index_Team--;
+        do {
+            System.out.println("========== EDITAR EQUIPA ==========");
+            System.out.println("1 - DEFINIR LIDER");//Done
+            System.out.println("2 - ADICIONAR EQUIPAMENTOS");
+            System.out.println("3 - ALTERAR NOME");
+            System.out.println("4 - ADICIONAR FUNCIONÁRIOS");//Done
+            System.out.println("5 - REMOVER FUNCIONÁRIOS");//Done
+            System.out.println("0 - VOLTAR PARA O MENU ANTERIOR");//Done
+            System.out.println("===================================");
+            System.out.println("OPÇÃO: ");
+            Choice = Read.nextInt();
+        } while (Choice < 0 || Choice > 5);
+        switch (Choice) {
+            case 0:
+                TeamsMenu();
+                break;
+            case 1:
+                setLeader(Index_Team);
+                break;
+            case 2:
+                //addEquipments(Index_Team, Type);
+                break;
+            case 3:
+                changeTeamName(Index_Team);
+                break;
+            case 4:
+                addEmployee(Index_Team);
+                break;
+            case 5:
+                removeEmployee(Index_Team);
+                break;
+        }
+
+    }
+
+    public void changeTeamName(int Index) throws ConstructionSiteManagerException, ConstructionSiteException{
+        Scanner Read = new Scanner(System.in);
+        String TempName;
+        System.out.println("NOME: ");
+        TempName = Read.next();
+        this.Teams.setName(Index, TempName);
+        editTeam();
+    }
+    
+    
+    public void removeEmployee(int Index) throws ConstructionSiteManagerException, ConstructionSiteException {
+        Scanner Read = new Scanner(System.in);
+        int Choice, Index_Emp;
+        TeamClass[] teams = this.Teams.getTeams();
+        TeamClass team = teams[Index];
+        Employee[] employees =  team.getEmployees();
+        do{
+        for(int i = 0;i < employees.length;i++){
+            System.out.println(i + 1 + " - " + employees[i].getName());
+        }
+        System.out.println("0 - VOLTAR AO MENU ANTERIOR");
+        System.out.println("==============================================");
+        System.out.println("OPÇÃO: ");
+        Choice = Read.nextInt();
+        }while(Choice < 0 || Choice > employees.length);
+        switch(Choice){
+            case 0:
+                editTeam();
+                break;
+        }
+        this.Teams.removeEmployee(Index, employees[Choice - 1]);
+        Index_Emp = this.Employees.getEmployee(employees[Choice - 1]);
+        this.Employees.setEmployeeStatus(Index_Emp, EmployeeStatus.FREE);
+    }
+
+    public void addEmployee(int Index) throws ConstructionSiteManagerException, ConstructionSiteException {
+        Scanner Read = new Scanner(System.in);
+        int Choice;
+        int[] Index_Employees;
+        do {
+            Index_Employees = showEmployeesByStatus(EmployeeStatus.FREE);
+            System.out.println("0 - VOLTAR AO MENU ANTERIOR");
+            System.out.println("===========================================");
+            Choice = Read.nextInt();
+        } while (Choice < 0 || Choice > Index_Employees.length);
+        switch (Choice) {
+            case 0:
+                editTeam();
+                break;
+        }
+        EmployeeClass[] emp = this.Employees.getEmployees();
+        TeamClass[] teams = this.Teams.getTeams();
+        this.Employees.setTeam(Index_Employees[Choice - 1], teams[Index]);
+        this.Employees.setEmployeeStatus(Index_Employees[Choice - 1], EmployeeStatus.WORKING);
+        this.Teams.addEmployee(emp[Index_Employees[Choice - 1]], Index);
+    }
+
+    public int[] showEmployeesByStatus(EmployeeStatus stat) {
+        EmployeeClass[] emp = this.Employees.getEmployees();
+        int[] Index = new int[emp.length];
+        int k = 0;
+        System.out.println("========== LISTA DE FUNCIONÁRIOS ==========");
+        for (int i = 0; i < emp.length; i++) {
+            if (emp[i].getStatus() == stat) {
+                System.out.println(k + 1 + " - " + emp[i].getName());
+                Index[k] = i;
+                k++;
+            }
+        }
+
+        int[] FakeArray = new int[k];
+        System.arraycopy(Index, 0, FakeArray, 0, k);
+        return FakeArray;
+    }
+
+    public void setLeader(int Index) throws ConstructionSiteManagerException, TeamException, ConstructionSiteException {
+        int[] Index_Teams;
+        Scanner Read = new Scanner(System.in);
+        int Choice;
+        do {
+            System.out.println("========== LISTA DE LIDERES ==========");
+            Index_Teams = showTeamsByType(EmployeeType.TEAM_LEADER);
+            System.out.println("0 - VOLTAR ATRÁS");
+            System.out.println("======================================");
+            System.out.println("OPÇÃO: ");
+            Choice = Read.nextInt();
+        } while (Choice < 0 || Choice > Index_Teams.length);
+        switch (Choice) {
+            case 0:
+                TeamsMenu();
+                break;
+            default:
+                EmployeeClass emp = this.Employees.getEmployee(Index);
+                this.Teams.setLeader(emp, Index);
+        }
+    }
+
+    public int[] showTeamsByType(EmployeeType type) {
+        EmployeeClass[] emp = this.Employees.getEmployees();
+        int k = 0;
+        int[] index = new int[emp.length];
+        for (int i = 0; i < emp.length; i++) {
+            if (emp[i].getType() == type) {
+                System.out.println(k + 1 + " - " + emp[i].getName());
+                index[k] = i;
+                k++;
+            }
+
+        }
+        int[] FakeArray = new int[k];
+        System.arraycopy(index, 0, FakeArray, 0, k);
+        return FakeArray;
+    }
+
+    public void showAllTeams() {
+        TeamClass[] teams = this.Teams.getTeams();
+        int[] Index = new int[teams.length];
+        int k = 0;
+        for (int i = 0; i < teams.length; i++) {
+            System.out.println(i + 1 + " - " + teams[i].getName());
+
+        }
+
+    }
+
+    public void showTeamsByStatus(TeamStatus status) {
+        TeamClass[] teams = this.Teams.getTeams();
+        for (int i = 0; i < teams.length; i++) {
+            if (teams[i].getStatus() == status) {
+                System.out.println(teams[i].getName() + " - " + teams[i].getLeader());
+            }
+        }
+    }
+
+    public void createNewTeam() {
+        String TempName;
+        Scanner Read = new Scanner(System.in);
+        System.out.println("NOME: ");
+        TempName = Read.next();
+        TeamClass team = new TeamClass(TempName);
+        this.Teams.add(team);
     }
 
     public void EmployeesMenu() throws ConstructionSiteManagerException {
@@ -211,234 +446,6 @@ public class MenosClass {
         EmployeesMenu();
     }
 
-    /*
-    public void TeamsMenu() throws ConstructionSiteManagerException, ConstructionSiteException {
-        Scanner Read = new Scanner(System.in);
-        int choice;
-        do {
-            System.out.println("========== MENU DE EQUIPAS ==========");
-            System.out.println("1 - CRIAR NOVA EQUIPA");
-            System.out.println("2 - LISTAR EQUIPAS INATIVAS");
-            System.out.println("3 - LISTAR EQUIPAS EM ATIVIDADE");
-            System.out.println("4 - EDITAR EQUIPA");
-            System.out.println("0 - VOLTAR AO MENU PRINCIPAL");
-            System.out.println("==========================================");
-            choice = Read.nextInt();
-        } while (choice < 0 || choice > 4);
-        switch (choice) {
-            case 0:
-                PrincipalMenu();
-                break;
-            case 1:
-                createNewTeam();
-                TeamsMenu();
-                break;
-            case 2:
-                System.out.println("========== LISTA DE EQUIPAS INATIVAS ==========");
-                showInativeTeams();
-                System.out.println("===============================================");
-                PrincipalMenu();
-                break;
-            case 3:
-                System.out.println("========== LISTA DE EQUIPAS ATIVAS ==========");
-                showActiveTeams();
-                System.out.println("===============================================");
-                PrincipalMenu();
-                break;
-            case 4:
-                editTeam();
-                break;
-        }
-    }
-    
-    public void editTeam() throws ConstructionSiteManagerException, ConstructionSiteException {
-        Scanner Read = new Scanner(System.in);
-        int Choice;
-        int Index_Team = 0;
-        int Type = 0;
-        int[] NumberOfTeams;
-        do {
-            System.out.println("========== LISTA DE EQUIPAS ==========");
-            NumberOfTeams = showAllTeams();
-            System.out.println("0 - VOLTAR AO MENU ANTERIOR");
-            Choice = Read.nextInt();
-        } while (Choice < 0 || Choice > NumberOfTeams[NumberOfTeams.length - 1]);
-        switch (Choice) {
-            case 0:
-                TeamsMenu();
-                break;
-        }
-        if (Choice <= NumberOfTeams[0]) {
-            Index_Team = Choice;
-            Type = 1;
-        } else if (Choice > NumberOfTeams[0]) {
-            Index_Team = Choice - NumberOfTeams[0];
-            Type = 2;
-        }
-        Index_Team--;
-        do {
-            System.out.println("========== EDITAR EQUIPA ==========");
-            System.out.println("1 - DEFINIR LIDER");
-            System.out.println("2 - ADICIONAR EQUIPAMENTOS");
-            System.out.println("3 - ALTERAR NOME");
-            System.out.println("4 - ADICIONAR FUNCIONÁRIOS");
-            System.out.println("5 - REMOVER FUNCIONÁRIOS");
-            System.out.println("6 - MOSTRAR FUNCIONÁRIOS ATRIBUIDOS");
-            System.out.println("7 - MOSTRAR EQUIPAMENTOS ATRIBUIDOS");
-            System.out.println("0 - VOLTAR PARA O MENU ANTERIOR");
-            System.out.println("===================================");
-            System.out.println("OPÇÃO: ");
-            Choice = Read.nextInt();
-        } while (Choice < 0 || Choice > 7);
-        switch (Choice) {
-            case 0:
-                TeamsMenu();
-                break;
-            case 1:
-                setLeader(Index_Team, Type);
-                break;
-            case 2:
-                addEquipments(Index_Team, Type);
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
-            case 7:
-                break;
-        }
-
-    }
-
-    public int showAvailableEquipments() {
-        Equipment[] EquipmentsF = (Equipment[]) this.Teams.getEquipments();
-        int i;
-        for (i = 0; i < EquipmentsF.length; i++) {
-            System.out.println(i + 1 + " - " + EquipmentsF[i].getName());
-        }
-        return i;
-    }
-
-    public void addEquipments(int Index_Team,int Type) throws ConstructionSiteException, ConstructionSiteManagerException {
-        Scanner Read = new Scanner(System.in);
-        int Choice;
-        int Index_Equipment, Equipment_Size;
-        do{
-        System.out.println("========== LISTA DE EQUIPAMENTOS ==========");
-        Equipment_Size = showAvailableEquipments();
-        System.out.println("0 - VOLTAR AO MENU ANTERIOR");
-        System.out.println("===========================================");
-        System.out.println("OPÇÃO: ");
-        Choice = Read.nextInt();
-        }while(Choice < 0 || Choice > Equipment_Size);
-        switch(Choice){
-            case 0:
-                TeamsMenu();
-                break;
-        }
-        Equipment[] eqpmnt = this.ListOfEquipments.getEquipment();
-        Index_Equipment = Choice - 1;
-        if (Type == 1) {
-            this.Constructions.ConstructionSites[Index_Team].addEquipments(eqpmnt[Index_Equipment]);
-        }else if (Type == 2){
-            this.Teams.setEquipments(Index_Team, eqpmnt[Index_Equipment]);
-        }
-        
-    }
-
-    public void setLeader(int Index, int Type) throws ConstructionSiteManagerException, TeamException, ConstructionSiteException {
-        Scanner Read = new Scanner(System.in);
-        TeamClass[] TeamInCs = (TeamClass[]) this.Constructions.getAllTeams();
-        int Choice;
-        EmployeeClass[] Leaders = (EmployeeClass[]) this.Employees.getEmployees(EmployeeType.TEAM_LEADER);
-        do {
-            System.out.println("========== LISTA DE LIDERES ==========");
-            showAllLeaders();
-            System.out.println("0 - VOLTAR AO MENU ANTERIOR");
-            System.out.println("======================================");
-            System.out.println("OPÇÃO: ");
-            Choice = Read.nextInt();
-        } while (Choice < 0 || Choice < Leaders.length);
-        switch (Choice) {
-            case 0:
-                TeamsMenu();
-                break;
-        }
-        if (Type == 1) {
-            TeamInCs[Index].setLeader(Leaders[Choice - 1]);
-           //this.Constructions.
-        } else if (Type == 2) {
-            this.Teams.setLeader(Leaders[Choice - 1], Index);
-
-        }
-    }
-
-    public void showAllLeaders() {
-
-        EmployeeClass[] Leaders;
-        Leaders = (EmployeeClass[]) this.Employees.getEmployees(EmployeeType.TEAM_LEADER);
-        for (int i = 0; i < Leaders.length; i++) {
-            System.out.println(i + 1 + " - " + Leaders[i].getName());
-        }
-    }
-
-    public int[] showAllTeams() {
-
-        TeamClass[] TeamInCs = (TeamClass[]) this.Constructions.getAllTeams();
-        TeamClass[] TeamF = this.Teams.getTeams();
-        int x = 0;
-        int i;
-        for (i = 0; i < TeamInCs.length; i++) {
-            System.out.println(i + 1 + " - " + TeamInCs[i].getName());
-            
-        }
-        for (i = i; i < TeamF.length; i++) {
-            System.out.println(i + 1 + " - " + TeamF[x].getName());
-            x++;
-        }
-        int[] sizeTeams = new int[3];
-
-        sizeTeams[0] = TeamInCs.length;
-        sizeTeams[1] = TeamF.length;
-        sizeTeams[2] = TeamInCs.length + TeamF.length;
-
-        return sizeTeams;
-
-    }
-
-    public void createNewTeam() {
-        String TempName;
-        Scanner Read = new Scanner(System.in);
-        System.out.println("NOME: ");
-        TempName = Read.next();
-        TeamClass team = new TeamClass(TempName);
-        this.Teams.add(team);
-    }
-
-    public void showActiveTeams() {
-        TeamClass[] Teamso = (TeamClass[]) this.Constructions.getWorkingTeams();
-        for (int i = 0; i < Teamso.length; i++) {
-            System.out.println(Teamso[i].getName());
-        }
-    }
-
-    public void showInativeTeams() {
-        int i = 0;
-        TeamClass[] Teamso = (TeamClass[]) this.Constructions.getIddleTeams();
-        for (i = 0; i < Teamso.length; i++) {
-            System.out.println(Teamso[i].getName() + " - EM UMA CONSTRUÇÃO INATIVA!");
-        }
-        TeamClass[] Teamsu = this.Teams.getTeams();
-        for (i = i; i < this.Teams.NumberOfTeams; i++) {
-            System.out.println(Teamsu[i].getName() + " - DISPONIVEL!");
-        }
-
-    }
-     */
     public void ConstructionMenu() throws ConstructionSiteManagerException {
         try {
             Scanner Read = new Scanner(System.in);
@@ -525,8 +532,8 @@ public class MenosClass {
                 EventMenu();
                 break;
             case 7:
-              removerAllEvents();
-              EventMenu();
+                removerAllEvents();
+                EventMenu();
                 break;
             case 8:
                 apagarEventsBD();
@@ -538,144 +545,140 @@ public class MenosClass {
                 break;
         }
     }
-    
-    public void receberEventsBD(){
-         try {
-                    System.out.println(InsuranceReporter.getEvents(this.Events.getGroupKey(), this.Events.getGroupName()));
-                } catch (Exception e) {
-                    System.out.println("Erro a transferir para JSON e a enviar para a base de dados");
 
-                }
-    }
-    
-    
-    public void apagarEventsBD(){
+    public void receberEventsBD() {
         try {
-                    InsuranceReporter.resetEvents(this.Events.getGroupKey(), this.Events.getGroupName());
+            System.out.println(InsuranceReporter.getEvents(this.Events.getGroupKey(), this.Events.getGroupName()));
+        } catch (Exception e) {
+            System.out.println("Erro a transferir para JSON e a enviar para a base de dados");
 
-                } catch (Exception e) {
-                    System.out.println("Erro a transferir para JSON e a enviar para a base de dados");
-                }
+        }
     }
-    
-    public void removerAllEvents(){
+
+    public void apagarEventsBD() {
+        try {
+            InsuranceReporter.resetEvents(this.Events.getGroupKey(), this.Events.getGroupName());
+
+        } catch (Exception e) {
+            System.out.println("Erro a transferir para JSON e a enviar para a base de dados");
+        }
+    }
+
+    public void removerAllEvents() {
         if (this.Events.getnumberEvents() == 0) {
-                        System.out.println("Não existem eventos para remover");
-                    } else {
-                        this.Events.removeAllEvents();
-                        System.out.println("Todos os eventos removidos");
-                    }
+            System.out.println("Não existem eventos para remover");
+        } else {
+            this.Events.removeAllEvents();
+            System.out.println("Todos os eventos removidos");
+        }
     }
-    
-    public void RemoveEvent(){
-                    int escolher;
-                    Scanner Read = new Scanner(System.in);
-                    if (this.Events.getnumberEvents() == 0) {
-                        System.out.println("Não existem eventos para remover");
-                    } else {
-                        try {
-                            System.out.println("Escolha o evento que deseja remover:");
-                            do {
-                                for (int i = 0; i < this.Events.getnumberEvents(); i++) {
-                                    System.out.println((i + 1) + " - " + this.Events.getAllEvents()[i].getTitle());
-                                }
-                                escolher = Read.nextInt();
-                            } while (escolher < 1 || escolher > this.Events.getnumberEvents());
 
-                            this.Events.removeEvent(this.Events.getAllEvents()[escolher - 1]);
-                        } catch (EventManagerException e) {
-                            System.out.println("Erro ao reportar");
-                        }
-                    }
-    }
-    
-    public void ReportEventsTwoDate(){
-        try {
-                    Scanner Read = new Scanner(System.in);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                    System.out.println("Introduza a primeira data que deseja procurar no seguinte formato (dd/mm/yyyy): ");
-                    String data = Read.next();
-                    System.out.println("Introduza a segunda data que deseja procurar no seguinte formato (dd/mm/yyyy): ");
-                    String data2 = Read.next();
-                    LocalDate localDate = LocalDate.parse(data, formatter);
-                    LocalDate localDate1 = LocalDate.parse(data2, formatter);
-                    Event[] array = this.Events.getEvent(localDate, localDate1);
-                    if (array.length == 0) {
-                        System.out.println("Não existem eventos entre essas datas");
-                    } else {
-                        for (int i = 0; i < array.length; i++) {
-                            System.out.println(array[i].toString());
-                        }
-                    }
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-    }
-    
-    
-    public void ReportEventsDate(){
-        try {
-                    Scanner Read = new Scanner(System.in);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                    System.out.println("Introduza a data que deseja procurar no seguinte formato (dd/mm/yyyy): ");
-                    String data = Read.next();
-                    LocalDate localDate = LocalDate.parse(data, formatter);
-                    Event[] array = this.Events.getEvent(localDate);
-                    if (array.length == 0) {
-                        System.out.println("Não existem eventos nessa data");
-                    } else {
-                        for (int i = 0; i < array.length; i++) {
-                            System.out.println(array[i].toString());
-                        }
-                    }
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-                
-    }
-    
-    public void ReportEventsType() throws ConstructionSiteManagerException, EventManagerException{
-        try{
+    public void RemoveEvent() {
+        int escolher;
         Scanner Read = new Scanner(System.in);
-        int evento2;
-        do {
-                        System.out.println("Indique o tipo de evento que deseja procurar:\n1 - Acidente\n2 - Incidente\n3 - Falha");
-                        evento2 = Read.nextInt();
-                    } while (evento2 < 1 || evento2 > 3);
-                   for (int i = 0; i < this.Events.getnumberEvents(); i++) {
-                        if (evento2 == 1) {
-                            if (this.Events.getAllEvents()[i] instanceof AccidentClass) {
-                                System.out.println(this.Events.getAllEvents()[i].toString());
-                            }
-                        }
-                        if (evento2 == 2) {
-                            if (this.Events.getAllEvents()[i] instanceof IncidentClass) {
-                                System.out.println(this.Events.getAllEvents()[i].toString());
-                            }
-                        }
-                        if (evento2 == 3) {
-                            if (this.Events.getAllEvents()[i] instanceof FailureClass) {
-                                System.out.println(this.Events.getAllEvents()[i].toString());
-                            }
-                        }
+        if (this.Events.getnumberEvents() == 0) {
+            System.out.println("Não existem eventos para remover");
+        } else {
+            try {
+                System.out.println("Escolha o evento que deseja remover:");
+                do {
+                    for (int i = 0; i < this.Events.getnumberEvents(); i++) {
+                        System.out.println((i + 1) + " - " + this.Events.getAllEvents()[i].getTitle());
                     }
-        }catch(Exception o){
+                    escolher = Read.nextInt();
+                } while (escolher < 1 || escolher > this.Events.getnumberEvents());
+
+                this.Events.removeEvent(this.Events.getAllEvents()[escolher - 1]);
+            } catch (EventManagerException e) {
+                System.out.println("Erro ao reportar");
+            }
+        }
+    }
+
+    public void ReportEventsTwoDate() {
+        try {
+            Scanner Read = new Scanner(System.in);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            System.out.println("Introduza a primeira data que deseja procurar no seguinte formato (dd/mm/yyyy): ");
+            String data = Read.next();
+            System.out.println("Introduza a segunda data que deseja procurar no seguinte formato (dd/mm/yyyy): ");
+            String data2 = Read.next();
+            LocalDate localDate = LocalDate.parse(data, formatter);
+            LocalDate localDate1 = LocalDate.parse(data2, formatter);
+            Event[] array = this.Events.getEvent(localDate, localDate1);
+            if (array.length == 0) {
+                System.out.println("Não existem eventos entre essas datas");
+            } else {
+                for (int i = 0; i < array.length; i++) {
+                    System.out.println(array[i].toString());
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void ReportEventsDate() {
+        try {
+            Scanner Read = new Scanner(System.in);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            System.out.println("Introduza a data que deseja procurar no seguinte formato (dd/mm/yyyy): ");
+            String data = Read.next();
+            LocalDate localDate = LocalDate.parse(data, formatter);
+            Event[] array = this.Events.getEvent(localDate);
+            if (array.length == 0) {
+                System.out.println("Não existem eventos nessa data");
+            } else {
+                for (int i = 0; i < array.length; i++) {
+                    System.out.println(array[i].toString());
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public void ReportEventsType() throws ConstructionSiteManagerException, EventManagerException {
+        try {
+            Scanner Read = new Scanner(System.in);
+            int evento2;
+            do {
+                System.out.println("Indique o tipo de evento que deseja procurar:\n1 - Acidente\n2 - Incidente\n3 - Falha");
+                evento2 = Read.nextInt();
+            } while (evento2 < 1 || evento2 > 3);
+            for (int i = 0; i < this.Events.getnumberEvents(); i++) {
+                if (evento2 == 1) {
+                    if (this.Events.getAllEvents()[i] instanceof AccidentClass) {
+                        System.out.println(this.Events.getAllEvents()[i].toString());
+                    }
+                }
+                if (evento2 == 2) {
+                    if (this.Events.getAllEvents()[i] instanceof IncidentClass) {
+                        System.out.println(this.Events.getAllEvents()[i].toString());
+                    }
+                }
+                if (evento2 == 3) {
+                    if (this.Events.getAllEvents()[i] instanceof FailureClass) {
+                        System.out.println(this.Events.getAllEvents()[i].toString());
+                    }
+                }
+            }
+        } catch (Exception o) {
             System.out.println("Não existe eventos");
             EventMenu();
         }
     }
-    
-    
-    
-    public void ReportEventsPrio(){
+
+    public void ReportEventsPrio() {
         Scanner Read = new Scanner(System.in);
         int evento;
         EventPriority prioridade = null;
-        
+
         do {
-                   System.out.println("Indique a prioridade que deseja procurar:\n1 - IMMEDIATE \n2 - HIGH\n3 - NORMAL\n4- LOW");
-                   evento = Read.nextInt();
-                        } while (evento < 1 || evento > 4);
+            System.out.println("Indique a prioridade que deseja procurar:\n1 - IMMEDIATE \n2 - HIGH\n3 - NORMAL\n4- LOW");
+            evento = Read.nextInt();
+        } while (evento < 1 || evento > 4);
         if (evento == 1) {
             prioridade = prioridade.IMMEDIATE;
         }
@@ -688,19 +691,18 @@ public class MenosClass {
         if (evento == 4) {
             prioridade = prioridade.LOW;
         }
-                        
+
         Event[] arrayprio = this.Events.getEvent(prioridade);
-         if (arrayprio.length == 0) {
-                            System.out.println("Não existem eventos do tipo " + prioridade);
-                        } else {
-                            System.out.println("LISTA DE EVENTOS COM A PRIORIDADE " + prioridade);
-                            for (int i = 0; i < arrayprio.length; i++) {
-                                System.out.println(arrayprio[i].toString());
-                            }
-                        }
+        if (arrayprio.length == 0) {
+            System.out.println("Não existem eventos do tipo " + prioridade);
+        } else {
+            System.out.println("LISTA DE EVENTOS COM A PRIORIDADE " + prioridade);
+            for (int i = 0; i < arrayprio.length; i++) {
+                System.out.println(arrayprio[i].toString());
+            }
+        }
     }
-    
-    
+
     public void TypeEventMenu() throws ConstructionSiteManagerException, EventManagerException {
         Scanner Read = new Scanner(System.in);
         int choice;
@@ -726,7 +728,7 @@ public class MenosClass {
                 CreateFailure();
                 break;
             case 3:
-               CreateIncident();
+                CreateIncident();
                 break;
 
         }

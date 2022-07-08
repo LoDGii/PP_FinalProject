@@ -14,11 +14,31 @@ import estgconstroi.enums.EmployeeType;
 public class EmployeeClass extends Employee{
     private static String Name;
     private EmployeeType Type;
+    private EmployeeStatus status;
+    private TeamClass team;
     
     public EmployeeClass(String TempName, EmployeeType TempType){
         super();
         this.Name = TempName;
         this.Type = TempType;
+        this.status = EmployeeStatus.FREE;
+    }
+    
+    public void setTeam(TeamClass tm){
+        this.team = tm;
+    }
+    
+    public TeamClass getTeam(){
+        return this.team;
+    }
+    
+    
+    public void setStatus(EmployeeStatus stat){
+        this.status = stat;
+    }
+    
+    public EmployeeStatus getStatus(){
+        return this.status;
     }
     
     public EmployeeClass(){

@@ -22,12 +22,13 @@ public class TeamClass implements Team{
       private int numberEmployees;
       private EmployeeClass[] employee;
       private Equipments equipment;
-      
+      private TeamStatus status;
       
       public TeamClass(String name){
           this.name = name;
           this.numberEmployees = 0;
           this.employee = new EmployeeClass[10];
+          this.status = TeamStatus.FREE;
       }
       
       
@@ -41,7 +42,9 @@ public class TeamClass implements Team{
     public void setName(String name){
         this.name = name;
     }
-    
+    public TeamStatus getStatus(){
+        return this.status;
+    }
     @Override
     public Employee getLeader() {
        Employee copy = this.leader;
@@ -189,3 +192,6 @@ public class TeamClass implements Team{
         this.equipment.addEquipment(eqpmnt);
     }
 }
+
+
+
