@@ -1,7 +1,12 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+* Nome: Bruno Miguel Rodrigues Novais
+* Número: 8210333
+* Turma: LEI12T1
+*
+* Nome: Diogo Gomes Cardoso
+* Número: 8210193
+* Turma: LEI12T1
+*/
 package pp_finalproject;
 
 import estgconstroi.Employee;
@@ -13,17 +18,24 @@ import estgconstroi.exceptions.ConstructionSiteException;
 import estgconstroi.exceptions.TeamException;
 
 /**
- *
- * @author Utilizador
+ *Classe que representa uma equipa
+ * @author Bruno
+ * @author Diogo
  */
 public class TeamClass implements Team{
+    /**
+     * Atributos de uma equipa
+     */
       private String name;
       private Employee leader;
       private int numberEmployees;
       private EmployeeClass[] employee;
       private Equipments equipment;
       
-      
+      /**
+       * metodo construtor de uma equipa
+       * @param name 
+       */
       public TeamClass(String name){
           this.name = name;
           this.numberEmployees = 0;
@@ -31,23 +43,36 @@ public class TeamClass implements Team{
       }
       
       
-
+/**
+ * retorna o nome da equipa
+ * @return 
+ */
     @Override
     public String getName() {
         String copy = this.name;
         return copy;
     }
-
+/**
+ * metodo que atribui um nome a uma equipa
+ * @param name 
+ */
     public void setName(String name){
         this.name = name;
     }
-    
+    /**
+     * metodo que retorna o lider de uma equipa
+     * @return 
+     */
     @Override
     public Employee getLeader() {
        Employee copy = this.leader;
        return copy;
     }
-
+/**
+ * metodo que atribui um lider a uma equipa
+ * @param empl
+ * @throws TeamException 
+ */
     @Override
     public void setLeader(Employee empl) throws TeamException {
        try{
@@ -56,13 +81,19 @@ public class TeamClass implements Team{
            throw new TeamException("Erro ao fazer set no Team Leader");
        }
     }
-
+/**
+ * metodo que retorna o numero de empregados dentro da equipa
+ * @return 
+ */
     @Override
     public int getNumberOfEmployees() {
         return this.numberEmployees;
     }
 
-    
+    /**
+     * metodo que verifica o tamanho de uma equipa e se necessario vai aumentar 
+     * o tamanho do array que tem os empregados
+     */
     private void verifySize() {
         if (this.employee.length == numberEmployees) {
             EmployeeClass[] newArray = new EmployeeClass[numberEmployees];
@@ -76,7 +107,11 @@ public class TeamClass implements Team{
         }
     }
     
-    
+    /**
+     * metodo que adiciona um empregado a uma equipa
+     * @param empl
+     * @throws TeamException 
+     */
     @Override
     public void addEmployees(Employee empl) throws TeamException {
         try {
@@ -97,7 +132,11 @@ public class TeamClass implements Team{
             throw new TeamException("Erro ao adicionar trabalhador");
         }
     }
-
+/**
+ * metodo que remove um empregado de uma equipa
+ * @param empl
+ * @throws TeamException 
+ */
     @Override
     public void removeEmployee(Employee empl) throws TeamException {
         try {
@@ -128,7 +167,11 @@ public class TeamClass implements Team{
             throw new TeamException("Erro ao remover trabalhador");
         }
     }
-
+/**
+ * metodo que retorna um array de empregados com o mesmo nome que estão dentro de uma equipa
+ * @param name
+ * @return 
+ */
     @Override
     public Employee[] getEmployees(String name) {
        int contador = 0;
@@ -149,7 +192,11 @@ public class TeamClass implements Team{
         }
         return array;
     }
-
+/**
+ * metodo que retorna um array com empregados de um certo tipo
+ * @param et
+ * @return 
+ */
     @Override
     public Employee[] getEmployees(EmployeeType et) {
         int contador = 0;
@@ -171,6 +218,10 @@ public class TeamClass implements Team{
         return array;
     }
 
+    /**
+     * metodo que retorna todos os empregados que estão dentro de uma equipa
+     * @return 
+     */
     @Override
     public Employee[] getEmployees() {
         Employee[] copy = new Employee[this.employee.length];
@@ -179,12 +230,21 @@ public class TeamClass implements Team{
         }
         return copy;
     }
-
+/**
+ * metodo que retorna os equipamentos que estão dentro da equipa
+ * @return 
+ */
     @Override
     public Equipments getEquipments() {
         Equipments copy = this.equipment;
         return copy;
     }
+    
+    /**
+     * metodo que adiciona um equipamento a equipa
+     * @param eqpmnt
+     * @throws ConstructionSiteException 
+     */
     public void addEquipments(Equipment eqpmnt) throws ConstructionSiteException{
         this.equipment.addEquipment(eqpmnt);
     }

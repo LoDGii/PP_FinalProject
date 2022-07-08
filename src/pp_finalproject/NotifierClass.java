@@ -1,7 +1,12 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+* Nome: Bruno Miguel Rodrigues Novais
+* Número: 8210333
+* Turma: LEI12T1
+*
+* Nome: Diogo Gomes Cardoso
+* Número: 8210193
+* Turma: LEI12T1
+*/
 package pp_finalproject;
 
 import estgconstroi.Event;
@@ -9,16 +14,32 @@ import estgconstroi.Notifier;
 
 
 
-
+/**
+ * Classe Notifier
+ * @author Bruno
+ * @author Diogo
+ */
 public class NotifierClass implements Notifier{
 
+    /**
+     * elementos da classe Notifier
+     */
     private Event event;
     
+    /**
+     * metodo construtor da classe Notifier
+     * @param event 
+     */
     public NotifierClass(Event event){
         this.event = event;
     }
     
-    
+    /**
+     * método da notify onde possuirá mensagem, prioridade e o chefe de construção
+     * para notificar o utilizador
+     * @param event
+     * @return 
+     */
     @Override
     public boolean notify(Event event) {
         System.out.println("Mensagem: " + this.event.getTitle());
