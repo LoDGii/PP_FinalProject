@@ -210,5 +210,8 @@ public class ConstructionSiteManagerClass implements ConstructionSiteManager {
     public int getNumberOfConstructionSites() {
         return this.NumberOfConstructions;
     }
+    
+    
+    
 
 }

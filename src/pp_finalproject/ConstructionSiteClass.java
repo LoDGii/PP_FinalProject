@@ -212,6 +212,12 @@ public class ConstructionSiteClass implements ConstructionSite {
     public void addEquipments(Equipment eqpmnt) throws ConstructionSiteException{
         this.Equipment.addEquipment(eqpmnt);
     }
+    
+    public void setTeamName(String TempName, int Index){
+        this.Teams[Index].setName(TempName);
+    }
+    
+    
     public void removeEquipments(Equipment eqpmnt) throws ConstructionSiteException{
         this.Equipment.removeEquipment(eqpmnt);
     }
