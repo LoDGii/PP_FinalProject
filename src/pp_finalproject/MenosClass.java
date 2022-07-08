@@ -9,6 +9,8 @@ import estgconstroi.ConstructionSite;
 import estgconstroi.Employee;
 import estgconstroi.Equipment;
 import estgconstroi.Equipments;
+import estgconstroi.Event;
+import estgconstroi.InsuranceReporter;
 import estgconstroi.Team;
 import estgconstroi.enums.EmployeeType;
 import estgconstroi.enums.EventPriority;
@@ -355,39 +357,209 @@ public class MenosClass {
         } while (choice < 0 || choice > 9);
         switch (choice) {
             case 0:
-                    PrincipalMenu();
+                PrincipalMenu();
                 break;
             case 1:
                 TypeEventMenu();
+                EventMenu();
                 break;
             case 2:
+                ReportEventsPrio();
+                EventMenu();
                 break;
             case 3:
-
+                ReportEventsType();
+                EventMenu();
                 break;
             case 4:
-
+                ReportEventsDate();
+                EventMenu();
                 break;
             case 5:
-
+                ReportEventsTwoDate();
+                EventMenu();
                 break;
             case 6:
-
+                RemoveEvent();
+                EventMenu();
                 break;
             case 7:
-
+              removerAllEvents();
+              EventMenu();
                 break;
             case 8:
-
+                apagarEventsBD();
+                EventMenu();
                 break;
             case 9:
-
+                receberEventsBD();
+                EventMenu();
                 break;
-
         }
-
     }
+    
+    public void receberEventsBD(){
+         try {
+                    System.out.println(InsuranceReporter.getEvents(this.Events.getGroupKey(), this.Events.getGroupName()));
+                } catch (Exception e) {
+                    System.out.println("Erro a transferir para JSON e a enviar para a base de dados");
 
+                }
+    }
+    
+    
+    public void apagarEventsBD(){
+        try {
+                    InsuranceReporter.resetEvents(this.Events.getGroupKey(), this.Events.getGroupName());
+
+                } catch (Exception e) {
+                    System.out.println("Erro a transferir para JSON e a enviar para a base de dados");
+                }
+    }
+    
+    public void removerAllEvents(){
+        if (this.Events.getnumberEvents() == 0) {
+                        System.out.println("Não existem eventos para remover");
+                    } else {
+                        this.Events.removeAllEvents();
+                        System.out.println("Todos os eventos removidos");
+                    }
+    }
+    
+    public void RemoveEvent(){
+                    int escolher;
+                    Scanner Read = new Scanner(System.in);
+                    if (this.Events.getnumberEvents() == 0) {
+                        System.out.println("Não existem eventos para remover");
+                    } else {
+                        try {
+                            System.out.println("Escolha o evento que deseja remover:");
+                            do {
+                                for (int i = 0; i < this.Events.getnumberEvents(); i++) {
+                                    System.out.println((i + 1) + " - " + this.Events.getAllEvents()[i].getTitle());
+                                }
+                                escolher = Read.nextInt();
+                            } while (escolher < 1 || escolher > this.Events.getnumberEvents());
+
+                            this.Events.removeEvent(this.Events.getAllEvents()[escolher - 1]);
+                        } catch (EventManagerException e) {
+                            System.out.println("Erro ao reportar");
+                        }
+                    }
+    }
+    
+    public void ReportEventsTwoDate(){
+        try {
+                    Scanner Read = new Scanner(System.in);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    System.out.println("Introduza a primeira data que deseja procurar no seguinte formato (dd/mm/yyyy): ");
+                    String data = Read.next();
+                    System.out.println("Introduza a segunda data que deseja procurar no seguinte formato (dd/mm/yyyy): ");
+                    String data2 = Read.next();
+                    LocalDate localDate = LocalDate.parse(data, formatter);
+                    LocalDate localDate1 = LocalDate.parse(data2, formatter);
+                    Event[] array = this.Events.getEvent(localDate, localDate1);
+                    if (array.length == 0) {
+                        System.out.println("Não existem eventos entre essas datas");
+                    } else {
+                        for (int i = 0; i < array.length; i++) {
+                            System.out.println(array[i].toString());
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+    }
+    
+    
+    public void ReportEventsDate(){
+        try {
+                    Scanner Read = new Scanner(System.in);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    System.out.println("Introduza a data que deseja procurar no seguinte formato (dd/mm/yyyy): ");
+                    String data = Read.next();
+                    LocalDate localDate = LocalDate.parse(data, formatter);
+                    Event[] array = this.Events.getEvent(localDate);
+                    if (array.length == 0) {
+                        System.out.println("Não existem eventos nessa data");
+                    } else {
+                        for (int i = 0; i < array.length; i++) {
+                            System.out.println(array[i].toString());
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                
+    }
+    
+    public void ReportEventsType() throws ConstructionSiteManagerException, EventManagerException{
+        try{
+        Scanner Read = new Scanner(System.in);
+        int evento2;
+        do {
+                        System.out.println("Indique o tipo de evento que deseja procurar:\n1 - Acidente\n2 - Incidente\n3 - Falha");
+                        evento2 = Read.nextInt();
+                    } while (evento2 < 1 || evento2 > 3);
+                   for (int i = 0; i < this.Events.getnumberEvents(); i++) {
+                        if (evento2 == 1) {
+                            if (this.Events.getAllEvents()[i] instanceof AccidentClass) {
+                                System.out.println(this.Events.getAllEvents()[i].toString());
+                            }
+                        }
+                        if (evento2 == 2) {
+                            if (this.Events.getAllEvents()[i] instanceof IncidentClass) {
+                                System.out.println(this.Events.getAllEvents()[i].toString());
+                            }
+                        }
+                        if (evento2 == 3) {
+                            if (this.Events.getAllEvents()[i] instanceof FailureClass) {
+                                System.out.println(this.Events.getAllEvents()[i].toString());
+                            }
+                        }
+                    }
+        }catch(Exception o){
+            System.out.println("Não existe eventos");
+            EventMenu();
+        }
+    }
+    
+    
+    
+    public void ReportEventsPrio(){
+        Scanner Read = new Scanner(System.in);
+        int evento;
+        EventPriority prioridade = null;
+        
+        do {
+                   System.out.println("Indique a prioridade que deseja procurar:\n1 - IMMEDIATE \n2 - HIGH\n3 - NORMAL\n4- LOW");
+                   evento = Read.nextInt();
+                        } while (evento < 1 || evento > 4);
+        if (evento == 1) {
+            prioridade = prioridade.IMMEDIATE;
+        }
+        if (evento == 2) {
+            prioridade = prioridade.HIGH;
+        }
+        if (evento == 3) {
+            prioridade = prioridade.NORMAL;
+        }
+        if (evento == 4) {
+            prioridade = prioridade.LOW;
+        }
+                        
+        Event[] arrayprio = this.Events.getEvent(prioridade);
+         if (arrayprio.length == 0) {
+                            System.out.println("Não existem eventos do tipo " + prioridade);
+                        } else {
+                            System.out.println("LISTA DE EVENTOS COM A PRIORIDADE " + prioridade);
+                            for (int i = 0; i < arrayprio.length; i++) {
+                                System.out.println(arrayprio[i].toString());
+                            }
+                        }
+    }
+    
+    
     public void TypeEventMenu() throws ConstructionSiteManagerException, EventManagerException {
         Scanner Read = new Scanner(System.in);
         int choice;
@@ -413,7 +585,7 @@ public class MenosClass {
                CreateFailure();
                 break;
             case 3:
-
+               CreateIncident();
                 break;
 
         }
