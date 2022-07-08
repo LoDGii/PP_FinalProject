@@ -1,7 +1,12 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+* Nome: Bruno Miguel Rodrigues Novais
+* Número: 8210333
+* Turma: LEI12T1
+*
+* Nome: Diogo Gomes Cardoso
+* Número: 8210193
+* Turma: LEI12T1
+*/
 package pp_finalproject;
 
 import estgconstroi.Event;
@@ -15,18 +20,26 @@ import java.time.LocalDate;
 import org.json.simple.JSONObject;
 
 /**
+ * Classe de EventManager
  *
- * @author Utilizador
+ * @author Diogo
+ * @author José
  */
 public class EventManagerCass implements EventManager {
+    /**
+     * atributos de event manager
+     */
     private static String GROUPNAME = "Grupo23";
     private static String GROUPKEY = "biboc236-6022-cola-port-besseki0brad";
-    
     private NotifierClass[] notifie;
     private Event[] event;
     private int numberNotifies;
     private int numberEvents;
 
+    
+    /**
+     * método construtor
+     */
     public EventManagerCass() {
         this.numberNotifies = 0;
         this.numberEvents = 0;
@@ -34,6 +47,12 @@ public class EventManagerCass implements EventManager {
         this.event = new Event[0];
     }
 
+    
+    //-------------OUTROS MÉTODOS---------------------------------------
+    /**
+     * ESTE METODO SERVEM PARA VERIFICAR O TAMANHO DOS ARRAYS E AUMENTALOS SE
+     * NECESSARIO
+     */
     private void checkNotifierSize() {
         if (this.notifie.length == numberNotifies) {
             NotifierClass[] newarray = new NotifierClass[numberNotifies];
@@ -46,7 +65,9 @@ public class EventManagerCass implements EventManager {
             }
         }
     }
-
+/**
+ * ESTE METODO VERIFICA SE É PRECISO AUMENTAR O ARRAY, SE FOR NECESSARIO AUMENTA
+ */
     private void checkEventSize() {
         if (this.event.length == numberEvents) {
             Event[] newarray = new Event[numberEvents];
@@ -59,11 +80,22 @@ public class EventManagerCass implements EventManager {
             }
         }
     }
-
+/**
+ * METODO QUE VAI RETORNAR QUANTOS EVENTOS ESTÃO NO ARRAY 
+ * 
+ * @return int com a quantidade de eventos no array
+ */
     public int getnumberEvents(){
         return this.numberEvents;
     }
     
+    //---------METODOS OVERRITE---------------------
+    /**
+     * ESTE METODO ADICIONA UMA NOTIFICAÇÃO
+     * 
+     * @param ntfr
+     * @throws EventManagerException 
+     */
     @Override
     public void addNotifier(Notifier ntfr) throws EventManagerException {
         try {
@@ -74,7 +106,11 @@ public class EventManagerCass implements EventManager {
             throw new EventManagerException("Algo de errado aconteceu ao adicionar a Notificação");
         }
     }
-
+/**
+ * este metodo remove uma notificação
+ * @param ntfr
+ * @throws EventManagerException 
+ */
     @Override
     public void removeNotifier(Notifier ntfr) throws EventManagerException {
         try {
@@ -103,7 +139,11 @@ public class EventManagerCass implements EventManager {
             throw new EventManagerException("Erro ao remover o trabalhador");
         }
     }
-
+/**
+ * este metodo reporta um evento
+ * @param event
+ * @throws EventManagerException 
+ */
     @Override
     public void reportEvent(Event event) throws EventManagerException {
         try {
@@ -116,14 +156,20 @@ public class EventManagerCass implements EventManager {
             throw new EventManagerException("Erro ao fazer o report do evento");
         }
     }
-
+/**
+ * este metodo remove todos os eventos que estão no array de eventos
+ */
     @Override
     public void removeAllEvents() {
         Event[] array = new Event[0];
         this.event = array;
         System.out.println("Todos os eventos foram removidos com sucesso");
     }
-
+/**
+ * este metodo remove um evento de dentro do array que tem eventos
+ * @param event
+ * @throws EventManagerException 
+ */
     @Override
     public void removeEvent(Event event) throws EventManagerException {
         try {
@@ -153,10 +199,19 @@ public class EventManagerCass implements EventManager {
         }
     }
 
+/**
+ * este metodo retorna todos os eventos que estão dentro do array event
+ * @return 
+ */
     public Event[] getAllEvents(){
         return this.event;
     }
-    
+    /**
+     * este metodo serve para devolver um array de eventos de uma certa prioridade
+     * @param ep
+     * @return 
+     */
+
     @Override
     public Event[] getEvent(EventPriority ep) {
         int contador = 0;
@@ -177,7 +232,12 @@ public class EventManagerCass implements EventManager {
         }
         return priorityarray;
     }
-
+/**
+ * este metodo serve para devolver um array que contem os eventos de uma certa
+ * classe Accident, Failure ou Incident
+ * @param type
+ * @return 
+ */
     @Override
     public Event[] getEvent(Class type) {
         int contador = 0;
@@ -198,7 +258,11 @@ public class EventManagerCass implements EventManager {
         }
         return array;
     }
-
+/**
+ * este metodo serve para retornar um array com eventos de uma certa data
+ * @param ld
+ * @return 
+ */
     @Override
     public Event[] getEvent(LocalDate ld) {
         int contador = 0;
@@ -218,7 +282,13 @@ public class EventManagerCass implements EventManager {
         }
         return array;
     }
-
+/**
+ * este metodo retorna todos os eventos entre duas datas selecionadas
+ * 
+ * @param ld
+ * @param ld1
+ * @return 
+ */
     @Override
     public Event[] getEvent(LocalDate ld, LocalDate ld1) {
         int contador = 0;
@@ -239,15 +309,26 @@ public class EventManagerCass implements EventManager {
         }
         return array;
     }
-
+/**
+ * retorna um GroupKey
+ * @return 
+ */
     public String getGroupKey(){
         return this.getGroupKey();
     }
-    
+    /**
+     * retorna um GroupName
+     * @return 
+     */
     public String getGroupName(){
         return this.getGroupName();
     }
-    
+    /**
+     * 
+     * @param event
+     * @throws IOException 
+     */
+
     public static void eventToJson(Event event) throws IOException {
         JSONObject eventToJson = new JSONObject();
         eventToJson.put("uuid", event.getUuid());

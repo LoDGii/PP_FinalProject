@@ -1,7 +1,13 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+* Nome: Bruno Miguel Rodrigues Novais
+* Número: 8210333
+* Turma: LEI12T1
+*
+* Nome: Diogo Gomes Cardoso
+* Número: 8210193
+* Turma: LEI12T1
+*/
+
 package pp_finalproject;
 
 import estgconstroi.ConstructionSite;
@@ -14,21 +20,23 @@ import estgconstroi.exceptions.ConstructionSiteException;
 import java.time.LocalDate;
 
 /**
- *
- * @author Utilizador
+ * Classe que representa as Construction Sites
+ * @author Bruno
+ * @author Diogo
  */
 public class ConstructionSiteClass implements ConstructionSite {
 
-    private String Name;
-    private String Location;
-    private String Permit;
-    private LocalDate Expiration_Date;
-    private LocalDate Start_Date;
-    private EmployeeClass Responsible;
-    private TeamClass[] Teams;
-    private Equipments Equipment;
-    private int NumberOfTeams;
-    private int NumberOfEquipments;
+    //ATRIBUROS DO CONSTRUCTION SITE
+    private String Name; // NOME DO LOCAL DE CONSTRUÇÃO
+    private String Location;// LOCALIZAÇÃO DO LOCAL DE CONTRUÇÃO
+    private String Permit;// UMA PERMIÇÃO PARA A CONSTRUÇÃO
+    private LocalDate Expiration_Date;// DATA DE EXPIRAÇÃO DO PERMIT
+    private LocalDate Start_Date;// DATA DA CRIAÇÃO DO LOCAL DE CONTRUÇÃO
+    private EmployeeClass Responsible;// EMPREGADO RESPONSAVEL PELA CONTRUÇÃO
+    private TeamClass[] Teams;// EQUIPAS QUE ESTÇÃO A TRABALHAR NA CONSTRUÇÃO
+    private Equipments Equipment;// EQUIPAMENTOS QUE ESTÃO NO LOCAL DE CONSTRUÇÃO
+    private int NumberOfTeams;// NUMERO DE EQUIPAS QUE ESTÃO NO LOCAL DE CONSTRUÇÃO
+    private int NumberOfEquipments;// NUMERO DE EQUIPAMENTOS QUE ESTÃO NO LOCAL DE CONSTRUÇÃO
     private LocalDate Permit_Expiration;
     
 
