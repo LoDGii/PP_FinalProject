@@ -198,6 +198,7 @@ public class EventManagerCass implements EventManager {
             throw new EventManagerException("Erro a remover o evento");
         }
     }
+
 /**
  * este metodo retorna todos os eventos que estão dentro do array event
  * @return 
@@ -210,6 +211,7 @@ public class EventManagerCass implements EventManager {
      * @param ep
      * @return 
      */
+
     @Override
     public Event[] getEvent(EventPriority ep) {
         int contador = 0;
@@ -326,6 +328,7 @@ public class EventManagerCass implements EventManager {
      * @param event
      * @throws IOException 
      */
+
     public static void eventToJson(Event event) throws IOException {
         JSONObject eventToJson = new JSONObject();
         eventToJson.put("uuid", event.getUuid());
