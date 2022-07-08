@@ -18,7 +18,7 @@ public class PP_FinalProject {
      */
     public static void main(String[] args) throws ConstructionSiteManagerException{
         MenosClass Menu = new MenosClass();
-        Menu.PrincipalMenu();
+        Menu.PrincipalMenu(); 
     }
     
 }

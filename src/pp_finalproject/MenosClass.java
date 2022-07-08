@@ -4,6 +4,7 @@
  */
 package pp_finalproject;
 
+import estgconstroi.Accident;
 import estgconstroi.ConstructionSite;
 import estgconstroi.Employee;
 import estgconstroi.Equipment;
@@ -13,6 +14,7 @@ import estgconstroi.enums.EmployeeType;
 import estgconstroi.enums.EventPriority;
 import estgconstroi.exceptions.ConstructionSiteException;
 import estgconstroi.exceptions.ConstructionSiteManagerException;
+import estgconstroi.exceptions.EventManagerException;
 import estgconstroi.exceptions.TeamException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -332,7 +334,7 @@ public class MenosClass {
         }
     }
 
-    public void EventMenu() {
+    public void EventMenu() throws ConstructionSiteManagerException, EventManagerException {
         Scanner Read = new Scanner(System.in);
         int choice;
         do {
@@ -353,10 +355,10 @@ public class MenosClass {
         } while (choice < 0 || choice > 9);
         switch (choice) {
             case 0:
-                EventMenu();
+                    PrincipalMenu();
                 break;
             case 1:
-
+                TypeEventMenu();
                 break;
             case 2:
                 break;
@@ -386,7 +388,7 @@ public class MenosClass {
 
     }
 
-    public void TypeEventMenu() {
+    public void TypeEventMenu() throws ConstructionSiteManagerException, EventManagerException {
         Scanner Read = new Scanner(System.in);
         int choice;
         do {
@@ -402,13 +404,13 @@ public class MenosClass {
         } while (choice < 0 || choice > 3);
         switch (choice) {
             case 0:
-                TypeEventMenu();
+                EventMenu();
                 break;
             case 1:
-
+               CreateAccident();
                 break;
             case 2:
-
+               CreateFailure();
                 break;
             case 3:
 
@@ -417,12 +419,13 @@ public class MenosClass {
         }
     }
 
-    /*
-      public void CreateAccident() throws ConstructionSiteManagerException {
+    
+      public void CreateAccident() throws ConstructionSiteManagerException, EventManagerException {
         String TempDetails, TempNotificacion, TempTitel;
-        Employee TempEmployee, TempReporter;
-        EventPriority TempPriority;
-        ConstructionSite cs;
+        Employee TempEmployee = null, TempReporter = null;
+        EventPriority TempPriority = null;
+        ConstructionSite cs = null;
+        AccidentClass TempAccident;
         
         int escolha;
         Scanner Read = new Scanner(System.in);
@@ -456,14 +459,12 @@ public class MenosClass {
             for (int i = 0; i < this.Employees.getEmployees().length; i++) {
                 System.out.println("EMPREGADO-" + this.Employees.getEmployees()[i].getName());
             }
-            System.out.println("Digite o nome do empregado");
-            for (int j = 0; j < this.Employees.getEmployees().length; j++) {
-                if (Read.next().equals(this.Employees.getEmployees()[j].getName())) {
-                    TempEmployee = this.Employees.getEmployees()[j];
-                } else {
-                    System.out.println("O NOME NÃO SE ENCONTRA ATRIBUIDO A NENHUM EMPREGADO");
-                    TypeEventMenu();
-                }
+            System.out.println("Escolha o nome do empregado");
+            escolha = Read.nextInt();
+            if(escolha >= 0){
+                TempEmployee = this.Employees.getEmployees()[escolha];
+            }else{
+                System.out.println("A escolha não é possivel.");
             }
         } else {
             System.out.println("NÃO EXISEM EMPREGADOS");
@@ -473,16 +474,14 @@ public class MenosClass {
 
         if (this.Events.getnumberEvents() != 0) {
             for (int i = 0; i < this.Employees.getEmployees().length; i++) {
-                System.out.println("EMPREGADO-" + this.Employees.getEmployees()[i].getName());
+                System.out.println(i + "  EMPREGADO-" + this.Employees.getEmployees()[i].getName());
             }
-            System.out.println("Digite o nome do empregado responsavel");
-            for (int j = 0; j < this.Employees.getEmployees().length; j++) {
-                if (Read.next().equals(this.Employees.getEmployees()[j].getName())) {
-                    TempReporter = this.Employees.getEmployees()[j];
-                } else {
-                    System.out.println("O NOME NÃO SE ENCONTRA ATRIBUIDO A NENHUM EMPREGADO");
-                    TypeEventMenu();
-                }
+            System.out.println("Escolha o empregado responsavel");
+            escolha = Read.nextInt();
+            if(escolha >= 0 ){
+                TempReporter = this.Employees.getEmployees()[escolha];
+            }else{
+                System.out.println("A escolha não é possivel.");
             }
         } else {
             System.out.println("NÃO EXISEM EMPREGADOS");
@@ -490,19 +489,182 @@ public class MenosClass {
             TypeEventMenu();
         }
         if(this.Constructions.getNumberOfConstructionSites() != 0){
+            System.out.println("======ESCOLHA O CONSTRUCTION SITE====");
             for(int i = 0;i<this.Constructions.getNumberOfConstructionSites();i++){
-                System.out.println("");
+                System.out.println(i + this.Constructions.ConstructionSites[i].getName());
             }
-            
+            System.out.println("Escolha:");
+            escolha = Read.nextInt();
+            if(escolha >= 0){
+                cs = this.Constructions.ConstructionSites[escolha];
+            }
         }else {
                     System.out.println("NÃO EXISTEM CONSTRUCTION SITES");
                     TypeEventMenu();
                 }
         
-        
-        Events.reportEvent(TempEmployee, TempDetails, TempNotificacion,TempPriority, TempTitel, TempReporter);
+        TempAccident = new AccidentClass(TempEmployee, TempDetails, TempNotificacion,TempPriority, TempTitel, TempReporter, cs);
+        Events.reportEvent(TempAccident);
     }
-     */
+     
+      public void CreateFailure() throws ConstructionSiteManagerException, EventManagerException{
+           String TempDetails, TempNotificacion, TempTitel;
+        Employee TempReporter = null;
+        Equipment TempEquipment = null;
+        EventPriority TempPriority = null;
+        ConstructionSite cs = null;
+        FailureClass TempFailure;
+        
+        int escolha;
+        Scanner Read = new Scanner(System.in);
+        System.out.println("TITULO DO EVENTO:");
+        TempTitel = Read.next();
+        System.out.println("DETALHES DO EVENTO");
+        TempDetails = Read.next();
+        System.out.println("NOTIFICAÇÃO");
+        TempNotificacion = Read.next();
+        System.out.println("ESCOLHA A PRIORIDADE \n 1 - HIGH \n 2 - IMMEDIATE \n 3 - NORMAL \n 4 - LOW");
+        escolha = Read.nextInt();
+        switch (escolha) {
+            case 1:
+                TempPriority = EventPriority.HIGH;
+                break;
+            case 2:
+                TempPriority = EventPriority.IMMEDIATE;
+
+                break;
+            case 3:
+                TempPriority = EventPriority.NORMAL;
+
+                break;
+            case 4:
+                TempPriority = EventPriority.LOW;
+
+                break;
+        }
+        System.out.println("=====ESCOLHA O EQUIPAMENTO=====");
+        if (this.ListOfEquipments.getEquipment().length != 0) {
+            for (int i = 0; i < this.ListOfEquipments.getEquipment().length; i++) {
+                System.out.println(i + "EQUIPAMENTO-" + this.ListOfEquipments.getEquipment()[i].getName());
+            }
+            System.out.println("Escolha o equipamento");
+            escolha = Read.nextInt();
+            if(escolha >= 0){
+                TempEquipment = this.ListOfEquipments.getEquipment()[escolha];
+            }else{
+                System.out.println("A escolha não é possivel.");
+            }
+        } else {
+            System.out.println("NÃO EXISEM EMPREGADOS");
+            System.out.println("=========================");
+            TypeEventMenu();
+        }
+
+        if (this.Events.getnumberEvents() != 0) {
+            for (int i = 0; i < this.Employees.getEmployees().length; i++) {
+                System.out.println(i + "  EMPREGADO-" + this.Employees.getEmployees()[i].getName());
+            }
+            System.out.println("Escolha o empregado responsavel");
+            escolha = Read.nextInt();
+            if(escolha >= 0 ){
+                TempReporter = this.Employees.getEmployees()[escolha];
+            }else{
+                System.out.println("A escolha não é possivel.");
+            }
+        } else {
+            System.out.println("NÃO EXISEM EMPREGADOS");
+            System.out.println("=========================");
+            TypeEventMenu();
+        }
+        if(this.Constructions.getNumberOfConstructionSites() != 0){
+            System.out.println("======ESCOLHA O CONSTRUCTION SITE====");
+            for(int i = 0;i<this.Constructions.getNumberOfConstructionSites();i++){
+                System.out.println(i + this.Constructions.ConstructionSites[i].getName());
+            }
+            System.out.println("Escolha:");
+            escolha = Read.nextInt();
+            if(escolha >= 0){
+                cs = this.Constructions.ConstructionSites[escolha];
+            }
+        }else {
+                    System.out.println("NÃO EXISTEM CONSTRUCTION SITES");
+                    TypeEventMenu();
+                }
+        
+        TempFailure = new FailureClass(TempEquipment, TempDetails, TempNotificacion,TempPriority, TempTitel, TempReporter, cs);
+        Events.reportEvent(TempFailure);
+      }
+      public void CreateIncident() throws ConstructionSiteManagerException, EventManagerException{
+              String TempDetails, TempNotificacion, TempTitel;
+        Employee TempReporter = null;
+        EventPriority TempPriority = null;
+        ConstructionSite cs = null;
+        IncidentClass TempIncident;
+        
+        int escolha;
+        Scanner Read = new Scanner(System.in);
+        System.out.println("TITULO DO EVENTO:");
+        TempTitel = Read.next();
+        System.out.println("DETALHES DO EVENTO");
+        TempDetails = Read.next();
+        System.out.println("NOTIFICAÇÃO");
+        TempNotificacion = Read.next();
+        System.out.println("ESCOLHA A PRIORIDADE \n 1 - HIGH \n 2 - IMMEDIATE \n 3 - NORMAL \n 4 - LOW");
+        escolha = Read.nextInt();
+        switch (escolha) {
+            case 1:
+                TempPriority = EventPriority.HIGH;
+                break;
+            case 2:
+                TempPriority = EventPriority.IMMEDIATE;
+
+                break;
+            case 3:
+                TempPriority = EventPriority.NORMAL;
+
+                break;
+            case 4:
+                TempPriority = EventPriority.LOW;
+
+                break;
+        }
+        
+
+        if (this.Events.getnumberEvents() != 0) {
+            for (int i = 0; i < this.Employees.getEmployees().length; i++) {
+                System.out.println(i + "  EMPREGADO-" + this.Employees.getEmployees()[i].getName());
+            }
+            System.out.println("Escolha o empregado responsavel");
+            escolha = Read.nextInt();
+            if(escolha >= 0 ){
+                TempReporter = this.Employees.getEmployees()[escolha];
+            }else{
+                System.out.println("A escolha não é possivel.");
+            }
+        } else {
+            System.out.println("NÃO EXISEM EMPREGADOS");
+            System.out.println("=========================");
+            TypeEventMenu();
+        }
+        if(this.Constructions.getNumberOfConstructionSites() != 0){
+            System.out.println("======ESCOLHA O CONSTRUCTION SITE====");
+            for(int i = 0;i<this.Constructions.getNumberOfConstructionSites();i++){
+                System.out.println(i + this.Constructions.ConstructionSites[i].getName());
+            }
+            System.out.println("Escolha:");
+            escolha = Read.nextInt();
+            if(escolha >= 0){
+                cs = this.Constructions.ConstructionSites[escolha];
+            }
+        }else {
+                    System.out.println("NÃO EXISTEM CONSTRUCTION SITES");
+                    TypeEventMenu();
+                }
+        
+        TempIncident = new IncidentClass(cs, TempDetails, TempNotificacion,TempPriority, TempTitel, TempReporter);
+        Events.reportEvent(TempIncident);
+      }
+      
     public void CreateConstructionSite() throws ConstructionSiteManagerException {
         try {
             String TempName, TempLocation, TempPermit, TempDate;
