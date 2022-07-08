@@ -28,11 +28,11 @@ import java.util.Scanner;
  */
 public class MenosClass {
 
-    private ConstructionSiteManagerClass Constructions = new ConstructionSiteManagerClass();
-    private TeamManagerClass Teams = new TeamManagerClass();
-    private EquipmentsClass ListOfEquipments = new EquipmentsClass();
-    private EmployeeManagerClass Employees = new EmployeeManagerClass();
-    private EventManagerCass Events = new EventManagerCass();
+    private final ConstructionSiteManagerClass Constructions = new ConstructionSiteManagerClass();
+    private final TeamManagerClass Teams = new TeamManagerClass();
+    private final EquipmentsClass ListOfEquipments = new EquipmentsClass();
+    private final EmployeeManagerClass Employees = new EmployeeManagerClass();
+    private final EventManagerCass Events = new EventManagerCass();
 
     public void PrincipalMenu() throws ConstructionSiteManagerException {
         try {
