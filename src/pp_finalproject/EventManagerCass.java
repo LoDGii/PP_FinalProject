@@ -153,6 +153,10 @@ public class EventManagerCass implements EventManager {
         }
     }
 
+    public Event[] getAllEvents(){
+        return this.event;
+    }
+    
     @Override
     public Event[] getEvent(EventPriority ep) {
         int contador = 0;
@@ -236,6 +240,14 @@ public class EventManagerCass implements EventManager {
         return array;
     }
 
+    public String getGroupKey(){
+        return this.getGroupKey();
+    }
+    
+    public String getGroupName(){
+        return this.getGroupName();
+    }
+    
     public static void eventToJson(Event event) throws IOException {
         JSONObject eventToJson = new JSONObject();
         eventToJson.put("uuid", event.getUuid());
