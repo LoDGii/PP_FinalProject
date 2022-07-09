@@ -6,7 +6,7 @@
 * Nome: Diogo Gomes Cardoso
 * Número: 8210193
 * Turma: LEI12T1
-*/
+ */
 package pp_finalproject;
 
 import estgconstroi.Equipment;
@@ -16,7 +16,8 @@ import estgconstroi.enums.EquipmentType;
 import estgconstroi.exceptions.ConstructionSiteException;
 
 /**
- *classe de equipamentos
+ * classe de equipamentos
+ *
  * @author Bruno
  * @author Diogo
  */
@@ -35,10 +36,11 @@ public class EquipmentsClass implements Equipments {
         this.numberEquipments = 0;
         this.equipments = new EquipmentClass[10];
     }
-/**
- * metodo que verifica o tamanho do array de equipamentos e aumenta esse array 
- * se for necessario
- */
+
+    /**
+     * metodo que verifica o tamanho do array de equipamentos e aumenta esse
+     * array se for necessario
+     */
     private void verifySize() {
         if (this.equipments.length == this.numberEquipments) {
             EquipmentClass[] newArray = new EquipmentClass[this.numberEquipments];
@@ -51,11 +53,13 @@ public class EquipmentsClass implements Equipments {
             }
         }
     }
-/**
- * metodo que adiciona um equipamento ao array de equipamentos
- * @param eqpmnt
- * @throws ConstructionSiteException 
- */
+
+    /**
+     * metodo que adiciona um equipamento ao array de equipamentos
+     *
+     * @param eqpmnt
+     * @throws ConstructionSiteException
+     */
     @Override
     public void addEquipment(Equipment eqpmnt) throws ConstructionSiteException {
         try {
@@ -76,11 +80,13 @@ public class EquipmentsClass implements Equipments {
             throw new ConstructionSiteException("Erro ao adicionar o equipamento");
         }
     }
-/**
- * metodo que remove um equipamento do array de equipamentos
- * @param eqpmnt
- * @throws ConstructionSiteException 
- */
+
+    /**
+     * metodo que remove um equipamento do array de equipamentos
+     *
+     * @param eqpmnt
+     * @throws ConstructionSiteException
+     */
     @Override
     public void removeEquipment(Equipment eqpmnt) throws ConstructionSiteException {
         try {
@@ -110,14 +116,15 @@ public class EquipmentsClass implements Equipments {
         } catch (Exception o) {
             throw new ConstructionSiteException("Erro ao remover o equipamento");
         }
-        
-        
+
     }
-/**
- * metodo que retorna um array com os equipamentos que têm um certo nome
- * @param string
- * @return 
- */
+
+    /**
+     * metodo que retorna um array com os equipamentos que têm um certo nome
+     *
+     * @param string
+     * @return
+     */
     @Override
     public Equipment[] getEquipment(String string) {
         int contador = 0;
@@ -136,13 +143,15 @@ public class EquipmentsClass implements Equipments {
                 contador++;
             }
         }
-        return array;       
+        return array;
     }
-/**
- * metodo que retorna um array de equipamentos de um certo tipo de estado
- * @param es
- * @return 
- */
+
+    /**
+     * metodo que retorna um array de equipamentos de um certo tipo de estado
+     *
+     * @param es
+     * @return
+     */
     @Override
     public Equipment[] getEquipment(EquipmentStatus es) {
         int contador = 0;
@@ -163,11 +172,13 @@ public class EquipmentsClass implements Equipments {
         }
         return array;
     }
-/**
- * metodo que retorna um array de equipamento de um certo tipo
- * @param et
- * @return 
- */
+
+    /**
+     * metodo que retorna um array de equipamento de um certo tipo
+     *
+     * @param et
+     * @return
+     */
     @Override
     public Equipment[] getEquipment(EquipmentType et) {
         int contador = 0;
@@ -188,17 +199,23 @@ public class EquipmentsClass implements Equipments {
         }
         return array;
     }
-/**
- * metodo que retorna um array com todos os equipamentos
- * @return 
- */
+
+    /**
+     * metodo que retorna um array com todos os equipamentos
+     *
+     * @return
+     */
     @Override
     public Equipment[] getEquipment() {
-         EquipmentClass[] copy = new EquipmentClass[this.equipments.length];
-        for(int i = 0;i<this.numberEquipments;i++){
+        EquipmentClass[] copy = new EquipmentClass[this.equipments.length];
+        for (int i = 0; i < this.numberEquipments; i++) {
             copy[i] = this.equipments[i];
         }
         return copy;
+    }
+
+    public int getNumberOfEquipments() {
+        return this.numberEquipments;
     }
 
 }

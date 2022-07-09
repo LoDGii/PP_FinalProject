@@ -26,58 +26,94 @@ public class TeamManagerClass {
             FakeArray[i] = this.Teams[i];
         }
         FakeArray[this.NumberOfTeams] = (TeamClass) team;
+
         this.NumberOfTeams++;
         this.Teams = FakeArray;
+
     }
-    
-    public void addEmployee(EmployeeClass emp, int Index) throws TeamException{
+
+    public void addEmployee(EmployeeClass emp, int Index) throws TeamException {
         this.Teams[Index].addEmployees(emp);
     }
-    
-    
-    public void setName(int Index_Team, String TempName){
+
+    public void setName(int Index_Team, String TempName) {
         this.Teams[Index_Team].setName(TempName);
     }
-    
-    public void removeEmployee(int Index_Team,Employee emp) throws TeamException{
+
+    public void removeEmployee(int Index_Team, Employee emp) throws TeamException {
         this.Teams[Index_Team].removeEmployee(emp);
     }
-    
-    public void setEquipments(int Index, Equipment eqpmnt) throws ConstructionSiteException{
+
+    public void setEquipments(int Index, Equipment eqpmnt) throws ConstructionSiteException {
         this.Teams[Index].addEquipments(eqpmnt);
     }
-    public Equipments[] getEquipments(){
+
+    public Equipments[] getEquipments() {
         Equipments[] FakeArray = new Equipments[this.NumberOfTeams];
-        for(int i = 0;i < FakeArray.length;i++){
-            FakeArray[i] = this.Teams[i].getEquipments();            
+        for (int i = 0; i < FakeArray.length; i++) {
+            FakeArray[i] = this.Teams[i].getEquipments();
         }
         return FakeArray;
     }
-    
-    
-    public TeamStatus getStatus(int Index){
+
+    public TeamStatus getStatus(int Index) {
         return this.Teams[Index].getStatus();
     }
 
-    public void remove(int Remove_Index){
+    public void remove(int Remove_Index) {
         TeamClass[] FakeArray = new TeamClass[this.NumberOfTeams - 1];
         int k = 0;
-        for(int i = 0;i < this.NumberOfTeams;i++){
-            if(i != Remove_Index){
+        for (int i = 0; i < this.NumberOfTeams; i++) {
+            if (i != Remove_Index) {
                 FakeArray[k] = this.Teams[i];
                 k++;
             }
         }
     }
-    
-    public void setLeader(Employee emp, int Index) throws TeamException{
+
+    public void setLeader(Employee emp, int Index) throws TeamException {
         this.Teams[Index].setLeader(emp);
     }
-    
-    public TeamClass[] getTeams(){
+
+    public TeamClass[] getTeams() {
         return this.Teams;
     }
-    
-    
-    
+
+    /**
+     * Show's all teams in a String form
+     */
+    public void showAllTeams() {
+        for (int i = 0; i < this.Teams.length; i++) {
+            System.out.println(i + 1 + " - " + this.Teams[i].getName());
+
+        }
+
+    }
+
+    /**
+     * Set's the team status
+     *
+     * @param Index Index of the team the user wants to edit
+     * @param stat status the team will be given
+     */
+    public void setTeamStatus(int Index, TeamStatus stat) {
+        this.Teams[Index].setStatus(stat);
+    }
+
+    /**
+     * Returns in String form all the Teams with a given status
+     *
+     * @param status status to be searched
+     */
+    public void showTeamsByStatus(TeamStatus status) {
+        TeamClass[] teams = this.Teams;
+        for (int i = 0; i < teams.length; i++) {
+            if (teams[i].getStatus() == status) {
+                System.out.println(teams[i].getName() + " - " + teams[i].getLeader());
+            }
+        }
+    }
+
+
+
 }

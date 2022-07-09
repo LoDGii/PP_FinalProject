@@ -13,13 +13,21 @@ import estgconstroi.Employee;
 import estgconstroi.enums.EmployeeType;
 
 /**
- *classe do empregado
- * @author Bruno
- * @author Diogo
+*This Class provides the parameters needed to create a Employee
+* 
+* 
+* 
  */
 public class EmployeeClass extends Employee{
     /**
-     * atributos de um empregado
+     * Employees Atributes
+     * 
+     * 
+     * 
+     * @param Name String that saves the name of the Employee.
+     * @param Type This variable saves the diferent types of Employees (MANAGER, TEAM LEADER OR WORKER).
+     * @param status Saves the status of the Employee (WORKING, INACTIVE OR FREE).
+     * @param team If It's part of a team the team is saved in here.
      */
     private static String Name;
     private EmployeeType Type;
@@ -27,9 +35,9 @@ public class EmployeeClass extends Employee{
     private TeamClass team;
     
     /**
-     * metodo construtor de um empregado
-     * @param TempName
-     * @param TempType 
+     * Constructor Method
+     * @param TempName saves the name of the Employee
+     * @param TempType saves the Type of the Employee
      */
     public EmployeeClass(String TempName, EmployeeType TempType){
         super();
@@ -37,49 +45,63 @@ public class EmployeeClass extends Employee{
         this.Type = TempType;
         this.status = EmployeeStatus.FREE;
     }
-    
+    /**
+     * Set's the team of the Employee
+     * 
+     * @param tm 
+     */
     public void setTeam(TeamClass tm){
         this.team = tm;
     }
-    
+    /**
+     * Return's the Team of the Employee.
+     * @return Team of the Employee
+     */
     public TeamClass getTeam(){
         return this.team;
     }
     
-    
+    /**
+     * Change's the Status of the Employee
+     * 
+     * @param stat EmployeeStatus wich the user wants the Employee to have.
+     */
     public void setStatus(EmployeeStatus stat){
         this.status = stat;
     }
-    
+    /**
+     * Return's the Employee Status.
+     * @return Employee Status
+     */
     public EmployeeStatus getStatus(){
         return this.status;
     }
     /**
-     * metodo construtor de um empregado sem lhe ter sido atribuido nada
+     * Constructor Method that only receives params that where inherited from the abstract class
      */
     public EmployeeClass(){
         super();
     }
     
     /**
-     * atribui um nome a um empregado
-     * @param name 
+     * Set's the Employee Name.
+     * @param name name of the Employee
      */
     public void setName(String name) {
         this.Name = name;
     }
     
     /**
-     * retorna o nome de u empregado
-     * @return 
+     * Return's the Name of the Employee.
+     * @return Name of the Employee
      */
     @Override
     public String getName() {
         return EmployeeClass.Name;
     }
 /**
- * retorna o tipo de um empregado
- * @return 
+ * Return's the type of Employee
+ * @return Type of Employee
  */
     @Override
     public EmployeeType getType() {
@@ -87,12 +109,13 @@ public class EmployeeClass extends Employee{
     }
     
 /**
- * atribui um tipo a um empregado
- * @param et 
+ * Set's the EmployeeType to the one the User wants.
+ * @param et EmployeeType wich the Employee will be changed to.
  */
     @Override
     public void setType(EmployeeType et) {
         this.Type = et;
     }
+    
     
 }

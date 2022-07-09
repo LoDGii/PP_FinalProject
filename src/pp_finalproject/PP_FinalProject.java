@@ -17,8 +17,8 @@ public class PP_FinalProject {
      * @throws estgconstroi.exceptions.ConstructionSiteManagerException
      */
     public static void main(String[] args) throws ConstructionSiteManagerException{
-        MenosClass Menu = new MenosClass();
-        Menu.PrincipalMenu(); 
+        //MenosClass Menu = new MenosClass();
+        //Menu.PrincipalMenu(); 
     }
     
 }
