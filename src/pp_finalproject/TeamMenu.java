@@ -27,7 +27,7 @@ public class TeamMenu {
      * @param teams variable with all the information of the teams in the
      * company.
      */
-    public void principalMenu(TeamManagerClass teams, EmployeeManagerClass emp) throws TeamException {
+    public void principalMenu(TeamManagerClass teams, EmployeeManagerClass emp, EquipmentsClass equip) throws TeamException {
         Scanner Read = new Scanner(System.in);
         int Choice = -1;
         do {
@@ -53,7 +53,7 @@ public class TeamMenu {
                 showByStatusTeams(teams, TeamStatus.WORKING);
                 break;
             case 4:
-                editTeam(teams, emp);
+                editTeam(teams, emp, equip);
                 break;
         }
     }
@@ -77,7 +77,7 @@ public class TeamMenu {
             System.out.println("===============================================");
             Choice = Read.nextInt();
         } while (Choice != 0);
-       
+
     }
 
     /**
@@ -102,7 +102,7 @@ public class TeamMenu {
      * @param teams variable with all the information of the teams in the
      * company.
      */
-    public void editTeam(TeamManagerClass teams, EmployeeManagerClass emp) throws TeamException {
+    public void editTeam(TeamManagerClass teams, EmployeeManagerClass emp, EquipmentsClass equip) throws TeamException {
         int teamIndex = selectTeamToEdit(teams);
         Scanner Read = new Scanner(System.in);
         int Choice = 0;
@@ -119,39 +119,43 @@ public class TeamMenu {
         } while (Choice < 0 || Choice > 6);
         switch (Choice) {
             case 0:
-                principalMenu(teams,emp);
+                principalMenu(teams, emp, equip);
                 break;
             case 1:
-                setLeaderMenu(teams, emp, teamIndex);
-                principalMenu(teams, emp);
+                setLeaderMenu(teams, emp, teamIndex, equip);
+                principalMenu(teams, emp, equip);
                 break;
             case 2:
+                addEquip(teams, equip, teamIndex);
+                principalMenu(teams, emp, equip);
                 break;
             case 3:
                 setNameMenu(teams, teamIndex);
-                principalMenu(teams, emp);
+                principalMenu(teams, emp, equip);
                 break;
             case 4:
-                addEmployeeMenu(teams, emp, teamIndex);
-                principalMenu(teams, emp);
+                addEmployeeMenu(teams, emp, teamIndex, equip);
+                principalMenu(teams, emp, equip);
                 break;
             case 5:
-                removeEmployeeMenu(teams, emp, teamIndex);
-                principalMenu(teams, emp);
+                removeEmployeeMenu(teams, emp, teamIndex, equip);
+                principalMenu(teams, emp, equip);
                 break;
             case 6:
+                removeEquip(teams, equip, teamIndex);
+                principalMenu(teams, emp, equip);
                 break;
         }
     }
-  
-    public void addEquip(){
-        
+
+    public void addEquip(TeamManagerClass teams, EquipmentsClass equip, int teamIndex) {
+
     }
-    public void removeEquip(){
-        
+
+    public void removeEquip(TeamManagerClass teams, EquipmentsClass equip, int teamIndex) {
+
     }
-    
-    
+
     /**
      * Remove Employee from a Team.
      * <p>
@@ -168,7 +172,7 @@ public class TeamMenu {
      * @param teamIndex index of the team we're editing.
      * @throws TeamException
      */
-    public void removeEmployeeMenu(TeamManagerClass teams, EmployeeManagerClass emp, int teamIndex) throws TeamException {
+    public void removeEmployeeMenu(TeamManagerClass teams, EmployeeManagerClass emp, int teamIndex, EquipmentsClass equip) throws TeamException {
         TeamClass[] team = teams.getTeams();
         Employee[] empl = teams.getEmployees(teamIndex);
         Scanner Read = new Scanner(System.in);
@@ -176,7 +180,7 @@ public class TeamMenu {
         do {
             System.out.println("========== LISTA DE EMPREGADOS ==========");
             for (int i = 0; i < empl.length; i++) {
-                System.out.println(i + 1 + " - " + empl[i].getUUID());                        
+                System.out.println(i + 1 + " - " + empl[i].getUUID());
             }
             System.out.println("=========================================");
             System.out.println("OPÇÃO: ");
@@ -184,7 +188,7 @@ public class TeamMenu {
         } while (Choice < 0 || Choice > empl.length);
         switch (Choice) {
             case 0:
-                editTeam(teams, emp);
+                editTeam(teams, emp, equip);
                 break;
             default:
                 teams.removeEmployee(teamIndex, empl[Choice - 1]);
@@ -214,7 +218,7 @@ public class TeamMenu {
      * @param teamIndex index of the team we're editing.
      * @throws TeamException
      */
-    public void addEmployeeMenu(TeamManagerClass teams, EmployeeManagerClass emp, int teamIndex) throws TeamException {
+    public void addEmployeeMenu(TeamManagerClass teams, EmployeeManagerClass emp, int teamIndex, EquipmentsClass equip) throws TeamException {
         EmployeeClass[] empl = emp.getEmployees();
         EmployeeClass[] free = new EmployeeClass[empl.length];
         Scanner Read = new Scanner(System.in);
@@ -238,11 +242,11 @@ public class TeamMenu {
         System.arraycopy(free, 0, freefin, 0, k);
         switch (Choice) {
             case 0:
-                editTeam(teams, emp);
+                editTeam(teams, emp, equip);
                 break;
             default:
-                teams.addEmployee(empl[Choice - 1], teamIndex);               
-                editTeam(teams, emp);
+                teams.addEmployee(empl[Choice - 1], teamIndex);
+                editTeam(teams, emp, equip);
                 break;
 
         }
@@ -260,7 +264,7 @@ public class TeamMenu {
         System.out.println("NOVO NOME: ");
         String TempName = Read.next();
         teams.setName(TeamIndex, TempName);
-        
+
     }
 
     /**
@@ -287,7 +291,7 @@ public class TeamMenu {
      * @param teamIndex index of the team we're editing.
      * @throws TeamException
      */
-    public void setLeaderMenu(TeamManagerClass Teams, EmployeeManagerClass Employees, int teamIndex) throws TeamException {
+    public void setLeaderMenu(TeamManagerClass Teams, EmployeeManagerClass Employees, int teamIndex, EquipmentsClass equip) throws TeamException {
 
         Scanner Read = new Scanner(System.in);
         EmployeeClass[] emp = Employees.getEmployeeByType(EmployeeType.TEAM_LEADER);
@@ -304,13 +308,13 @@ public class TeamMenu {
         } while (Choice < 0 || Choice > emp.length);
         switch (Choice) {
             case 0:
-                
+
                 break;
             default:
                 int Index = Employees.getEmployee(emp[Choice - 1]);
                 EmployeeClass employ = Employees.getEmployee(Index);
                 Teams.setLeader(employ, teamIndex);
-                editTeam(Teams, Employees);
+                editTeam(Teams, Employees, equip);
         }
     }
 
@@ -333,7 +337,7 @@ public class TeamMenu {
             Choice = Read.nextInt();
         } while (Choice < 0 || Choice > NumberOfTeams);
         if (Choice == 0) {
-            
+
             return 0;
         } else {
             Index_Team = Choice;

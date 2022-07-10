@@ -32,9 +32,8 @@ public class TeamClass implements Team {
     private Employee leader;
     private int numberEmployees;
     private EmployeeClass[] employee;
-    ;
-      private int numberEquipment;
-    private Equipments equipment;
+    private int numberEquipment;
+    private EquipmentsClass equipment;
     private TeamStatus status;
 
     /**
