@@ -28,7 +28,7 @@ public class TeamMenu {
      */
     public void principalMenu(TeamManagerClass teams) {
         Scanner Read = new Scanner(System.in);
-        int Choice = 0;
+        int Choice = -1;
         do {
             System.out.println("========== MENU DE EQUIPAS ==========");
             System.out.println("1 - CRIAR NOVA EQUIPA");//DONE
@@ -37,6 +37,7 @@ public class TeamMenu {
             System.out.println("4 - EDITAR EQUIPA");
             System.out.println("0 - VOLTAR AO MENU PRINCIPAL");
             System.out.println("=====================================");
+            Choice = Read.nextInt();
         } while (Choice < 0 || Choice > 4);
         switch (Choice) {
             case 0:

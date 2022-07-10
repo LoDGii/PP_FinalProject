@@ -28,7 +28,7 @@ public class EmployeeMenu {
      */
     public void principalMenu(EmployeeManagerClass emp) {
         Scanner Read = new Scanner(System.in);
-        int Choice = 0;
+        int Choice = -1;
         do {
             System.out.println("========== MENU DE FUNCIONÁRIOS ==========");
             System.out.println("1 - CRIAR FUNCIONÁRIO");//DONE

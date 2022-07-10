@@ -54,6 +54,7 @@ public class PrincipalMenu {
                     break;
                 case 4:
                     EmployeeMenu employeeMenu = new EmployeeMenu();
+                    employeeMenu.principalMenu(Employees);
                     PrincipalMenu();
                     break;
                 case 5:
