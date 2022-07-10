@@ -48,24 +48,89 @@ public class EventMenu {
             System.out.println("1 - REPORTAR EVENTO");//DONE
             System.out.println("2 - APAGAR EVENTOS QUE ESTÃO NA BASE DE DADOS");//DONE
             System.out.println("3 - RECEBER EVENTOS DA BASE DE DADOS"); //DONE
+            System.out.println("4 - REMOVER UM EVENTO");
+            System.out.println("5 - VER EVENTOS POR TIPO");
             System.out.println("0 - SAIR");
             System.out.println("=============================================");
             System.out.println("Escolha: ");
             Choice = Read.nextInt();
-        } while (Choice < 0 || Choice > 5);
+        } while (Choice < 0 || Choice > 4);
         switch (Choice) {
             case 0:
                 break;
             case 1:
                 TypeEventMenu(events, employees, cons, equip);
+                principalMenu(employees, cons, equip);
                 break;
             case 2:
                 removeEventsDb(events);
+                principalMenu(employees, cons, equip);
                 break;
             case 3:
                 getEventsFromDb(events);
+                principalMenu(employees, cons, equip);
+                break;
+            case 4:
+                RemoveEvent(events);
+                principalMenu(employees, cons, equip);
+                break;
+            case 5:
+                ReportEventsType(events);
+                principalMenu(employees, cons, equip);
                 break;
 
+        }
+    }
+
+    public void ReportEventsType(EventManagerCass Events) throws ConstructionSiteManagerException, EventManagerException {
+        try {
+            Scanner Read = new Scanner(System.in);
+            int evento2;
+            do {
+                System.out.println("Indique o tipo de evento que deseja procurar:\n1 - Acidente\n2 - Incidente\n3 - Falha");
+                evento2 = Read.nextInt();
+            } while (evento2 < 1 || evento2 > 3);
+            for (int i = 0; i < Events.getnumberEvents(); i++) {
+                if (evento2 == 1) {
+                    if (Events.getAllEvents()[i] instanceof AccidentClass) {
+                        System.out.println(Events.getAllEvents()[i].toString());
+                    }
+                }
+                if (evento2 == 2) {
+                    if (Events.getAllEvents()[i] instanceof IncidentClass) {
+                        System.out.println(Events.getAllEvents()[i].toString());
+                    }
+                }
+                if (evento2 == 3) {
+                    if (Events.getAllEvents()[i] instanceof FailureClass) {
+                        System.out.println(Events.getAllEvents()[i].toString());
+                    }
+                }
+            }
+        } catch (Exception o) {
+            System.out.println("Não existe eventos");
+        }
+    }
+
+    public void RemoveEvent(EventManagerCass events) {
+        int escolher;
+        Scanner Read = new Scanner(System.in);
+        if (events.getnumberEvents() == 0) {
+            System.out.println("Não existem eventos para remover");
+        } else {
+            try {
+                System.out.println("Escolha o evento que deseja remover:");
+                do {
+                    for (int i = 0; i < events.getnumberEvents(); i++) {
+                        System.out.println((i + 1) + " - " + events.getAllEvents()[i].getTitle());
+                    }
+                    escolher = Read.nextInt();
+                } while (escolher < 1 || escolher > events.getnumberEvents());
+
+                events.removeEvent(events.getAllEvents()[escolher - 1]);
+            } catch (EventManagerException e) {
+                System.out.println("Erro ao reportar");
+            }
         }
     }
 
@@ -338,17 +403,19 @@ public class EventMenu {
         TempFailure = new FailureClass(TempEquipment, TempDetails, TempNotificacion, TempPriority, TempTitel, TempReporter, cs);
         events.reportEvent(TempFailure);
     }
-/**
- * Create's an event from the Incident type.
- * @param events
- * @param employees
- * @param cons
- * @param equip
- * @throws ConstructionSiteManagerException
- * @throws EventManagerException
- * @throws IOException
- * @throws InterruptedException 
- */
+
+    /**
+     * Create's an event from the Incident type.
+     *
+     * @param events
+     * @param employees
+     * @param cons
+     * @param equip
+     * @throws ConstructionSiteManagerException
+     * @throws EventManagerException
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public void CreateIncident(EventManagerCass events, EmployeeManagerClass employees, ConstructionSiteManagerClass cons, EquipmentsClass equip) throws ConstructionSiteManagerException, EventManagerException, IOException, InterruptedException {
         String TempDetails, TempNotificacion, TempTitel;
         Employee TempReporter = null;
