@@ -144,6 +144,14 @@ public class TeamMenu {
         }
     }
   
+    public void addEquip(){
+        
+    }
+    public void removeEquip(){
+        
+    }
+    
+    
     /**
      * Remove Employee from a Team.
      * <p>
@@ -168,7 +176,7 @@ public class TeamMenu {
         do {
             System.out.println("========== LISTA DE EMPREGADOS ==========");
             for (int i = 0; i < empl.length; i++) {
-                System.out.println(i + 1 + " - " + empl[i].getUUID());
+                System.out.println(i + 1 + " - " + empl[i].getUUID());                        
             }
             System.out.println("=========================================");
             System.out.println("OPÇÃO: ");
