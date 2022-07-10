@@ -58,7 +58,7 @@ public class TeamManagerClass {
      * @param Index Index of the team being edited.
      * @throws TeamException
      */
-    public void addEmployee(EmployeeClass emp, int Index) throws TeamException {
+    public void addEmployee(Employee emp, int Index) throws TeamException {
         this.Teams[Index].addEmployees(emp);
     }
 
@@ -81,6 +81,10 @@ public class TeamManagerClass {
      */
     public void removeEmployee(int Index_Team, Employee emp) throws TeamException {
         this.Teams[Index_Team].removeEmployee(emp);
+    }
+
+    public Employee[] getEmployees(int Index) {
+        return this.Teams[Index].getEmployees();
     }
 
     /**

@@ -10,6 +10,7 @@
  */
 package pp_finalproject;
 
+import estgconstroi.Employee;
 import estgconstroi.enums.EmployeeType;
 import estgconstroi.exceptions.TeamException;
 import java.util.Scanner;
@@ -161,13 +162,13 @@ public class TeamMenu {
      */
     public void removeEmployeeMenu(TeamManagerClass teams, EmployeeManagerClass emp, int teamIndex) throws TeamException {
         TeamClass[] team = teams.getTeams();
-        EmployeeClass[] empl = (EmployeeClass[]) team[teamIndex].getEmployees();
+        Employee[] empl = teams.getEmployees(teamIndex);
         Scanner Read = new Scanner(System.in);
         int Choice;
         do {
             System.out.println("========== LISTA DE EMPREGADOS ==========");
             for (int i = 0; i < empl.length; i++) {
-                System.out.println(i + 1 + " - " + empl[i].getName());
+                System.out.println(i + 1 + " - " + empl[i].getUUID());
             }
             System.out.println("=========================================");
             System.out.println("OPÇÃO: ");
@@ -232,9 +233,7 @@ public class TeamMenu {
                 editTeam(teams, emp);
                 break;
             default:
-                teams.addEmployee(empl[Choice - 1], teamIndex);
-                int emplIndex = emp.getEmployee(empl[Choice - 1]);
-                emp.setEmployeeStatus(emplIndex, EmployeeStatus.WORKING);
+                teams.addEmployee(empl[Choice - 1], teamIndex);               
                 editTeam(teams, emp);
                 break;
 
