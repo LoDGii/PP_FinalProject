@@ -98,9 +98,7 @@ public class EmployeeManagerClass {
      * @return all employees of the company.
      */
     public EmployeeClass[] getEmployees() {
-        EmployeeClass[] FakeArray =  new EmployeeClass[this.NumberOfEmployees];
-        System.arraycopy(this.ListOfEmployees, 0, FakeArray, 0, this.NumberOfEmployees);
-        return FakeArray;
+        return this.ListOfEmployees;
     }
 
     /**
