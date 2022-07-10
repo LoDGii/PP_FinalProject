@@ -52,6 +52,7 @@ public class TeamMenu {
                 showByStatusTeams(teams, TeamStatus.WORKING);
                 break;
             case 4:
+                editTeam();
                 break;
         }
     }
