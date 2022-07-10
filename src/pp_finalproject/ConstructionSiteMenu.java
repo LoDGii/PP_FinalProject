@@ -145,10 +145,9 @@ public class ConstructionSiteMenu {
             do {
                 System.out.println("========== MENU EDIÇÃO DE CONSTRUCÕES ==========");
                 System.out.println("1 - EQUIPAS");
-                System.out.println("2 - EQUIPAMENTOS");
-                System.out.println("3 - DEFINIR RESPONSAVEL");//DONE
-                System.out.println("4 - VERIFICAR RESPONSAVEL PELA CONSTRUÇÃO");//DONE
-                System.out.println("5 - ALTERAR PERMIT");//DONE
+                System.out.println("2 - DEFINIR RESPONSAVEL");//DONE
+                System.out.println("3 - VERIFICAR RESPONSAVEL PELA CONSTRUÇÃO");//DONE
+                System.out.println("4 - ALTERAR PERMIT");//DONE
                 System.out.println("0 - VOLTAR AO MENU ANTERIOR");//DONE
                 System.out.println("================================================");
                 Choice = Read.nextInt();
@@ -159,21 +158,18 @@ public class ConstructionSiteMenu {
                 case 1:
                     teamMenu(cs,empl,team,equip, constructionSiteIndex);
                     break;
+
                 case 2:
-                    break;
-                case 3:
                     setConstructionResponsible(cs, empl, constructionSiteIndex);
                     editConstructionSite(cs,empl,team,equip);
                     break;
-                case 4:
+                case 3:
                     showConstructionResponsible(cs, constructionSiteIndex);
                     editConstructionSite(cs,empl,team,equip);
                     break;
-                case 5:
+                case 4:
                     changePermit(cs, constructionSiteIndex);
                     editConstructionSite(cs,empl,team,equip);
-                    break;
-                case 6:
                     break;
             }
         }
