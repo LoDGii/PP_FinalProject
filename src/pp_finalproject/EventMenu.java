@@ -25,17 +25,19 @@ import java.util.Scanner;
  * Class with all the arguments for the Events menu.
  */
 public class EventMenu {
+
     /**
      * Principal Menu for the events menu
-     * 
-     * 
-     * @param employees array with all the information of the employees from the company
+     *
+     *
+     * @param employees array with all the information of the employees from the
+     * company
      * @param cons array with all the information of the construction sites.
      * @param equip array with all the equipment of the company
      * @throws IOException
      * @throws InterruptedException
      * @throws ConstructionSiteManagerException
-     * @throws EventManagerException 
+     * @throws EventManagerException
      */
     public void principalMenu(EmployeeManagerClass employees, ConstructionSiteManagerClass cons, EquipmentsClass equip) throws IOException, InterruptedException, ConstructionSiteManagerException, EventManagerException {
         EventManagerCass events = new EventManagerCass();
@@ -67,6 +69,11 @@ public class EventMenu {
         }
     }
 
+    /**
+     * Remove's all the events from the data base
+     *
+     * @param events
+     */
     public void removeEventsDb(EventManagerCass events) {
         try {
             InsuranceReporter.resetEvents(events.getGroupKey(), events.getGroupName());
@@ -76,6 +83,11 @@ public class EventMenu {
         }
     }
 
+    /**
+     * Print's all the events in the DB.
+     *
+     * @param events
+     */
     public void getEventsFromDb(EventManagerCass events) {
         try {
             System.out.println(InsuranceReporter.getEvents(events.getGroupKey(), events.getGroupName()));
@@ -85,6 +97,18 @@ public class EventMenu {
         }
     }
 
+    /**
+     * Menu to select the Type of an event
+     *
+     * @param events
+     * @param employees array with all the employees in the company.
+     * @param cons array with all the construction sites in the company.
+     * @param equip array with all the equipments in the company.
+     * @throws ConstructionSiteManagerException
+     * @throws EventManagerException
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public void TypeEventMenu(EventManagerCass events, EmployeeManagerClass employees, ConstructionSiteManagerClass cons, EquipmentsClass equip) throws ConstructionSiteManagerException, EventManagerException, IOException, InterruptedException {
         Scanner Read = new Scanner(System.in);
         int choice;
@@ -116,6 +140,18 @@ public class EventMenu {
         }
     }
 
+    /**
+     * create an event from the Accident type
+     *
+     * @param events
+     * @param employees
+     * @param cons
+     * @param equip
+     * @throws ConstructionSiteManagerException
+     * @throws EventManagerException
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public void CreateAccident(EventManagerCass events, EmployeeManagerClass employees, ConstructionSiteManagerClass cons, EquipmentsClass equip) throws ConstructionSiteManagerException, EventManagerException, IOException, InterruptedException {
         String TempDetails, TempNotificacion, TempTitel;
         Employee TempEmployee = null, TempReporter = null;
@@ -203,6 +239,18 @@ public class EventMenu {
         events.reportEvent(TempAccident);
     }
 
+    /**
+     * Create's an event from the Failure type
+     *
+     * @param events
+     * @param employees
+     * @param cons
+     * @param equip
+     * @throws ConstructionSiteManagerException
+     * @throws EventManagerException
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public void CreateFailure(EventManagerCass events, EmployeeManagerClass employees, ConstructionSiteManagerClass cons, EquipmentsClass equip) throws ConstructionSiteManagerException, EventManagerException, IOException, InterruptedException {
         String TempDetails, TempNotificacion, TempTitel;
         Employee TempReporter = null;
@@ -290,7 +338,17 @@ public class EventMenu {
         TempFailure = new FailureClass(TempEquipment, TempDetails, TempNotificacion, TempPriority, TempTitel, TempReporter, cs);
         events.reportEvent(TempFailure);
     }
-
+/**
+ * Create's an event from the Incident type.
+ * @param events
+ * @param employees
+ * @param cons
+ * @param equip
+ * @throws ConstructionSiteManagerException
+ * @throws EventManagerException
+ * @throws IOException
+ * @throws InterruptedException 
+ */
     public void CreateIncident(EventManagerCass events, EmployeeManagerClass employees, ConstructionSiteManagerClass cons, EquipmentsClass equip) throws ConstructionSiteManagerException, EventManagerException, IOException, InterruptedException {
         String TempDetails, TempNotificacion, TempTitel;
         Employee TempReporter = null;

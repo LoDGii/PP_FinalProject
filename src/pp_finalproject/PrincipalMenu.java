@@ -1,6 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+/**
+ * Nome: Diogo Gomes Cardoso
+ * Número: 8210193
+ * Turma: LEI1T1
+ *
+ *
+ * Nome: Bruno Miguel Rodrigues Novais
+ *  Número: 8210333
+ *  Turma: LEI1T1
  */
 package pp_finalproject;
 
@@ -8,16 +14,22 @@ import estgconstroi.exceptions.ConstructionSiteManagerException;
 import java.util.Scanner;
 
 /**
+ * Class with all the arguments for the Main menu.
  *
- * @author Utilizador
  */
 public class PrincipalMenu {
+
     private final ConstructionSiteManagerClass Constructions = new ConstructionSiteManagerClass();
     private final TeamManagerClass Teams = new TeamManagerClass();
     private final EquipmentsClass ListOfEquipments = new EquipmentsClass();
     private final EmployeeManagerClass Employees = new EmployeeManagerClass();
     private final EventManagerCass Events = new EventManagerCass();
 
+    /**
+     * Main Menu of the program.
+     *
+     * @throws ConstructionSiteManagerException
+     */
     public void PrincipalMenu() throws ConstructionSiteManagerException {
         try {
             Scanner Read = new Scanner(System.in);
@@ -71,6 +83,5 @@ public class PrincipalMenu {
         }
 
     }
-
 
 }

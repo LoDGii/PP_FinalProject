@@ -137,65 +137,69 @@ public class TeamMenu {
                 break;
         }
     }
-    
-/**
- * Remove Employee from a Team.
- * <p>
- * First the User will choose the team to be removed.
- * <p>
- * After that we will get the employee Index and set the employee status to <b>FREE</b> and
- * remove the employee from the team using the method <b>removeEmployee()</b>
- * 
- * @param teams variable with all the information of the teams in the
- * company.
- * @param emp variable with all the information of the employees in
- * the company.
- * @param teamIndex index of the team we're editing.
- * @throws TeamException 
- */    
-public void removeEmployeeMenu(TeamManagerClass teams, EmployeeManagerClass emp, int teamIndex) throws TeamException{
-    TeamClass[] team = teams.getTeams();
-    EmployeeClass[] empl = (EmployeeClass[]) team[teamIndex].getEmployees();
-    Scanner Read = new Scanner(System.in);
-    int Choice;
-    do{
-    System.out.println("========== LISTA DE EMPREGADOS ==========");
-    for(int i = 0;i < empl.length;i++){
-        System.out.println(i + 1 + " - " + empl[i].getName());
-    }
-    System.out.println("=========================================");
-    System.out.println("OPÇÃO: ");
-    Choice = Read.nextInt();
-    }while(Choice < 0 || Choice > empl.length);
-    switch(Choice){
-        case 0:
-            editTeam(teams, emp);
-            break;
-        default:
-            teams.removeEmployee(teamIndex, empl[Choice - 1]);
-            int empIndex = emp.getEmployee(empl[Choice - 1]);
-            emp.setEmployeeStatus(empIndex, EmployeeStatus.FREE);
-    }
-}    
 
-/**
- * 
- * Add an Employee to a Team
- * <p>
- * First we make a menu with all the Employees with EmployeeStatus of <b>FREE</b>
- * <p>
- * After the user chose the employee he wants to add to the team we add the employee to the array of
- * employees in the team object with the method <b>addEmployee()</b> and after that we get the index
- * of the employee with the method <b>getEmployeeStatus()</b> and set the EmployeeStatus to <b>WORKING</b>
- * 
- * 
- * @param teams variable with all the information of the teams in the
- * company.
- * @param emp variable with all the information of the employees in
- * the company.
- * @param teamIndex index of the team we're editing.
- * @throws TeamException 
- */
+    /**
+     * Remove Employee from a Team.
+     * <p>
+     * First the User will choose the team to be removed.
+     * <p>
+     * After that we will get the employee Index and set the employee status to
+     * <b>FREE</b> and remove the employee from the team using the method
+     * <b>removeEmployee()</b>
+     *
+     * @param teams variable with all the information of the teams in the
+     * company.
+     * @param emp variable with all the information of the employees in the
+     * company.
+     * @param teamIndex index of the team we're editing.
+     * @throws TeamException
+     */
+    public void removeEmployeeMenu(TeamManagerClass teams, EmployeeManagerClass emp, int teamIndex) throws TeamException {
+        TeamClass[] team = teams.getTeams();
+        EmployeeClass[] empl = (EmployeeClass[]) team[teamIndex].getEmployees();
+        Scanner Read = new Scanner(System.in);
+        int Choice;
+        do {
+            System.out.println("========== LISTA DE EMPREGADOS ==========");
+            for (int i = 0; i < empl.length; i++) {
+                System.out.println(i + 1 + " - " + empl[i].getName());
+            }
+            System.out.println("=========================================");
+            System.out.println("OPÇÃO: ");
+            Choice = Read.nextInt();
+        } while (Choice < 0 || Choice > empl.length);
+        switch (Choice) {
+            case 0:
+                editTeam(teams, emp);
+                break;
+            default:
+                teams.removeEmployee(teamIndex, empl[Choice - 1]);
+                int empIndex = emp.getEmployee(empl[Choice - 1]);
+                emp.setEmployeeStatus(empIndex, EmployeeStatus.FREE);
+        }
+    }
+
+    /**
+     *
+     * Add an Employee to a Team
+     * <p>
+     * First we make a menu with all the Employees with EmployeeStatus of
+     * <b>FREE</b>
+     * <p>
+     * After the user chose the employee he wants to add to the team we add the
+     * employee to the array of employees in the team object with the method
+     * <b>addEmployee()</b> and after that we get the index of the employee with
+     * the method <b>getEmployeeStatus()</b> and set the EmployeeStatus to
+     * <b>WORKING</b>
+     *
+     *
+     * @param teams variable with all the information of the teams in the
+     * company.
+     * @param emp variable with all the information of the employees in the
+     * company.
+     * @param teamIndex index of the team we're editing.
+     * @throws TeamException
+     */
     public void addEmployeeMenu(TeamManagerClass teams, EmployeeManagerClass emp, int teamIndex) throws TeamException {
         EmployeeClass[] empl = emp.getEmployees();
         EmployeeClass[] free = new EmployeeClass[empl.length];
@@ -226,12 +230,19 @@ public void removeEmployeeMenu(TeamManagerClass teams, EmployeeManagerClass emp,
                 teams.addEmployee(empl[Choice - 1], teamIndex);
                 int emplIndex = emp.getEmployee(empl[Choice - 1]);
                 emp.setEmployeeStatus(emplIndex, EmployeeStatus.WORKING);
-                editTeam(teams,emp);
+                editTeam(teams, emp);
                 break;
 
         }
     }
 
+    /**
+     * Set's the name of the team
+     *
+     * @param teams variable with all the information of the teams in the
+     * company.
+     * @param TeamIndex index of the team to be edited
+     */
     public void setNameMenu(TeamManagerClass teams, int TeamIndex) {
         Scanner Read = new Scanner(System.in);
         System.out.println("NOVO NOME: ");
@@ -301,7 +312,7 @@ public void removeEmployeeMenu(TeamManagerClass teams, EmployeeManagerClass emp,
      */
     public int selectTeamToEdit(TeamManagerClass teams) {
         Scanner Read = new Scanner(System.in);
-        int Choice;
+        int Choice = 0;
         int Index_Team = 0;
         int NumberOfTeams = teams.NumberOfTeams;
         do {
@@ -319,12 +330,5 @@ public void removeEmployeeMenu(TeamManagerClass teams, EmployeeManagerClass emp,
             return Index_Team;
         }
     }
-    
-    
-    
-    
-    
-    
-    
 
 }
