@@ -29,7 +29,7 @@ public class EmployeeClass extends Employee{
      * @param status Saves the status of the Employee (WORKING, INACTIVE OR FREE).
      * @param team If It's part of a team the team is saved in here.
      */
-    private static String Name;
+    private String Name;
     private EmployeeType Type;
     private EmployeeStatus status;
     private TeamClass team;
@@ -98,7 +98,8 @@ public class EmployeeClass extends Employee{
      */
     @Override
     public String getName() {
-        return EmployeeClass.Name;
+        return this4
+                .Name;
     }
 /**
  * Return's the type of Employee
