@@ -89,7 +89,7 @@ public class ConstructionSiteMenu {
         TempLocation = Read.next();
         System.out.print("PERMIT: ");
         TempPermit = Read.next();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         System.out.println("DATA DE EXPIRAÇÃO (dd/mm/yyyy): ");
         TempDate = Read.next();
         LocalDate localDate = LocalDate.parse(TempDate, formatter);
