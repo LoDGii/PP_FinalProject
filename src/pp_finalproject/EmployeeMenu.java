@@ -65,7 +65,7 @@ public class EmployeeMenu {
         Scanner Read = new Scanner(System.in);
         String TempName;
         int Choice = 0;
-        EmployeeType type = null;
+        EmployeeType type = EmployeeType.WORKER;
         System.out.println("NOME: ");
         TempName = Read.next();
         do {

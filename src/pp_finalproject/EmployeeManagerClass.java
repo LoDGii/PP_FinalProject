@@ -71,11 +71,15 @@ public class EmployeeManagerClass {
      */
     public void add(EmployeeClass emp) {
         EmployeeClass[] FakeArray = new EmployeeClass[this.NumberOfEmployees + 1];
-        
+        if(this.NumberOfEmployees > 0){
         System.arraycopy(this.ListOfEmployees, 0, FakeArray, 0, this.NumberOfEmployees);
         FakeArray[this.NumberOfEmployees] =  emp;
         this.NumberOfEmployees++;
         this.ListOfEmployees =  FakeArray;
+        }else{
+            this.ListOfEmployees = new EmployeeClass[1];
+            this.ListOfEmployees[0] = emp;
+        }
     }
 
     /**
