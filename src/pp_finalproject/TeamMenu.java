@@ -12,6 +12,7 @@ package pp_finalproject;
 
 import estgconstroi.Employee;
 import estgconstroi.enums.EmployeeType;
+import estgconstroi.enums.EquipmentStatus;
 import estgconstroi.exceptions.TeamException;
 import java.util.Scanner;
 
@@ -149,7 +150,20 @@ public class TeamMenu {
     }
 
     public void addEquip(TeamManagerClass teams, EquipmentsClass equip, int teamIndex) {
-
+          EquipmentsClass temp = equip;
+           Scanner Read = new Scanner(System.in);
+           int Choice;
+        do {
+            System.out.println("========== LISTA DE EQUIPAMENTOS ==========");
+            for (int i = 0; i < equip.getEquipment(EquipmentStatus.OPERATIVE).length; i++) {
+                if(equip.getEquipment(EquipmentStatus.OPERATIVE)[i] != null){
+                System.out.println(i + " - " + equip.getEquipment(EquipmentStatus.OPERATIVE)[i].getName());
+                }
+            }
+            System.out.println("=========================================");
+            System.out.println("OPÇÃO: ");
+            Choice = Read.nextInt();
+        } while (Choice < 0 || Choice > equip.getNumberOfEquipments());      
     }
 
     public void removeEquip(TeamManagerClass teams, EquipmentsClass equip, int teamIndex) {
