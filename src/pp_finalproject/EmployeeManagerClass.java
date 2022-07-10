@@ -79,6 +79,7 @@ public class EmployeeManagerClass {
         }else{
             this.ListOfEmployees = new EmployeeClass[1];
             this.ListOfEmployees[0] = emp;
+            this.NumberOfEmployees++;
         }
     }
 

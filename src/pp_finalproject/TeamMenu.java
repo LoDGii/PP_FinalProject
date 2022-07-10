@@ -302,7 +302,6 @@ public class TeamMenu {
             default:
                 int Index = Employees.getEmployee(emp[Choice - 1]);
                 EmployeeClass employ = Employees.getEmployee(Index);
-                Employees.setEmployeeStatus(Index, EmployeeStatus.WORKING);
                 Teams.setLeader(employ, Index);
                 editTeam(Teams, Employees);
         }
