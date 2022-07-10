@@ -61,7 +61,7 @@ public class PrincipalMenu {
                     break;
                 case 3:
                     TeamMenu teamMenu = new TeamMenu();
-                    teamMenu.principalMenu(Teams);
+                    teamMenu.principalMenu(Teams, Employees);
                     PrincipalMenu();
                     break;
                 case 4:

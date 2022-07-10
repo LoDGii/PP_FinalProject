@@ -26,7 +26,7 @@ public class TeamMenu {
      * @param teams variable with all the information of the teams in the
      * company.
      */
-    public void principalMenu(TeamManagerClass teams) {
+    public void principalMenu(TeamManagerClass teams, EmployeeManagerClass emp) throws TeamException {
         Scanner Read = new Scanner(System.in);
         int Choice = -1;
         do {
@@ -52,7 +52,7 @@ public class TeamMenu {
                 showByStatusTeams(teams, TeamStatus.WORKING);
                 break;
             case 4:
-                editTeam();
+                editTeam(teams, emp);
                 break;
         }
     }
@@ -76,7 +76,7 @@ public class TeamMenu {
             System.out.println("===============================================");
             Choice = Read.nextInt();
         } while (Choice != 0);
-        principalMenu(teams);
+       
     }
 
     /**
@@ -118,21 +118,25 @@ public class TeamMenu {
         } while (Choice < 0 || Choice > 6);
         switch (Choice) {
             case 0:
-                principalMenu(teams);
+                principalMenu(teams,emp);
                 break;
             case 1:
                 setLeaderMenu(teams, emp, teamIndex);
+                principalMenu(teams, emp);
                 break;
             case 2:
                 break;
             case 3:
                 setNameMenu(teams, teamIndex);
+                principalMenu(teams, emp);
                 break;
             case 4:
                 addEmployeeMenu(teams, emp, teamIndex);
+                principalMenu(teams, emp);
                 break;
             case 5:
                 removeEmployeeMenu(teams, emp, teamIndex);
+                principalMenu(teams, emp);
                 break;
             case 6:
                 break;
@@ -249,7 +253,7 @@ public class TeamMenu {
         System.out.println("NOVO NOME: ");
         String TempName = Read.next();
         teams.setName(TeamIndex, TempName);
-        principalMenu(teams);
+        
     }
 
     /**
@@ -290,10 +294,10 @@ public class TeamMenu {
             System.out.println("======================================");
             System.out.println("OPÇÃO: ");
             Choice = Read.nextInt();
-        } while (Choice < 0 || Choice > teamIndex);
+        } while (Choice < 0 || Choice > emp.length);
         switch (Choice) {
             case 0:
-                principalMenu(Teams);
+                
                 break;
             default:
                 int Index = Employees.getEmployee(emp[Choice - 1]);
@@ -323,7 +327,7 @@ public class TeamMenu {
             Choice = Read.nextInt();
         } while (Choice < 0 || Choice > NumberOfTeams);
         if (Choice == 0) {
-            principalMenu(teams);
+            
             return 0;
         } else {
             Index_Team = Choice;
