@@ -98,8 +98,7 @@ public class EmployeeClass extends Employee{
      */
     @Override
     public String getName() {
-        return this4
-                .Name;
+        return this.Name;
     }
 /**
  * Return's the type of Employee
