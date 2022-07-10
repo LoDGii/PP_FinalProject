@@ -48,9 +48,11 @@ public class EmployeeMenu {
                 break;
             case 2:
                 showAllEmployees(emp);
+                principalMenu(emp);
                 break;
             case 3:
                 editEmployee(emp);
+                principalMenu(emp);
                 break;
         }
     }
