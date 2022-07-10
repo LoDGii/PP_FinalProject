@@ -44,6 +44,7 @@ public class EmployeeClass extends Employee{
         this.Name = TempName;
         this.Type = TempType;
         this.status = EmployeeStatus.FREE;
+        
     }
     /**
      * Set's the team of the Employee

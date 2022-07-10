@@ -73,9 +73,11 @@ public class EquipmentsClass implements Equipments {
             if (findequal == false) {
                 this.equipments[this.numberEquipments++] = (EquipmentClass) eqpmnt;
                 System.out.println("Equipamento foi adicionado");
+                this.numberEquipments++;
             } else {
                 System.out.println("Este equipamento já existe nesta caixa de ferramentas");
             }
+            
         } catch (Exception o) {
             throw new ConstructionSiteException("Erro ao adicionar o equipamento");
         }

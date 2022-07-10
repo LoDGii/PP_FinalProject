@@ -70,11 +70,12 @@ public class EmployeeManagerClass {
      * @param emp employee to be added to the list.
      */
     public void add(EmployeeClass emp) {
-        EmployeeClass[] FakeArray = (EmployeeClass[]) new Employee[this.NumberOfEmployees + 1];
+        EmployeeClass[] FakeArray = new EmployeeClass[this.NumberOfEmployees + 1];
+        
         System.arraycopy(this.ListOfEmployees, 0, FakeArray, 0, this.NumberOfEmployees);
-        FakeArray[this.NumberOfEmployees] = (EmployeeClass) emp;
-        NumberOfEmployees++;
-        this.ListOfEmployees = (EmployeeClass[]) FakeArray;
+        FakeArray[this.NumberOfEmployees] =  emp;
+        this.NumberOfEmployees++;
+        this.ListOfEmployees =  FakeArray;
     }
 
     /**
@@ -93,7 +94,7 @@ public class EmployeeManagerClass {
      * @return all employees of the company.
      */
     public EmployeeClass[] getEmployees() {
-        EmployeeClass[] FakeArray = (EmployeeClass[]) new Employee[this.NumberOfEmployees];
+        EmployeeClass[] FakeArray =  new EmployeeClass[this.NumberOfEmployees];
         System.arraycopy(this.ListOfEmployees, 0, FakeArray, 0, this.NumberOfEmployees);
         return FakeArray;
     }
@@ -106,7 +107,7 @@ public class EmployeeManagerClass {
      */
     public EmployeeClass[] getEmployees(EmployeeType type) {
 
-        EmployeeClass[] ListManager = (EmployeeClass[]) new Employee[this.NumberOfEmployees];
+        EmployeeClass[] ListManager =  new EmployeeClass[this.NumberOfEmployees];
         int k = 0;
         for (int i = 0; i < this.NumberOfEmployees; i++) {
             if (this.ListOfEmployees[i].getType() == type) {
@@ -114,7 +115,7 @@ public class EmployeeManagerClass {
                 k++;
             }
         }
-        EmployeeClass[] FinalManagerList = (EmployeeClass[]) new Employee[k + 1];
+        EmployeeClass[] FinalManagerList = new EmployeeClass[k + 1];
         for (int i = 0; i < k + 1; i++) {
             FinalManagerList[i] = ListManager[i];
         }

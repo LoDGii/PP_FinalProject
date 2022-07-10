@@ -113,6 +113,7 @@ public class TeamMenu {
             System.out.println("5 - REMOVER FUNCIONÁRIO");//DONE
             System.out.println("6 - REMOVER EQUIPAMENTO");
             System.out.println("0 - VOLTAR AO MENU ANTERIOR");//DONE
+            Choice = Read.nextInt();
         } while (Choice < 0 || Choice > 6);
         switch (Choice) {
             case 0:

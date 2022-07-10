@@ -44,6 +44,7 @@ public class EmployeeMenu {
                 break;
             case 1:
                 createEmployeeMenu(emp);
+                principalMenu(emp);
                 break;
             case 2:
                 showAllEmployees(emp);
@@ -86,7 +87,7 @@ public class EmployeeMenu {
 
         EmployeeClass empl = new EmployeeClass(TempName, type);
         emp.add(empl);
-        principalMenu(emp);
+        
     }
 
     /**

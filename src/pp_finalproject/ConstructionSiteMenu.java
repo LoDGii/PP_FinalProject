@@ -36,7 +36,7 @@ public class ConstructionSiteMenu {
      */
     public void principalMenu(ConstructionSiteManagerClass cs, EmployeeManagerClass empl, TeamManagerClass team, EquipmentsClass equip) throws ConstructionSiteManagerException, ConstructionSiteException {
         Scanner Read = new Scanner(System.in);
-        int Choice;
+        int Choice = -1;
         do {
             System.out.println("========== MENU DE CONSTRUÇÕES ==========");
             System.out.println("1 - CRIAR NOVO LOCAL DE CONSRUÇÃO");//DONE
@@ -63,7 +63,7 @@ public class ConstructionSiteMenu {
                 principalMenu(cs, empl, team, equip);
                 break;
             case 4:
-                editConstructionSite(cs, empl);
+                editConstructionSite(cs, empl, team,equip);
                 break;
         }
     }
@@ -134,7 +134,7 @@ public class ConstructionSiteMenu {
 
     }
 
-    public void editConstructionSite(ConstructionSiteManagerClass cs, EmployeeManagerClass emp) throws ConstructionSiteManagerException, ConstructionSiteException {
+    public void editConstructionSite(ConstructionSiteManagerClass cs, EmployeeManagerClass empl, TeamManagerClass team, EquipmentsClass equip) throws ConstructionSiteManagerException, ConstructionSiteException {
         Scanner Read = new Scanner(System.in);
         int Choice = 0;
         int constructionSiteIndex;
@@ -151,25 +151,27 @@ public class ConstructionSiteMenu {
                 System.out.println("5 - ALTERAR PERMIT");//DONE
                 System.out.println("0 - VOLTAR AO MENU ANTERIOR");//DONE
                 System.out.println("================================================");
+                Choice = Read.nextInt();
             } while (Choice < 0 || Choice > 5);
             switch (Choice) {
                 case 0:
                     break;
                 case 1:
+                    teamMenu(cs,empl,team,equip, constructionSiteIndex);
                     break;
                 case 2:
                     break;
                 case 3:
-                    setConstructionResponsible(cs, emp, constructionSiteIndex);
-                    editConstructionSite(cs, emp);
+                    setConstructionResponsible(cs, empl, constructionSiteIndex);
+                    editConstructionSite(cs,empl,team,equip);
                     break;
                 case 4:
                     showConstructionResponsible(cs, constructionSiteIndex);
-                    editConstructionSite(cs, emp);
+                    editConstructionSite(cs,empl,team,equip);
                     break;
                 case 5:
                     changePermit(cs, constructionSiteIndex);
-                    editConstructionSite(cs, emp);
+                    editConstructionSite(cs,empl,team,equip);
                     break;
                 case 6:
                     break;
